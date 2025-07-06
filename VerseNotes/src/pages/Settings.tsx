@@ -184,6 +184,32 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         </View>
       </View>
 
+      {/* Navigation */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Navigation</Text>
+        
+        <View style={styles.card}>
+          <View style={styles.settingRow}>
+            <View style={styles.settingInfo}>
+              <Text style={styles.settingTitle}>Bible Study</Text>
+              <Text style={styles.settingSubtitle}>Go to main Bible study interface</Text>
+            </View>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => {
+                if (navigation?.navigate) {
+                  navigation.navigate('BibleStudy');
+                } else {
+                  Alert.alert('Info', 'Navigation not available in this context');
+                }
+              }}
+            >
+              <Text style={styles.buttonText}>Go</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+
       {/* Data Management */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Data Management</Text>
