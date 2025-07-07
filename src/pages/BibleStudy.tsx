@@ -109,7 +109,6 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
               loading={loading}
               onVersePress={handleVersePress}
               selectedVerses={selectedVerses}
-              showVerseNumbers={true}
               fontSize="medium"
             />
           </View>
