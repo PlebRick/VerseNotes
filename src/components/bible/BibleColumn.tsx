@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import { FormattedPassage, Verse } from '../../entities/BiblePassage';
 
@@ -13,7 +13,7 @@ interface BibleColumnProps {
   passage: FormattedPassage | null;
   loading?: boolean;
   onVersePress?: (verseId: string, verseText: string) => void;
-  selectedVerses?: string[];
+  _selectedVerses?: string[];
   fontSize?: 'small' | 'medium' | 'large';
 }
 
@@ -21,14 +21,17 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   passage,
   loading = false,
   onVersePress,
-  selectedVerses = [],
+  _selectedVerses = [],
   fontSize = 'medium',
 }) => {
   const getFontSize = () => {
     switch (fontSize) {
-      case 'small': return 14;
-      case 'large': return 18;
-      default: return 16;
+      case 'small':
+        return 14;
+      case 'large':
+        return 18;
+      default:
+        return 16;
     }
   };
 
@@ -44,12 +47,8 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   if (!passage) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>
-          Search for a Bible passage to begin studying
-        </Text>
-        <Text style={styles.emptySubtext}>
-          Try "Romans 1:1-16" or "John 3"
-        </Text>
+        <Text style={styles.emptyText}>Search for a Bible passage to begin studying</Text>
+        <Text style={styles.emptySubtext}>Try "Romans 1:1-16" or "John 3"</Text>
       </View>
     );
   }
@@ -75,10 +74,14 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
             <TouchableOpacity
               key={`${verse.book}-${verse.chapter}-${verse.verse}-${idx}`}
               style={styles.verseContainer}
-              onPress={() => onVersePress && onVersePress(`${verse.chapter}:${verse.verse}`, verse.text)}
+              onPress={() =>
+                onVersePress && onVersePress(`${verse.chapter}:${verse.verse}`, verse.text)
+              }
               activeOpacity={0.7}
             >
-              <Text style={[styles.verseText, { fontSize: getFontSize() }]}>[{verse.verse}] {verse.text}</Text>
+              <Text style={[styles.verseText, { fontSize: getFontSize() }]}>
+                [{verse.verse}] {verse.text}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>

@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-  Alert
-} from 'react-native';
-import { BiblePassage } from '../../entities';
+import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 
 interface BibleSearchBarProps {
   onSearch: (reference: string) => void;
@@ -18,9 +10,9 @@ interface BibleSearchBarProps {
 
 const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
   onSearch,
-  placeholder = "Enter reference (e.g., John 3 or Romans 1:1-16)",
+  placeholder = 'Enter reference (e.g., John 3 or Romans 1:1-16)',
   value,
-  onChangeText
+  onChangeText,
 }) => {
   const [searchText, setSearchText] = useState(value || '');
 
@@ -58,11 +50,7 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
           autoCapitalize="words"
           autoCorrect={false}
         />
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={handleSearch}
-          activeOpacity={0.7}
-        >
+        <TouchableOpacity style={styles.searchButton} onPress={handleSearch} activeOpacity={0.7}>
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>

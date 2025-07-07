@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 import { BibleNote, BibleNoteData } from '../../entities';
 
@@ -22,7 +22,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
   verseReference,
   onAddNote,
   onEditNote,
-  refreshTrigger
+  refreshTrigger,
 }) => {
   const [notes, setNotes] = useState<BibleNoteData[]>([]);
   const [loading, setLoading] = useState(false);
@@ -36,12 +36,12 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
     setLoading(true);
     try {
       const allNotes = await BibleNote.list('-updated_date', 100);
-      
+
       // Filter notes by verse reference if provided
       const filteredNotes = verseReference
-        ? allNotes.filter(note => note.verse_reference === verseReference)
+        ? allNotes.filter((note) => note.verse_reference === verseReference)
         : allNotes;
-      
+
       setNotes(filteredNotes);
     } catch (error) {
       console.error('Error loading notes:', error);
@@ -57,26 +57,22 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
   };
 
   const handleDeleteNote = async (noteId: string) => {
-    Alert.alert(
-      'Delete Note',
-      'Are you sure you want to delete this note?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await BibleNote.delete(noteId);
-              await loadNotes();
-            } catch (error) {
-              console.error('Error deleting note:', error);
-              Alert.alert('Error', 'Failed to delete note. Please try again.');
-            }
+    Alert.alert('Delete Note', 'Are you sure you want to delete this note?', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await BibleNote.delete(noteId);
+            await loadNotes();
+          } catch (error) {
+            console.error('Error deleting note:', error);
+            Alert.alert('Error', 'Failed to delete note. Please try again.');
           }
-        }
-      ]
-    );
+        },
+      },
+    ]);
   };
 
   const formatDate = (dateString: string) => {
@@ -86,7 +82,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -98,29 +94,21 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
             {note.title}
           </Text>
           <View style={styles.noteActions}>
-            <TouchableOpacity
-              onPress={() => onEditNote(note)}
-              style={styles.editButton}
-            >
+            <TouchableOpacity onPress={() => onEditNote(note)} style={styles.editButton}>
               <Text style={styles.editButtonText}>Edit</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleDeleteNote(note.id)}
-              style={styles.deleteButton}
-            >
+            <TouchableOpacity onPress={() => handleDeleteNote(note.id)} style={styles.deleteButton}>
               <Text style={styles.deleteButtonText}>×</Text>
             </TouchableOpacity>
           </View>
         </View>
-        
-        {note.verse_reference && (
-          <Text style={styles.verseReference}>{note.verse_reference}</Text>
-        )}
-        
+
+        {note.verse_reference && <Text style={styles.verseReference}>{note.verse_reference}</Text>}
+
         <Text style={styles.noteContent} numberOfLines={3}>
           {note.content}
         </Text>
-        
+
         {note.tags && note.tags.length > 0 && (
           <View style={styles.tagsContainer}>
             {note.tags.map((tag, index) => (
@@ -130,10 +118,8 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
             ))}
           </View>
         )}
-        
-        <Text style={styles.noteDate}>
-          {formatDate(note.updated_date)}
-        </Text>
+
+        <Text style={styles.noteDate}>{formatDate(note.updated_date)}</Text>
       </View>
     );
   };
@@ -144,11 +130,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
         <Text style={styles.headerTitle}>
           {verseReference ? `Notes for ${verseReference}` : 'All Notes'}
         </Text>
-        <TouchableOpacity
-          onPress={onAddNote}
-          style={styles.addButton}
-          activeOpacity={0.7}
-        >
+        <TouchableOpacity onPress={onAddNote} style={styles.addButton} activeOpacity={0.7}>
           <Text style={styles.addButtonText}>+</Text>
         </TouchableOpacity>
       </View>
@@ -180,9 +162,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
               </Text>
             </View>
           ) : (
-            <View style={styles.notesContainer}>
-              {notes.map(renderNote)}
-            </View>
+            <View style={styles.notesContainer}>{notes.map(renderNote)}</View>
           )}
         </ScrollView>
       )}

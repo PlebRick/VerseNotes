@@ -7,17 +7,18 @@ import {
   Switch,
   TouchableOpacity,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import { User, UserSettings } from '../entities/User';
 import { BibleNote } from '../entities/BibleNote';
 
 interface SettingsProps {
-  navigation?: any;
+  navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 const Settings: React.FC<SettingsProps> = ({ navigation }) => {
-  const [user, setUser] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const [_unusedUserVar, setUser] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [settings, setSettings] = useState<UserSettings>({
     default_translation: 'ESV',
     font_size: 'medium',
@@ -25,7 +26,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     auto_save: true,
     verse_numbers: true,
     paragraph_breaks: true,
-    notifications: true
+    notifications: true,
   });
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -59,17 +60,17 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   };
 
   const handleSettingChange = (key: keyof UserSettings, value: any) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+    setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleExportNotes = async () => {
     setIsExporting(true);
     try {
       const allNotes = await BibleNote.list('-created_date', 1000);
-      
-      let markdownContent = `# Bible Study Notes\n\nExported on: ${new Date().toLocaleDateString()}\n\n---\n\n`;
 
-      allNotes.forEach(note => {
+      let markdownContent = `# Bible Study Notes\n\nExported on: ${new Date().toLocaleDateString()}\n\n---\n\n`; // eslint-disable-line @typescript-eslint/no-unused-vars
+
+      allNotes.forEach((note) => {
         markdownContent += `## ${note.title}\n\n`;
         markdownContent += `**Reference:** ${note.verse_reference}\n\n`;
         markdownContent += `**Tags:** ${note.tags ? note.tags.join(', ') : 'None'}\n\n`;
@@ -89,7 +90,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     title: string,
     subtitle: string,
     value: boolean,
-    onValueChange: (value: boolean) => void
+    onValueChange: (value: boolean) => void,
   ) => (
     <View style={styles.settingRow}>
       <View style={styles.settingInfo}>
@@ -115,7 +116,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       {/* Bible Settings */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Bible Settings</Text>
-        
+
         <View style={styles.card}>
           <View style={styles.settingRow}>
             <View style={styles.settingInfo}>
@@ -141,14 +142,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             'Show Verse Numbers',
             'Display verse numbers in text',
             settings.verse_numbers,
-            (value) => handleSettingChange('verse_numbers', value)
+            (value) => handleSettingChange('verse_numbers', value),
           )}
 
           {renderSettingRow(
             'Paragraph Breaks',
             'Show paragraph formatting',
             settings.paragraph_breaks,
-            (value) => handleSettingChange('paragraph_breaks', value)
+            (value) => handleSettingChange('paragraph_breaks', value),
           )}
         </View>
       </View>
@@ -156,7 +157,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       {/* App Settings */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>App Settings</Text>
-        
+
         <View style={styles.card}>
           <View style={styles.settingRow}>
             <View style={styles.settingInfo}>
@@ -172,14 +173,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             'Auto-save Notes',
             'Automatically save changes',
             settings.auto_save,
-            (value) => handleSettingChange('auto_save', value)
+            (value) => handleSettingChange('auto_save', value),
           )}
 
           {renderSettingRow(
             'Notifications',
             'Daily reading reminders',
             settings.notifications,
-            (value) => handleSettingChange('notifications', value)
+            (value) => handleSettingChange('notifications', value),
           )}
         </View>
       </View>
@@ -187,14 +188,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       {/* Navigation */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Navigation</Text>
-        
+
         <View style={styles.card}>
           <View style={styles.settingRow}>
             <View style={styles.settingInfo}>
               <Text style={styles.settingTitle}>Bible Study</Text>
               <Text style={styles.settingSubtitle}>Go to main Bible study interface</Text>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 if (navigation?.navigate) {
@@ -213,14 +214,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       {/* Data Management */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Data Management</Text>
-        
+
         <View style={styles.card}>
           <View style={styles.settingRow}>
             <View style={styles.settingInfo}>
               <Text style={styles.settingTitle}>Export Notes</Text>
               <Text style={styles.settingSubtitle}>Export all notes to markdown</Text>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[styles.button, isExporting && styles.buttonDisabled]}
               onPress={handleExportNotes}
               disabled={isExporting}
@@ -237,7 +238,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
       {/* Save Button */}
       <View style={styles.footer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.saveButton, isSaving && styles.buttonDisabled]}
           onPress={handleSaveSettings}
           disabled={isSaving}
