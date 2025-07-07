@@ -5,7 +5,7 @@ A React Native application built with Expo for Android 13, specifically optimize
 ## Project Overview
 
 VerseNotes is a Bible study application that allows users to:
-- Read Bible verses from multiple translations
+- Read Bible verses from the World English Bible (WEB) via bible-api.com (no authentication required)
 - Take and organize study notes
 - Export notes to markdown format
 - Customize reading preferences and settings
@@ -16,7 +16,7 @@ VerseNotes is a Bible study application that allows users to:
 - **Expo**: Managed workflow for streamlined development
 - **TypeScript**: Type-safe development
 - **AsyncStorage**: Local data persistence
-- **Bible API**: Integration with api.bible for verse content
+- **Bible API**: Integration with [bible-api.com](https://bible-api.com) for verse content (WEB only, public, no API key)
 
 ## Project Structure
 
@@ -29,9 +29,10 @@ VerseNotes/
 │   ├── entities/       # Data models and business logic
 │   │   ├── User.ts
 │   │   ├── BibleNote.ts
+│   │   ├── BiblePassage.ts
 │   │   └── index.ts
-│   ├── utils/          # Utility functions and API clients
-│   │   └── BibleAPI.ts
+│   ├── utils/          # Utility functions and config
+│   │   └── config.ts
 │   └── types/          # TypeScript type definitions
 ├── app.json           # Expo configuration
 ├── App.tsx            # Main app component
@@ -41,7 +42,6 @@ VerseNotes/
 ## Features
 
 ### Settings Management
-- Default Bible translation selection
 - Font size preferences
 - Theme customization (light/dark/sepia)
 - Auto-save functionality
@@ -55,10 +55,10 @@ VerseNotes/
 - User settings persistence
 
 ### Bible API Integration
-- Support for multiple translations (ESV, NIV, NASB, KJV, NKJV)
-- Verse and chapter fetching
-- Search functionality
-- Proper API headers and error handling
+- Uses World English Bible (WEB) only
+- Fetches passages via [bible-api.com](https://bible-api.com) (e.g., `/john+3:16?translation=web`)
+- No authentication or API key required
+- Search functionality and error handling
 
 ## Android 13 & Tablet Optimization
 
@@ -106,11 +106,9 @@ The app is configured for:
 
 ## API Configuration
 
-To use the Bible API:
-
-1. Sign up for an API key at [api.bible](https://api.bible)
-2. Replace `'your-api-key-here'` in `src/utils/BibleAPI.ts` with your actual API key
-3. The API client is configured with proper headers for authentication
+- No API key or authentication is required.
+- The app uses [bible-api.com](https://bible-api.com) for all scripture lookups (WEB only).
+- Example endpoint: `https://bible-api.com/john+3:16?translation=web`
 
 ## Build Configuration
 

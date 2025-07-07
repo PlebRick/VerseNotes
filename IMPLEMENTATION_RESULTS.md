@@ -11,7 +11,7 @@ VerseNotes/
 ├── src/
 │   ├── entities/
 │   │   ├── BibleNote.ts                      # Existing note entity
-│   │   ├── BiblePassage.ts                   # New passage entity
+│   │   ├── BiblePassage.ts                   # New passage entity (WEB, bible-api.com)
 │   │   ├── User.ts                           # Existing user entity
 │   │   └── index.ts                          # Updated exports
 │   ├── components/
@@ -24,7 +24,7 @@ VerseNotes/
 │   │   ├── BibleStudy.tsx                    # New main study interface
 │   │   └── Settings.tsx                      # Enhanced settings page
 │   └── utils/
-│       └── BibleAPI.ts                       # Existing API utilities
+│       └── config.ts                         # (Obsolete) API config placeholder
 ├── package.json                              # Dependencies confirmed
 └── tsconfig.json                             # Updated TypeScript config
 ```
@@ -34,7 +34,7 @@ VerseNotes/
 ### 1. BibleStudy Page (`src/pages/BibleStudy.tsx`)
 - **2-Column Layout**: Responsive design with Bible text and notes columns
 - **Drawer Sidebar**: Collapsible navigation using react-native-drawer-layout-polyfill
-- **API Integration**: Web Bible API (api.bible) with proper headers
+- **API Integration**: World English Bible (WEB) via bible-api.com (no authentication required)
 - **Search Integration**: Dynamic passage loading via BibleSearchBar
 - **State Management**: Notes state with AsyncStorage integration
 - **Tablet Optimization**: Adaptive layout for Daylight DC1 tablet
@@ -70,53 +70,45 @@ VerseNotes/
 ### 3. Enhanced Settings (`src/pages/Settings.tsx`)
 - **Export Functionality**: Export all notes to markdown format
 - **Navigation Tree**: Link to Bible Study interface
-- **Bible Settings**: Translation, font size, verse numbers
+- **Bible Settings**: Font size, verse numbers
 - **App Settings**: Theme, auto-save, notifications
 - **Data Management**: Export and backup options
 
 ### 4. Data Entities
 
 #### BiblePassage (`src/entities/BiblePassage.ts`)
-- Complete API integration with api.bible
+- Complete API integration with bible-api.com (WEB only, no authentication)
 - Reference parsing and validation
 - Passage fetching with proper error handling
-- Book and chapter management
-- Search functionality
 
 ## API Integration Example
 
-### Sample API Call to api.bible
+### Sample API Call to bible-api.com
 
 ```javascript
 // Example API call implementation
 const fetchPassage = async () => {
   const response = await fetch(
-    'https://api.scripture.api.bible/v1/bibles/de4e12af7f28f599-02/passages/ROM.1.1-ROM.1.16',
-    {
-      headers: {
-        'api-key': 'your-api-key-here',
-        'Content-Type': 'application/json'
-      }
-    }
+    'https://bible-api.com/romans+1:1-16?translation=web'
   );
-  
   const data = await response.json();
-  return data.data;
+  return data;
 };
 
 // Expected response structure:
 {
-  "data": {
-    "id": "ROM.1.1-ROM.1.16",
-    "orgId": "...",
-    "bibleId": "de4e12af7f28f599-02",
-    "bookId": "ROM",
-    "chapterId": "ROM.1",
-    "content": "<p><span data-number=\"1\" data-sid=\"ROM 1:1\">Paul, a servant of Christ Jesus...</span></p>",
-    "copyright": "ESV",
-    "reference": "Romans 1:1-16",
-    "verseCount": 16
-  }
+  "reference": "Romans 1:1-16",
+  "verses": [
+    {
+      "book_id": "ROM",
+      "book_name": "Romans",
+      "chapter": 1,
+      "verse": 1,
+      "text": "Paul, a servant of Christ Jesus..."
+    },
+    // ...
+  ],
+  "translation_id": "web"
 }
 ```
 
@@ -169,20 +161,18 @@ find ./src -name "*.tsx" -o -name "*.ts"
 
 ## Usage Instructions
 
-1. **Setup API Key**: Replace `'your-api-key-here'` in BibleStudy.tsx with actual api.bible key
-2. **Search Bible**: Use format like "Romans 1:1-16" or "John 3:16"
-3. **Take Notes**: Tap verses to select, then use + button to add notes
-4. **Manage Notes**: Edit, delete, or export notes via Settings
-5. **Navigation**: Use drawer menu to access Settings and other features
+1. **Search Bible**: Use format like "Romans 1:1-16" or "John 3:16"
+2. **Take Notes**: Tap verses to select, then use + button to add notes
+3. **Manage Notes**: Edit, delete, or export notes via Settings
+4. **Navigation**: Use drawer menu to access Settings and other features
 
 ## Next Steps
 
-1. **API Key Configuration**: Set up secure API key storage
-2. **Enhanced Book Mapping**: Complete Bible book name to ID mapping
-3. **Offline Support**: Cache passages for offline reading
-4. **Note Sync**: Cloud synchronization for notes
-5. **Search Enhancement**: Full-text search across notes
-6. **Export Formats**: PDF and other export options
+1. **Enhanced Book Mapping**: Complete Bible book name mapping for flexible search
+2. **Offline Support**: Cache passages for offline reading
+3. **Note Sync**: Cloud synchronization for notes
+4. **Search Enhancement**: Full-text search across notes
+5. **Export Formats**: PDF and other export options
 
 ## Compatibility Notes
 
