@@ -67,23 +67,31 @@ export class BiblePassage {
         chapter: v.chapter,
         verse: v.verse,
         text: v.text.trim(),
-      }))
+      })),
     };
   }
 
   // Note: These methods are kept for potential future use with other Bible APIs
   // Currently using bible-api.com which doesn't require these endpoints
-  static async searchPassages(bibleId: string, query: string, apiKey: string): Promise<BiblePassageData[]> {
+  static async searchPassages(
+    _bibleId: string,
+    _query: string,
+    _apiKey: string,
+  ): Promise<BiblePassageData[]> {
     // Placeholder for future API integration
     throw new Error('Search functionality not implemented with current API');
   }
 
-  static async getBooks(bibleId: string, apiKey: string): Promise<BibleBook[]> {
+  static async getBooks(_bibleId: string, _apiKey: string): Promise<BibleBook[]> {
     // Placeholder for future API integration
     throw new Error('Book listing not implemented with current API');
   }
 
-  static async getChapters(bibleId: string, bookId: string, apiKey: string): Promise<BibleChapter[]> {
+  static async getChapters(
+    _bibleId: string,
+    _bookId: string,
+    _apiKey: string,
+  ): Promise<BibleChapter[]> {
     // Placeholder for future API integration
     throw new Error('Chapter listing not implemented with current API');
   }

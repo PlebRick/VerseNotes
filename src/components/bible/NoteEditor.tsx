@@ -9,7 +9,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import { BibleNote, BibleNoteData } from '../../entities';
 
@@ -28,7 +28,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
   verseText,
   isVisible,
   onClose,
-  onSave
+  onSave,
 }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -62,8 +62,8 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
     try {
       const tagArray = tags
         .split(',')
-        .map(tag => tag.trim())
-        .filter(tag => tag.length > 0);
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0);
 
       let savedNote: BibleNoteData;
 
@@ -72,7 +72,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         savedNote = await BibleNote.update(note.id, {
           title: title.trim(),
           content: content.trim(),
-          tags: tagArray
+          tags: tagArray,
         });
       } else {
         // Create new note
@@ -80,7 +80,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
           title: title.trim(),
           content: content.trim(),
           verse_reference: verseReference || '',
-          tags: tagArray
+          tags: tagArray,
         });
       }
 
@@ -94,14 +94,10 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
   };
 
   const handleCancel = () => {
-    Alert.alert(
-      'Discard Changes',
-      'Are you sure you want to discard your changes?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Discard', style: 'destructive', onPress: onClose }
-      ]
-    );
+    Alert.alert('Discard Changes', 'Are you sure you want to discard your changes?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Discard', style: 'destructive', onPress: onClose },
+    ]);
   };
 
   if (!isVisible) {
@@ -117,9 +113,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>
-          {note ? 'Edit Note' : 'New Note'}
-        </Text>
+        <Text style={styles.headerTitle}>{note ? 'Edit Note' : 'New Note'}</Text>
         <TouchableOpacity
           onPress={handleSave}
           style={[styles.saveButton, isSaving && styles.saveButtonDisabled]}

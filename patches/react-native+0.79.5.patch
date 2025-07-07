@@ -1,0 +1,18 @@
+diff --git a/node_modules/react-native/Libraries/Utilities/PixelRatio.js b/node_modules/react-native/Libraries/Utilities/PixelRatio.js
+index e69b627..582e822 100644
+--- a/node_modules/react-native/Libraries/Utilities/PixelRatio.js
++++ b/node_modules/react-native/Libraries/Utilities/PixelRatio.js
+@@ -116,8 +116,11 @@ class PixelRatio {
+    * exactly (8.33 * 3) = 25 pixels.
+    */
+   static roundToNearestPixel(layoutSize: number): number {
+-    const ratio = PixelRatio.get();
+-    return Math.round(layoutSize * ratio) / ratio;
++    // Jest environment lacks native impl; fall back to identity
++    if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
++      return Math.round(layoutSize * PixelRatio.get()) / PixelRatio.get();
++    }
++    return layoutSize;
+   }
+ 
+   // No-op for iOS, but used on the web. Should not be documented.

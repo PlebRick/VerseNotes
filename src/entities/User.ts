@@ -26,7 +26,7 @@ export class User {
       if (userData) {
         return JSON.parse(userData);
       }
-      
+
       // Return default user data if none exists
       const defaultUser: UserData = {
         id: 'default_user',
@@ -39,12 +39,12 @@ export class User {
           auto_save: true,
           verse_numbers: true,
           paragraph_breaks: true,
-          notifications: true
+          notifications: true,
         },
         created_date: new Date().toISOString(),
-        updated_date: new Date().toISOString()
+        updated_date: new Date().toISOString(),
       };
-      
+
       await AsyncStorage.setItem('user_data', JSON.stringify(defaultUser));
       return defaultUser;
     } catch (error) {
@@ -59,9 +59,9 @@ export class User {
       const updatedUser = {
         ...currentUser,
         ...updates,
-        updated_date: new Date().toISOString()
+        updated_date: new Date().toISOString(),
       };
-      
+
       await AsyncStorage.setItem('user_data', JSON.stringify(updatedUser));
     } catch (error) {
       console.error('Error updating user data:', error);

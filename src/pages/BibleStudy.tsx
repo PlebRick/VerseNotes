@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  Alert,
-  Modal,
-  TouchableOpacity,
-  Text,
-  Dimensions
-} from 'react-native';
-import { BiblePassage, FormattedPassage, Verse } from '../entities/BiblePassage';
+import React, { useState } from 'react';
+import { View, StyleSheet, Alert, Modal, Text, Dimensions } from 'react-native';
+import { BiblePassage, FormattedPassage } from '../entities/BiblePassage';
 import { BibleNoteData } from '../entities/BibleNote';
 import BibleSearchBar from '../components/bible/BibleSearchBar';
 import BibleColumn from '../components/bible/BibleColumn';
@@ -18,10 +10,10 @@ import NoteEditor from '../components/bible/NoteEditor';
 const { width } = Dimensions.get('window');
 
 interface BibleStudyProps {
-  navigation?: any;
+  _navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
-const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
+const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const [passage, setPassage] = useState<FormattedPassage | null>(null);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -48,7 +40,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
       console.error('Error fetching passage:', error);
       Alert.alert(
         'Error',
-        'Failed to load Bible passage. Please check your internet connection and try again.'
+        'Failed to load Bible passage. Please check your internet connection and try again.',
       );
     } finally {
       setLoading(false);
@@ -57,7 +49,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
 
   const handleVersePress = (verseId: string, verseText: string) => {
     if (selectedVerses.includes(verseId)) {
-      setSelectedVerses(selectedVerses.filter(id => id !== verseId));
+      setSelectedVerses(selectedVerses.filter((id) => id !== verseId));
       setSelectedVerseText('');
     } else {
       setSelectedVerses([...selectedVerses, verseId]);
@@ -75,8 +67,8 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
     setIsNoteEditorVisible(true);
   };
 
-  const handleSaveNote = (note: BibleNoteData) => {
-    setNotesRefreshTrigger(prev => prev + 1);
+  const handleSaveNote = (_note: BibleNoteData) => {
+    setNotesRefreshTrigger((prev) => prev + 1);
     setSelectedVerses([]);
     setSelectedVerseText('');
   };
@@ -95,11 +87,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
         <Text style={styles.headerTitle}>Bible Study</Text>
       </View>
 
-      <BibleSearchBar
-        onSearch={handleSearch}
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
+      <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
 
       <View style={styles.content}>
         {showBibleColumn && (
@@ -108,7 +96,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
               passage={passage}
               loading={loading}
               onVersePress={handleVersePress}
-              selectedVerses={selectedVerses}
+              _selectedVerses={selectedVerses}
               fontSize="medium"
             />
           </View>
@@ -126,11 +114,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ navigation }) => {
         )}
       </View>
 
-      <Modal
-        visible={isNoteEditorVisible}
-        animationType="slide"
-        presentationStyle="fullScreen"
-      >
+      <Modal visible={isNoteEditorVisible} animationType="slide" presentationStyle="fullScreen">
         <NoteEditor
           note={editingNote}
           verseReference={selectedVerses.length > 0 ? passage?.reference : undefined}
