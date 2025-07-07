@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import Settings from './src/pages/Settings';
+import BibleStudy from './src/pages/BibleStudy';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Settings />
+      <BibleStudy />
       <StatusBar style="auto" />
     </View>
   );
