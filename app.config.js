@@ -39,7 +39,8 @@ export default {
       favicon: "./assets/favicon.png"
     },
     extra: {
-      bibleApiKey: process.env.BIBLE_API_KEY,
+      // Note: No API key required for bible-api.com (WEB translation)
+      bibleApiUrl: 'https://bible-api.com',
     },
   },
 }; 

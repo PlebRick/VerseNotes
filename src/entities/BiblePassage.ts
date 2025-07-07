@@ -71,60 +71,20 @@ export class BiblePassage {
     };
   }
 
+  // Note: These methods are kept for potential future use with other Bible APIs
+  // Currently using bible-api.com which doesn't require these endpoints
   static async searchPassages(bibleId: string, query: string, apiKey: string): Promise<BiblePassageData[]> {
-    const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${bibleId}/search?query=${encodeURIComponent(query)}`,
-      {
-        headers: {
-          'api-key': apiKey,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to search passages: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.data.passages || [];
+    // Placeholder for future API integration
+    throw new Error('Search functionality not implemented with current API');
   }
 
   static async getBooks(bibleId: string, apiKey: string): Promise<BibleBook[]> {
-    const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${bibleId}/books`,
-      {
-        headers: {
-          'api-key': apiKey,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch books: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.data;
+    // Placeholder for future API integration
+    throw new Error('Book listing not implemented with current API');
   }
 
   static async getChapters(bibleId: string, bookId: string, apiKey: string): Promise<BibleChapter[]> {
-    const response = await fetch(
-      `https://api.scripture.api.bible/v1/bibles/${bibleId}/books/${bookId}/chapters`,
-      {
-        headers: {
-          'api-key': apiKey,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch chapters: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.data;
+    // Placeholder for future API integration
+    throw new Error('Chapter listing not implemented with current API');
   }
 }

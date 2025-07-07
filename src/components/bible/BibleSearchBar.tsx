@@ -36,7 +36,7 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
       Alert.alert('Error', 'Please enter a Bible reference');
       return;
     }
-    // Accept any non-empty string for api.bible
+    // Accept any non-empty string for bible-api.com
     onSearch(searchText.trim());
   };
 
