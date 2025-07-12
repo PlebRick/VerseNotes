@@ -1,135 +1,308 @@
-# VerseNotes - React Native Bible Study App
+# VerseNotes - Project Overview
 
-A React Native application built with Expo for Android 13, specifically optimized for the Daylight DC1 tablet.
+## 🎯 Project Summary
 
-## Project Overview
+**VerseNotes** is a React Native Bible study application built with Expo, specifically optimized for Android 13 and the Daylight DC1 tablet. The app provides a comprehensive Bible study experience with note-taking capabilities, using the World English Bible (WEB) translation via a public, no-auth API.
 
-VerseNotes is a Bible study application that allows users to:
-- Read Bible verses from the World English Bible (WEB) via bible-api.com (no authentication required)
-- Take and organize study notes
-- Export notes to markdown format
-- Customize reading preferences and settings
+## 🏗️ Architecture & Technology Stack
 
-## Technology Stack
+### Core Technologies
+- **React Native**: 0.79.5 (Latest with new architecture support)
+- **Expo**: SDK 53 (Managed workflow)
+- **TypeScript**: 5.8.3 (Full type safety)
+- **React**: 19.0.0 (Latest version)
 
-- **React Native**: Cross-platform mobile development
-- **Expo**: Managed workflow for streamlined development
-- **TypeScript**: Type-safe development
-- **AsyncStorage**: Local data persistence
-- **Bible API**: Integration with [bible-api.com](https://bible-api.com) for verse content (WEB only, public, no API key)
+### Key Dependencies
+- `@react-native-async-storage/async-storage`: Local data persistence
+- `react-native-drawer-layout-polyfill`: Drawer navigation for Android
+- `react-native-vector-icons`: Icon support
+- `@expo/vector-icons`: Expo icon library
+- `react-dom` & `react-native-web`: Web platform support
 
-## Project Structure
+### Android 13 Configuration
+- **minSdkVersion**: 33 (Android 13)
+- **targetSdkVersion**: 34 (Android 14)
+- **compileSdkVersion**: 34
+- **supportsTablet**: true (Daylight DC1 optimization)
+- **edgeToEdgeEnabled**: true (Modern Android UI)
+
+## 📁 Project Structure
 
 ```
-VerseNotes/
+versenotes/
 ├── src/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Screen components
-│   │   └── Settings.tsx
-│   ├── entities/       # Data models and business logic
-│   │   ├── User.ts
-│   │   ├── BibleNote.ts
-│   │   ├── BiblePassage.ts
-│   │   └── index.ts
-│   ├── utils/          # Utility functions and config
-│   │   └── config.ts
-│   └── types/          # TypeScript type definitions
-├── app.json           # Expo configuration
-├── App.tsx            # Main app component
-└── package.json       # Dependencies and scripts
+│   ├── components/
+│   │   └── bible/
+│   │       ├── BibleColumn.tsx          # Bible text display component
+│   │       ├── BibleSearchBar.tsx       # Search input component
+│   │       ├── NoteEditor.tsx           # Note editing modal
+│   │       └── NotesColumn.tsx          # Notes management component
+│   ├── entities/
+│   │   ├── BibleNote.ts                 # Note data model & CRUD operations
+│   │   ├── BiblePassage.ts              # Bible passage data & API integration
+│   │   ├── User.ts                      # User settings & data management
+│   │   └── index.ts                     # Entity exports
+│   ├── pages/
+│   │   ├── BibleStudy.tsx               # Main study interface
+│   │   └── Settings.tsx                 # Settings & configuration page
+│   └── utils/
+│       └── config.ts                    # (Obsolete) Bible API config placeholder
+├── assets/                              # App icons and splash screens
+├── App.tsx                              # Main app entry point
+├── app.json                             # Expo configuration
+├── package.json                         # Dependencies & scripts
+├── tsconfig.json                        # TypeScript configuration
+└── index.ts                             # App entry point
 ```
 
-## Features
+## 🎨 Core Features
 
-### Settings Management
-- Font size preferences
-- Theme customization (light/dark/sepia)
+### 1. Bible Study Interface (`BibleStudy.tsx`)
+- **2-Column Layout**: Responsive design with Bible text and notes columns
+- **Drawer Navigation**: Collapsible sidebar with settings and export options
+- **Search Integration**: Dynamic passage loading via `BibleSearchBar`
+- **Verse Selection**: Tap verses to select for note-taking
+- **Tablet Optimization**: Adaptive layout for Daylight DC1 tablet
+
+### 2. Bible Components
+
+#### BibleSearchBar (`BibleSearchBar.tsx`)
+- Accepts queries like 'Romans 1:1-16', 'John 3:16'
+- Real-time validation of Bible references
+- Clean, modern UI with search button
+- Auto-capitalization and error handling
+
+#### BibleColumn (`BibleColumn.tsx`)
+- Displays Bible text based on `BiblePassage` entity
+- Synced with search bar input
+- Verse selection and highlighting
+- Responsive font sizing (small/medium/large)
+- Loading states and error handling
+
+#### NotesColumn (`NotesColumn.tsx`)
+- Plus button to add notes linked to verse ranges
+- AsyncStorage for local persistence
+- Note management (edit, delete, refresh)
+- Filtered by verse reference
+- Pull-to-refresh functionality
+
+#### NoteEditor (`NoteEditor.tsx`)
+- Full-screen note editing experience
+- Collapses Bible column when opened (mobile)
+- Rich text input with tags support
 - Auto-save functionality
-- Verse number display options
-- Paragraph break formatting
-- Notification preferences
+- Verse reference linking
 
-### Data Management
-- Local storage with AsyncStorage
-- Note export to markdown format
-- User settings persistence
+### 3. Settings Management (`Settings.tsx`)
+- **Bible Settings**: Font size, verse numbers, paragraph breaks
+- **App Settings**: Theme, auto-save, notifications
+- **Data Management**: Export notes to markdown format
+- **Navigation**: Link to Bible Study interface
 
-### Bible API Integration
-- Uses World English Bible (WEB) only
-- Fetches passages via [bible-api.com](https://bible-api.com) (e.g., `/john+3:16?translation=web`)
-- No authentication or API key required
-- Search functionality and error handling
+## 🗄️ Data Models & Entities
 
-## Android 13 & Tablet Optimization
+### BibleNote (`BibleNote.ts`)
+```typescript
+interface BibleNoteData {
+  id: string;
+  title: string;
+  content: string;
+  verse_reference: string;
+  tags: string[];
+  created_date: string;
+  updated_date: string;
+}
+```
+- **CRUD Operations**: Create, read, update, delete notes
+- **Local Storage**: AsyncStorage persistence
+- **Sorting**: By creation date, title, etc.
+- **Search**: Filter by verse reference
 
-The app is configured for:
-- **Target SDK**: 34 (Android 13)
-- **Min SDK**: 33 (Android 13)
-- **Tablet Support**: Enabled
-- **Screen Orientation**: Adaptive (portrait/landscape)
-- **Edge-to-Edge**: Enabled for modern Android experience
+### BiblePassage (`BiblePassage.ts`)
+```typescript
+interface Verse {
+  book: string;
+  chapter: number;
+  verse: number;
+  text: string;
+}
 
-## Dependencies
+interface FormattedPassage {
+  reference: string;
+  verses: Verse[];
+}
+```
+- **API Integration**: [bible-api.com](https://bible-api.com) (World English Bible, WEB)
+- **Reference Parsing**: Parse "Romans 1:1-16" format
+- **Error Handling**: Network and parsing errors
 
-### Core Dependencies
-- `@react-native-async-storage/async-storage`: Local data storage
-- `react-native-vector-icons`: Icon library
-- `react-native-drawer-layout-polyfill`: Drawer navigation support
-- `@expo/vector-icons`: Expo's icon set
+### User (`User.ts`)
+```typescript
+interface UserSettings {
+  font_size: string;
+  theme: string;
+  auto_save: boolean;
+  verse_numbers: boolean;
+  paragraph_breaks: boolean;
+  notifications: boolean;
+}
+```
+- **Settings Persistence**: AsyncStorage
+- **Default Values**: Medium font, light theme
+- **User Data**: Name, email, preferences
 
-### Development Dependencies
-- `@react-native-community/cli`: React Native CLI tools
-- `typescript`: TypeScript support
-- `@types/*`: Type definitions
+## 🔌 API Integration
 
-## Getting Started
+### Bible API (bible-api.com)
+- **Base URL**: `https://bible-api.com/`
+- **Authentication**: None required
+- **Translation**: World English Bible (WEB) only
+- **Endpoints**:
+  - `/{reference}?translation=web` - Fetch passages (e.g., `/john+3:16?translation=web`)
+- **Response Format**:
+  ```json
+  {
+    "reference": "John 3:16",
+    "verses": [
+      {
+        "book_id": "JHN",
+        "book_name": "John",
+        "chapter": 3,
+        "verse": 16,
+        "text": "For God so loved the world..."
+      }
+    ],
+    "translation_id": "web"
+  }
+  ```
 
+## 🎯 Key Features
+
+### 1. Responsive Design
+- **Mobile**: Single column with modal note editor
+- **Tablet**: Two-column layout with side-by-side Bible and notes
+- **Breakpoint**: 768px width for tablet detection
+
+### 2. Local Data Persistence
+- **AsyncStorage**: All user data, notes, and settings
+- **Offline Capability**: Works without internet (except Bible API calls)
+- **Data Export**: Markdown format export functionality
+
+### 3. User Experience
+- **Drawer Navigation**: Easy access to settings and features
+- **Pull-to-Refresh**: Notes list refresh functionality
+- **Loading States**: Proper loading indicators
+- **Error Handling**: User-friendly error messages
+
+### 4. Bible Study Features
+- **Verse Selection**: Tap to select verses for note-taking
+- **Reference Validation**: Real-time Bible reference parsing
+- **Note Organization**: Tags, titles, and verse linking
+
+## 🚀 Development & Deployment
+
+### Development Commands
+```bash
+npm start          # Start Expo development server
+npm run android    # Run on Android device/emulator
+npm run web        # Run as web app
+npm test           # Run tests (currently disabled - see known_issues.md)
+npm run lint       # Run ESLint
+```
+
+### Getting Started
 1. **Install dependencies**:
    ```bash
    npm install
    ```
-
 2. **Start the development server**:
    ```bash
    npx expo start
    ```
-
 3. **Run on Android**:
    ```bash
    npm run android
    ```
 
-4. **Run on web** (for testing):
-   ```bash
-   npm run web
-   ```
+### Environment Variables
+- No `.env` file currently used
 
-## API Configuration
+## 📱 User Interface
 
-- No API key or authentication is required.
-- The app uses [bible-api.com](https://bible-api.com) for all scripture lookups (WEB only).
-- Example endpoint: `https://bible-api.com/john+3:16?translation=web`
+### Design System
+- **Colors**: Blue (#007AFF) primary, gray (#666) secondary
+- **Typography**: System fonts with responsive sizing
+- **Layout**: Flexbox-based responsive design
+- **Components**: Custom React Native components
 
-## Build Configuration
+### Navigation
+- **Drawer Layout**: Android-style drawer navigation
+- **Modal Screens**: Note editor and settings
+- **Tab-based**: Future enhancement possibility
 
-The project is configured in `app.json` with:
-- Android 13 targeting
-- Tablet support
-- Necessary permissions for network access and storage
-- AsyncStorage plugin configuration
+### Accessibility
+- **Touch Targets**: Minimum 44px touch targets
+- **Text Scaling**: Responsive font sizes
+- **Color Contrast**: High contrast text and backgrounds
 
-## Development Notes
+## 🔮 Future Enhancements
 
-- The app uses TypeScript for type safety
-- Entity classes follow the Base44 pattern for data management
-- Settings are persisted locally using AsyncStorage
-- The UI is optimized for tablet displays with responsive design
-- Error handling is implemented throughout the application
+### Planned Features
+1. **Offline Bible**: Cache passages for offline reading
+2. **Cloud Sync**: Note synchronization across devices
+3. **Advanced Search**: Full-text search across notes
+4. **Export Formats**: PDF and other export options
+5. **Study Plans**: Daily reading plans and reminders
+6. **Social Features**: Share notes and insights
 
-## Future Enhancements
+### Technical Improvements
+1. **Performance**: Optimize large note lists
+2. **Testing**: Add unit and integration tests
+3. **CI/CD**: Automated build and deployment
+4. **Analytics**: User behavior tracking
 
-- Cloud synchronization
-- Advanced search and filtering
-- Study plan creation
-- Collaborative note sharing
-- Offline Bible text caching
+## 🐛 Known Issues & Limitations
+
+### Current Issues
+1. **Book Mapping**: Limited Bible book name mapping
+2. **Error Handling**: Basic error handling could be improved
+3. **Navigation**: No proper navigation stack implementation
+
+### Limitations
+1. **Offline**: Bible content requires internet connection
+2. **Storage**: Local storage only (no cloud backup)
+3. **Search**: Basic reference search only
+
+## 📚 Documentation
+
+### Key Files
+- `README.md`: Basic project overview
+- `SETUP_LOG.md`: Development setup history
+- `IMPLEMENTATION_RESULTS.md`: Feature implementation details
+- `PROJECT_OVERVIEW.md`: This comprehensive overview
+
+### Code Documentation
+- **TypeScript**: Full type definitions
+- **JSDoc**: Function documentation (partial)
+- **Comments**: Inline code comments for complex logic
+
+## 🤝 Contributing
+
+### Development Workflow
+1. **Feature Branches**: Create feature branches for new development
+2. **TypeScript**: Maintain strict type safety
+3. **Testing**: Test on both mobile and tablet layouts
+4. **Documentation**: Update relevant documentation
+
+### Code Standards
+- **TypeScript**: Strict mode compliance
+- **React Native**: Functional components with hooks
+- **Async/Await**: Modern JavaScript patterns
+- **Error Handling**: Comprehensive error handling
+
+---
+
+**Last Updated**: December 2024  
+**Version**: 1.0.0  
+**Status**: Development Ready  
+**Target Platform**: Android 13 (Daylight DC1 Tablet)
