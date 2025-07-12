@@ -68,4 +68,30 @@ export class User {
       throw error;
     }
   }
+
+  static async loadSettings(): Promise<UserSettings> {
+    try {
+      const user = await this.me();
+      return user.settings;
+    } catch (error) {
+      console.error('Error loading settings:', error);
+      throw error;
+    }
+  }
+
+  static async saveSettings(settings: UserSettings): Promise<void> {
+    try {
+      const currentUser = await this.me();
+      const updatedUser = {
+        ...currentUser,
+        settings,
+        updated_date: new Date().toISOString(),
+      };
+
+      await AsyncStorage.setItem('user_data', JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error('Error saving settings:', error);
+      throw error;
+    }
+  }
 }
