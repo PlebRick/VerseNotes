@@ -25,15 +25,18 @@ describe('BiblePassage', () => {
       // Mock fetch for testing
       global.fetch = jest.fn().mockResolvedValue({
         ok: true,
-        json: () => Promise.resolve({
-          reference: 'John 3:16',
-          verses: [{
-            book_name: 'John',
-            chapter: 3,
-            verse: 16,
-            text: 'For God so loved the world...'
-          }]
-        })
+        json: () =>
+          Promise.resolve({
+            reference: 'John 3:16',
+            verses: [
+              {
+                book_name: 'John',
+                chapter: 3,
+                verse: 16,
+                text: 'For God so loved the world...',
+              },
+            ],
+          }),
       });
 
       const result = await BiblePassage.fetchPassage(reference);
