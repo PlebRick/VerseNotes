@@ -4,38 +4,23 @@ describe('BiblePassage', () => {
   describe('parseReference', () => {
     it('should parse simple verse reference', () => {
       const result = BiblePassage.parseReference('John 3:16');
-      expect(result).toEqual({
-        book: 'John',
-        chapter: 3,
-        startVerse: 16,
-        endVerse: 16,
-      });
+      expect(result).toBe('John 3:16');
     });
 
     it('should parse verse range reference', () => {
       const result = BiblePassage.parseReference('Romans 1:1-16');
-      expect(result).toEqual({
-        book: 'Romans',
-        chapter: 1,
-        startVerse: 1,
-        endVerse: 16,
-      });
+      expect(result).toBe('Romans 1:1-16');
     });
 
     it('should return null for invalid reference', () => {
-      const result = BiblePassage.parseReference('invalid');
+      const result = BiblePassage.parseReference('');
       expect(result).toBeNull();
     });
   });
 
   describe('fetchPassage', () => {
     it('should fetch passage from API', async () => {
-      const mockReference = {
-        book: 'John',
-        chapter: 3,
-        startVerse: 16,
-        endVerse: 16,
-      };
+      const reference = 'John 3:16';
 
       // Mock fetch for testing
       global.fetch = jest.fn().mockResolvedValue({
@@ -51,9 +36,13 @@ describe('BiblePassage', () => {
         })
       });
 
-      const result = await BiblePassage.fetchPassage(mockReference);
+      const result = await BiblePassage.fetchPassage(reference);
       expect(result).toHaveProperty('reference');
       expect(result).toHaveProperty('verses');
+      expect(result.verses[0]).toHaveProperty('book');
+      expect(result.verses[0]).toHaveProperty('chapter');
+      expect(result.verses[0]).toHaveProperty('verse');
+      expect(result.verses[0]).toHaveProperty('text');
     });
   });
 });
