@@ -1,0 +1,24 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * @flow strict-local
+ */
+
+import {Platform} from 'react-native';
+
+let Image;
+
+if (Platform.OS === 'android') {
+  Image = require('./Image.android');
+} else if (Platform.OS === 'ios') {
+  Image = require('./Image.ios');
+} else {
+  // Web or other platforms
+  Image = require('./Image.android'); // fallback
+}
+
+module.exports = Image; 
