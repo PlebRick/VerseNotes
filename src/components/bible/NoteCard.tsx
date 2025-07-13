@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, LayoutAnimation, Platform } from 'react-native';
 import { BibleNoteData } from '../../entities/BibleNote';
 import { useTheme } from '../../theme';
 import ButterButton from '../common/ButterButton';
@@ -8,10 +8,37 @@ interface NoteCardProps {
   note: BibleNoteData;
   onEdit?: (note: BibleNoteData) => void;
   onDelete?: (id: string) => void;
+  onView?: (note: BibleNoteData) => void;
+  isExpanded?: boolean;
+  onExpandToggle?: (noteId: string) => void;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ 
+  note, 
+  onEdit, 
+  onDelete, 
+  onView,
+  isExpanded = false,
+  onExpandToggle 
+}) => {
   const theme = useTheme();
+  const rotationAnim = useRef(new Animated.Value(isExpanded ? 1 : 0)).current;
+
+  // Configure layout animation for smooth expansion
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    }
+  }, [isExpanded]);
+
+  // Animate triangle rotation
+  useEffect(() => {
+    Animated.timing(rotationAnim, {
+      toValue: isExpanded ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [isExpanded, rotationAnim]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -65,8 +92,25 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
     }
   };
 
+  const handleView = () => {
+    if (onView) {
+      onView(note);
+    }
+  };
+
+  const handleExpandToggle = () => {
+    if (onExpandToggle) {
+      onExpandToggle(note.id);
+    }
+  };
+
+  const rotateInterpolate = rotationAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
   return (
-    <TouchableOpacity
+    <View
       style={[
         styles.card,
         {
@@ -75,8 +119,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
           ...theme.elevation.low,
         },
       ]}
-      onPress={handleEdit}
-      activeOpacity={0.8}
     >
       {/* Header with verse reference, date, and actions */}
       <View style={styles.header}>
@@ -110,11 +152,21 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
           </Text>
         </View>
         
+        {/* Reorganized action buttons: View + Edit + Delete */}
         <View style={styles.actions}>
+          {onView && (
+            <ButterButton
+              title="View"
+              onPress={handleView}
+              variant="lightGray"
+              size="small"
+              style={styles.actionButton}
+            />
+          )}
           <ButterButton
             title="Edit"
             onPress={handleEdit}
-            variant="ghost"
+            variant="lightGray"
             size="small"
             style={styles.actionButton}
           />
@@ -122,7 +174,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
             <ButterButton
               title="Delete"
               onPress={handleDelete}
-              variant="darkGray"
+              variant="lightGray"
               size="small"
               style={styles.actionButton}
             />
@@ -130,9 +182,12 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
         </View>
       </View>
 
-      {/* Content preview */}
+      {/* Content preview - Shows 5 lines when collapsed, full content when expanded */}
       <View style={styles.contentContainer}>
-        <Text style={[styles.preview, { color: theme.colors.textSecondary }]} numberOfLines={3}>
+        <Text 
+          style={[styles.preview, { color: theme.colors.textSecondary }]} 
+          numberOfLines={isExpanded ? undefined : 5}
+        >
           {stripHtmlTags(note.content)}
         </Text>
       </View>
@@ -173,16 +228,19 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
         </View>
       )}
 
-      {/* Verse range indicator */}
-      {(note.start_verse || note.end_verse) && (
-        <View style={styles.verseRangeContainer}>
-          <Text style={[styles.verseRange, { color: theme.colors.textMuted }]}>
-            Verses {note.start_verse || '?'}
-            {note.end_verse && note.end_verse !== note.start_verse && `-${note.end_verse}`}
-          </Text>
-        </View>
+      {/* Expand/Collapse button in bottom-right corner */}
+      {onExpandToggle && (
+        <TouchableOpacity
+          style={styles.expandButton}
+          onPress={handleExpandToggle}
+          activeOpacity={0.7}
+        >
+          <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
+            <Text style={[styles.expandIcon, { color: theme.colors.textMuted }]}>▼</Text>
+          </Animated.View>
+        </TouchableOpacity>
       )}
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -192,6 +250,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 16,
     borderWidth: 1,
+    position: 'relative',
     // Shadow and elevation handled by theme
   },
   header: {
@@ -226,8 +285,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   actionButton: {
-    marginLeft: 8,
-    minWidth: 50,
+    marginLeft: 6,
+    minWidth: 45,
   },
   verseBadge: {
     flexDirection: 'row',
@@ -276,13 +335,17 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     letterSpacing: -0.1,
   },
-  verseRangeContainer: {
-    marginTop: 4,
+  expandButton: {
+    position: 'absolute',
+    bottom: 12,
+    right: 12,
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
   },
-  verseRange: {
-    fontSize: 12,
-    fontWeight: '400',
-    fontStyle: 'italic',
+  expandIcon: {
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

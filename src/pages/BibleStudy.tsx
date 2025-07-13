@@ -6,6 +6,7 @@ import BibleSearchBar from '../components/bible/BibleSearchBar';
 import BibleColumn from '../components/bible/BibleColumn';
 import NotesColumn from '../components/bible/NotesColumn';
 import NoteEditor from '../components/bible/NoteEditor';
+import NoteReader from '../components/bible/NoteReader';
 import { useThemeContext } from '../theme';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -34,7 +35,9 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const [selectedVerses, setSelectedVerses] = useState<string[]>([]);
   const [selectedVerseText, setSelectedVerseText] = useState('');
   const [isNoteEditorVisible, setIsNoteEditorVisible] = useState(false);
+  const [isNoteReaderVisible, setIsNoteReaderVisible] = useState(false);
   const [editingNote, setEditingNote] = useState<BibleNoteData | undefined>();
+  const [viewingNote, setViewingNote] = useState<BibleNoteData | undefined>();
   const [notesRefreshTrigger, setNotesRefreshTrigger] = useState(0);
 
   // Auto-restore last passage on component mount
@@ -99,6 +102,11 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
     setIsNoteEditorVisible(true);
   };
 
+  const handleViewNote = (note: BibleNoteData) => {
+    setViewingNote(note);
+    setIsNoteReaderVisible(true);
+  };
+
   const handleSaveNote = (_note: BibleNoteData) => {
     setNotesRefreshTrigger((prev) => prev + 1);
     setIsNoteEditorVisible(false);
@@ -107,6 +115,11 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const handleCloseNoteEditor = () => {
     setIsNoteEditorVisible(false);
     setEditingNote(undefined);
+  };
+
+  const handleCloseNoteReader = () => {
+    setIsNoteReaderVisible(false);
+    setViewingNote(undefined);
   };
 
   const isTablet = width > 768;
@@ -189,6 +202,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
               verseReference={passage?.reference}
               onAddNote={handleAddNote}
               onEditNote={handleEditNote}
+              onViewNote={handleViewNote}
               refreshTrigger={notesRefreshTrigger}
             />
           </View>
@@ -206,12 +220,23 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         />
       </Modal>
 
+      <Modal visible={isNoteReaderVisible} animationType="slide" presentationStyle="fullScreen">
+        {viewingNote && (
+          <NoteReader
+            note={viewingNote}
+            isVisible={isNoteReaderVisible}
+            onClose={handleCloseNoteReader}
+          />
+        )}
+      </Modal>
+
       {!isTablet && !isNoteEditorVisible && (
         <View style={styles.mobileNotesContainer}>
           <NotesColumn
             verseReference={passage?.reference}
             onAddNote={handleAddNote}
             onEditNote={handleEditNote}
+            onViewNote={handleViewNote}
             refreshTrigger={notesRefreshTrigger}
           />
         </View>

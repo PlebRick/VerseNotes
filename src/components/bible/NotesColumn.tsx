@@ -18,6 +18,7 @@ interface NotesColumnProps {
   verseReference?: string;
   onAddNote: () => void;
   onEditNote: (note: BibleNoteData) => void;
+  onViewNote?: (note: BibleNoteData) => void;
   refreshTrigger?: number;
 }
 
@@ -25,11 +26,13 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
   verseReference,
   onAddNote,
   onEditNote,
+  onViewNote,
   refreshTrigger: _refreshTrigger,
 }) => {
   const { theme } = useThemeContext();
   const { notes, deleteNote, isLoading: loading } = useNotes(); // Use hook for notes data
   const [filteredNotes, setFilteredNotes] = useState<BibleNoteData[]>([]);
+  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
 
   // Smart note filtering function
   const matchesPassage = (note: BibleNoteData, targetReference: string): boolean => {
@@ -72,6 +75,8 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
       : notes;
 
     setFilteredNotes(filtered);
+    // Reset expansion when notes change
+    setExpandedCardId(null);
   }, [notes, verseReference]);
 
   const handleDeleteNote = async (noteId: string) => {
@@ -86,6 +91,10 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
           onPress: async () => {
             try {
               await deleteNote(noteId);
+              // Clear expansion if the deleted note was expanded
+              if (expandedCardId === noteId) {
+                setExpandedCardId(null);
+              }
             } catch (error) {
               console.error('Error deleting note:', error);
               Alert.alert('Error', 'Failed to delete note. Please try again.');
@@ -96,6 +105,17 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
     );
   };
 
+  const handleExpandToggle = (noteId: string) => {
+    // Toggle expansion: if same card, collapse it; if different card, expand the new one
+    setExpandedCardId(expandedCardId === noteId ? null : noteId);
+  };
+
+  const handleViewNote = (note: BibleNoteData) => {
+    if (onViewNote) {
+      onViewNote(note);
+    }
+  };
+
   const renderNote = (note: BibleNoteData) => {
     return (
       <NoteCard
@@ -103,6 +123,9 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
         note={note}
         onEdit={() => onEditNote(note)}
         onDelete={() => handleDeleteNote(note.id)}
+        onView={() => handleViewNote(note)}
+        isExpanded={expandedCardId === note.id}
+        onExpandToggle={handleExpandToggle}
       />
     );
   };
