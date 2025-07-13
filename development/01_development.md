@@ -79,18 +79,32 @@ _Date: 2025-01-20_
    - Root Cause: `verseReference={selectedVerses.length > 0 ? passage?.reference : undefined}`
    - Solution: Always pass current passage reference: `verseReference={passage?.reference}`
 
+4. **State Timing Issues**: Fixed race conditions between Bible passage loading and note filtering
+   - Problem: Notes wouldn't appear after searching, requiring manual refresh
+   - Root Cause: Existing notes had empty `verse_reference` values
+   - Solution: Implemented smart filtering algorithm that matches notes by title fallback
+
+5. **Passage Persistence**: Added localStorage persistence for better Bible study UX
+   - Problem: Page refresh cleared Bible passage but kept notes (inconsistent UX)
+   - Solution: Auto-save/restore last searched passage with localStorage
+   - Feature: Search input also restores, providing seamless study session continuity
+
 ### Results
 - ✅ **Theme Switching**: Light/Dark/System themes work instantly on all platforms
 - ✅ **Note Editor**: Works on both web (TextInput) and mobile (RichEditor) platforms
 - ✅ **Note Synchronization**: Notes appear immediately in correct Bible passage sections
+- ✅ **Smart Filtering**: Handles legacy notes and different reference formats seamlessly
+- ✅ **Persistence**: Page refresh maintains Bible study context (passage + notes)
 - ✅ **Cross-Platform**: Consistent functionality across web and mobile
-- ✅ **User Experience**: Seamless note creation and theme switching
+- ✅ **User Experience**: Seamless note creation, theme switching, and study session continuity
 
 ### Technical Details
 - Added web-compatible alert system using `window.alert()` and `window.confirm()`
 - Implemented platform detection with `Platform.OS === 'web'` conditional rendering
 - Fixed context state sharing with proper React hooks and memoization
-- Verified note filtering logic matches `verse_reference` with current `verseReference`
+- Created smart note filtering with title-based fallback matching
+- Added localStorage persistence with AsyncStorage for passage state
+- Verified comprehensive end-to-end functionality with real user testing
 - Maintained all existing functionality while adding web platform support
 
 ## Next Steps

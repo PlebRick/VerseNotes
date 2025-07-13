@@ -31,10 +31,44 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
   const { notes, deleteNote, isLoading: loading } = useNotes(); // Use hook for notes data
   const [filteredNotes, setFilteredNotes] = useState<BibleNoteData[]>([]);
 
+  // Smart note filtering function
+  const matchesPassage = (note: BibleNoteData, targetReference: string): boolean => {
+    if (!targetReference) return true; // Show all notes if no target reference
+
+    // Exact match with verse_reference
+    if (note.verse_reference && note.verse_reference === targetReference) {
+      return true;
+    }
+
+    // Fallback: check if note title contains the passage reference
+    // Handle cases like "Romans 1" matching notes titled "Romans 1:1-5"
+    if (note.title) {
+      // Extract book and chapter from target (e.g., "Romans 1")
+      const targetParts = targetReference.split(' ');
+      if (targetParts.length >= 2) {
+        const book = targetParts[0]; // "Romans"
+        const chapter = targetParts[1]; // "1"
+
+        // Check if note title starts with "Book Chapter:" (e.g., "Romans 1:")
+        const expectedPrefix = `${book} ${chapter}:`;
+        if (note.title.startsWith(expectedPrefix)) {
+          return true;
+        }
+
+        // Also check for exact match with title
+        if (note.title === targetReference) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  };
+
   // Filter notes based on verseReference
   useEffect(() => {
     const filtered = verseReference
-      ? notes.filter((note) => note.verse_reference === verseReference)
+      ? notes.filter((note) => matchesPassage(note, verseReference))
       : notes;
 
     setFilteredNotes(filtered);

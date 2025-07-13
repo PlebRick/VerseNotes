@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import { useThemeContext } from '../../theme';
 
@@ -17,6 +17,13 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
 }) => {
   const { theme } = useThemeContext();
   const [searchText, setSearchText] = useState(value || '');
+
+  // Update internal state when value prop changes (for persistence)
+  useEffect(() => {
+    if (value !== undefined) {
+      setSearchText(value);
+    }
+  }, [value]);
 
   const handleTextChange = (text: string) => {
     setSearchText(text);

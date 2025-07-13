@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Alert, Modal, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { BiblePassage, FormattedPassage } from '../entities/BiblePassage';
 import { BibleNoteData } from '../entities/BibleNote';
@@ -9,8 +9,12 @@ import NoteEditor from '../components/bible/NoteEditor';
 import { useThemeContext } from '../theme';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
+
+// Storage key for last searched passage
+const LAST_PASSAGE_STORAGE_KEY = 'versenotes_last_passage';
 
 interface BibleStudyProps {
   _navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -33,6 +37,24 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const [editingNote, setEditingNote] = useState<BibleNoteData | undefined>();
   const [notesRefreshTrigger, setNotesRefreshTrigger] = useState(0);
 
+  // Auto-restore last passage on component mount
+  useEffect(() => {
+    const restoreLastPassage = async () => {
+      try {
+        const savedData = await AsyncStorage.getItem(LAST_PASSAGE_STORAGE_KEY);
+        if (savedData) {
+          const { searchQuery: savedQuery, passage: savedPassage } = JSON.parse(savedData);
+          setSearchQuery(savedQuery);
+          setPassage(savedPassage);
+        }
+      } catch (error) {
+        console.error('Error restoring last passage:', error);
+      }
+    };
+
+    restoreLastPassage();
+  }, []);
+
   const handleSearch = async (reference: string) => {
     setLoading(true);
     setSearchQuery(reference);
@@ -43,9 +65,22 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         return;
       }
       const passageData = await BiblePassage.fetchPassage(parsed);
+
       setPassage(passageData);
       setSelectedVerses([]);
       setSelectedVerseText('');
+
+      // Save to localStorage for persistence
+      try {
+        const dataToSave = {
+          searchQuery: reference,
+          passage: passageData,
+          timestamp: new Date().toISOString(),
+        };
+        await AsyncStorage.setItem(LAST_PASSAGE_STORAGE_KEY, JSON.stringify(dataToSave));
+      } catch (storageError) {
+        console.error('Error saving passage to localStorage:', storageError);
+      }
     } catch (error) {
       console.error('Error fetching passage:', error);
       Alert.alert(
