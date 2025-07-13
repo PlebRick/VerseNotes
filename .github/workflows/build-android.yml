@@ -40,10 +40,16 @@ jobs:
         echo "Directory contents:"
         ls -la
         
+    - name: Fix dependency conflicts
+      run: |
+        echo "Fixing React version conflicts..."
+        npm install react@19.0.0 react-dom@19.0.0 --legacy-peer-deps --force
+        echo "React versions aligned"
+        
     - name: Install dependencies
       run: |
         echo "Installing dependencies..."
-        npm install --legacy-peer-deps
+        npm install --legacy-peer-deps --force
         echo "Dependencies installed successfully"
         
     - name: Install Expo CLI
