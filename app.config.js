@@ -32,11 +32,6 @@ export default {
     },
     web: {
       favicon: "./assets/favicon.png"
-    },
-    plugins: [
-      "expo-document-picker",
-      "expo-file-system",
-      "expo-sharing"
-    ]
+    }
   }
 }; 
