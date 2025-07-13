@@ -1,0 +1,28 @@
+**Context / Problem**  
+The Base44 prototype of VerseNotes looks polished and cohesive, while the open-source repo shows inconsistent spacing, typography, and dark-mode bugs. A lightweight theming layer plus a small set of visual tweaks will close this perception gap ahead of bigger offline/sync work.
+
+**Goal**  
+Ship a professional UI baseline: token-driven theming, reliable dark mode, and cleaner verse/notes visuals in ≤ 2 weeks.
+
+**Target Users**  
+• Everyday Bible readers on Expo Preview (Android 13 / iOS 17)  
+• Power users preparing sermons who need dark-mode late at night
+
+**Scope (MUST)**  
+1. **Theme system** – Extract color, spacing, typography tokens into `/src/theme.ts`; wrap app with `<ThemeProvider>`.  
+2. **Dark-mode** – Detect system theme, persist user override.  
+3. **Bracket verse-range glyph** – Replace blue bar with SVG icon + tokenized color.  
+4. **Refactor paddings & font sizes** to token scale.  
+5. **Visual-spec snapshot** – Export current Base44 screens into Figma; freeze color & spacing variables.
+
+**Non-Goals (WON’T this sprint)**  
+• Offline verse cache • Supabase sync • Reading-plan engine
+
+**Success Metrics**  
+- Lighthouse a11y score ≥ 90 (Expo web build)  
+- 100 % components reference theme tokens (grep)  
+- Dark-mode visual parity confirmed on Pixel 7 & iPhone 15
+
+**Timeline**  
+_Week 1_ – Figma export, theme file, global provider  
+_Week 2_ – Component refactors, dark-mode QA, release candidate build
