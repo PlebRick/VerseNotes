@@ -114,32 +114,21 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      {/* Enhanced Header with Better Typography and Spacing */}
-      <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: theme.colors.surface,
-            borderBottomColor: theme.colors.border,
-            ...theme.elevation.low,
-          },
-        ]}
-      >
+      {/* Simple Top Navigation Bar */}
+      <View style={[styles.header, { backgroundColor: theme.colors.surface }]}>
         <View style={styles.headerContent}>
           <View style={styles.brandSection}>
-            <View style={styles.logoContainer}>
-              <Text style={[styles.logoIcon, { color: theme.colors.accent }]}>📖</Text>
-            </View>
+            <Text style={[styles.logoIcon, { color: theme.colors.accent }]}>📖</Text>
             <View style={styles.titleSection}>
               <Text style={[styles.appTitle, { color: theme.colors.text }]}>VerseNotes</Text>
               <Text style={[styles.appSubtitle, { color: theme.colors.textSecondary }]}>
-                A Study Companion
+                A Bible study companion
               </Text>
             </View>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate('Settings')}
-            style={[styles.settingsButton, { backgroundColor: theme.colors.backgroundSecondary }]}
+            style={styles.settingsButton}
             accessibilityLabel="Settings"
             accessibilityRole="button"
           >
@@ -232,16 +221,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  logoContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
   logoIcon: {
     fontSize: 24,
+    marginRight: 12,
   },
   titleSection: {
     flexDirection: 'column',
