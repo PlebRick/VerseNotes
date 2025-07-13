@@ -1,6 +1,15 @@
 import React from 'react';
-import { TouchableOpacity, Text, ViewStyle, TextStyle, ActivityIndicator } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  ViewStyle,
+  TextStyle,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native';
 import { useThemeContext } from '../../theme';
+
+const { width: screenWidth } = Dimensions.get('window');
 
 export interface ButterButtonProps {
   title: string;
@@ -28,6 +37,7 @@ const ButterButton: React.FC<ButterButtonProps> = ({
   icon,
 }) => {
   const { theme } = useThemeContext();
+  const isTablet = screenWidth > 768;
 
   const getButtonStyle = (): ViewStyle => {
     const baseStyle: ViewStyle = {
@@ -38,22 +48,22 @@ const ButterButton: React.FC<ButterButtonProps> = ({
       ...theme.elevation.low,
     };
 
-    // Size variations
+    // Responsive size variations
     switch (size) {
       case 'small':
-        baseStyle.paddingHorizontal = 12;
-        baseStyle.paddingVertical = 8;
-        baseStyle.minHeight = 32;
+        baseStyle.paddingHorizontal = isTablet ? 16 : 12;
+        baseStyle.paddingVertical = isTablet ? 10 : 8;
+        baseStyle.minHeight = isTablet ? 36 : 32;
         break;
       case 'large':
-        baseStyle.paddingHorizontal = 24;
-        baseStyle.paddingVertical = 16;
-        baseStyle.minHeight = 52;
+        baseStyle.paddingHorizontal = isTablet ? 32 : 24;
+        baseStyle.paddingVertical = isTablet ? 20 : 16;
+        baseStyle.minHeight = isTablet ? 56 : 52;
         break;
       default: // medium
-        baseStyle.paddingHorizontal = 16;
-        baseStyle.paddingVertical = 12;
-        baseStyle.minHeight = 44;
+        baseStyle.paddingHorizontal = isTablet ? 20 : 16;
+        baseStyle.paddingVertical = isTablet ? 14 : 12;
+        baseStyle.minHeight = isTablet ? 48 : 44;
         break;
     }
 
@@ -61,6 +71,9 @@ const ButterButton: React.FC<ButterButtonProps> = ({
     if (fullWidth) {
       baseStyle.width = '100%';
     }
+
+    // Web-specific enhancements would go here
+    // Note: Web-specific CSS properties are not supported in React Native ViewStyle
 
     // Variant colors
     if (disabled || loading) {
@@ -100,18 +113,19 @@ const ButterButton: React.FC<ButterButtonProps> = ({
     const baseTextStyle: TextStyle = {
       fontWeight: '600',
       letterSpacing: -0.2,
+      textAlign: 'center',
     };
 
-    // Size variations
+    // Responsive text size variations
     switch (size) {
       case 'small':
-        baseTextStyle.fontSize = 14;
+        baseTextStyle.fontSize = isTablet ? 15 : 14;
         break;
       case 'large':
-        baseTextStyle.fontSize = 18;
+        baseTextStyle.fontSize = isTablet ? 19 : 18;
         break;
       default: // medium
-        baseTextStyle.fontSize = 16;
+        baseTextStyle.fontSize = isTablet ? 17 : 16;
         break;
     }
 
@@ -138,14 +152,49 @@ const ButterButton: React.FC<ButterButtonProps> = ({
     return baseTextStyle;
   };
 
+  const getIconStyle = (): TextStyle => {
+    const iconStyle: TextStyle = {
+      marginRight: 8,
+    };
+
+    // Responsive icon size
+    switch (size) {
+      case 'small':
+        iconStyle.fontSize = isTablet ? 16 : 14;
+        break;
+      case 'large':
+        iconStyle.fontSize = isTablet ? 20 : 18;
+        break;
+      default: // medium
+        iconStyle.fontSize = isTablet ? 18 : 16;
+        break;
+    }
+
+    return iconStyle;
+  };
+
+  // Web-specific event handlers
+  const handlePress = () => {
+    if (disabled || loading) return;
+    onPress();
+  };
+
+  // Web keyboard handling would be implemented here if needed
+  // const handleKeyPress = (event: KeyboardEvent) => { ... }
+
+  // Web-specific props would need to be handled differently for React Native Web
+  const webProps = {};
+
   return (
     <TouchableOpacity
       style={[getButtonStyle(), style]}
-      onPress={onPress}
+      onPress={handlePress}
       disabled={disabled || loading}
       activeOpacity={0.7}
       accessibilityRole="button"
       accessibilityLabel={title}
+      accessibilityState={{ disabled: disabled || loading }}
+      {...webProps}
     >
       {loading ? (
         <ActivityIndicator
@@ -158,7 +207,7 @@ const ButterButton: React.FC<ButterButtonProps> = ({
         />
       ) : (
         <>
-          {icon && <Text style={[getTextStyle(), { marginRight: 8 }]}>{icon}</Text>}
+          {icon && <Text style={[getTextStyle(), getIconStyle()]}>{icon}</Text>}
           <Text style={[getTextStyle(), textStyle]}>{title}</Text>
         </>
       )}
