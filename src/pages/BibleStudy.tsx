@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert, Modal, Text, Dimensions } from 'react-native';
+import { View, StyleSheet, Alert, Modal, Text, Dimensions, TouchableOpacity } from 'react-native';
 import { BiblePassage, FormattedPassage } from '../entities/BiblePassage';
 import { BibleNoteData } from '../entities/BibleNote';
 import BibleSearchBar from '../components/bible/BibleSearchBar';
@@ -7,6 +7,8 @@ import BibleColumn from '../components/bible/BibleColumn';
 import NotesColumn from '../components/bible/NotesColumn';
 import NoteEditor from '../components/bible/NoteEditor';
 import { useThemeContext } from '../theme';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const { width } = Dimensions.get('window');
 
@@ -14,7 +16,13 @@ interface BibleStudyProps {
   _navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
+type RootStackParamList = {
+  BibleStudy: undefined;
+  Settings: undefined;
+};
+
 const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>(); // Use navigation hook
   const { theme } = useThemeContext();
   const [passage, setPassage] = useState<FormattedPassage | null>(null);
   const [loading, setLoading] = useState(false);
@@ -92,6 +100,12 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         ]}
       >
         <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Bible Study</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Settings')}
+          style={styles.settingsButton}
+        >
+          <Text style={[styles.settingsIcon, { color: theme.colors.accent }]}>⚙️</Text>
+        </TouchableOpacity>
       </View>
 
       <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
@@ -161,6 +175,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between', // Added space-between for settings button
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
@@ -168,6 +183,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  settingsButton: {
+    padding: 8,
+  },
+  settingsIcon: {
+    fontSize: 24,
   },
   content: {
     flex: 1,

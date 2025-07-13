@@ -10,8 +10,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { User, UserSettings } from '../entities/User';
-import { BibleNote } from '../entities/BibleNote';
-import { useThemeContext } from '../theme';
+import { useThemeContext, useColorScheme } from '../theme';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import { useNotes } from '../context/NotesProvider';
 
 interface SettingsProps {
   navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -19,6 +21,7 @@ interface SettingsProps {
 
 const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const { theme } = useThemeContext();
+  const scheme = useColorScheme(); // Use for toggle
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_unusedUserVar, setUser] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [settings, setSettings] = useState<UserSettings>({
@@ -32,6 +35,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   });
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const { notes } = useNotes(); // Get all notes from context
 
   useEffect(() => {
     loadUserSettings();
@@ -61,26 +65,30 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     setIsSaving(false);
   };
 
-  const handleSettingChange = (key: keyof UserSettings, value: any) => {
+  const handleSettingChange = (key: keyof UserSettings, value: string | boolean) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleExportNotes = async () => {
     setIsExporting(true);
     try {
-      const allNotes = await BibleNote.list('-created_date', 1000);
+      // Create JSON content
+      const jsonContent = JSON.stringify(notes, null, 2);
 
-      let markdownContent = `# Bible Study Notes\n\nExported on: ${new Date().toLocaleDateString()}\n\n---\n\n`; // eslint-disable-line @typescript-eslint/no-unused-vars
+      // Define file path
+      const fileUri = `${FileSystem.documentDirectory}versenotes_export_${new Date().toISOString()}.json`;
 
-      allNotes.forEach((note) => {
-        markdownContent += `## ${note.title}\n\n`;
-        markdownContent += `**Reference:** ${note.verse_reference}\n\n`;
-        markdownContent += `**Tags:** ${note.tags ? note.tags.join(', ') : 'None'}\n\n`;
-        markdownContent += `${note.content}\n\n---\n\n`;
+      // Write file
+      await FileSystem.writeAsStringAsync(fileUri, jsonContent, {
+        encoding: FileSystem.EncodingType.UTF8,
       });
 
-      // In a real app, you would use a file system library to save the file
-      Alert.alert('Export Complete', `Exported ${allNotes.length} notes to markdown format.`);
+      // Share the file
+      await Sharing.shareAsync(fileUri, {
+        mimeType: 'application/json',
+        dialogTitle: 'Export Notes',
+        UTI: 'public.json',
+      });
     } catch (error) {
       console.error('Error exporting notes:', error);
       Alert.alert('Error', 'Failed to export notes. Please try again.');
@@ -109,6 +117,102 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       />
     </View>
   );
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    header: {
+      padding: 20,
+      borderBottomWidth: 1,
+    },
+    title: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      marginBottom: 5,
+    },
+    subtitle: {
+      fontSize: 16,
+    },
+    section: {
+      marginTop: 20,
+      paddingHorizontal: 20,
+    },
+    sectionTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      marginBottom: 10,
+    },
+    card: {
+      borderRadius: 10,
+      padding: 15,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.1,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    settingRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingVertical: 15,
+      borderBottomWidth: 1,
+    },
+    settingInfo: {
+      flex: 1,
+    },
+    settingTitle: {
+      fontSize: 16,
+      fontWeight: '500',
+      marginBottom: 2,
+    },
+    settingSubtitle: {
+      fontSize: 14,
+    },
+    button: {
+      paddingHorizontal: 15,
+      paddingVertical: 8,
+      borderRadius: 5,
+    },
+    buttonText: {
+      fontSize: 14,
+      fontWeight: '500',
+    },
+    buttonDisabled: {
+      // backgroundColor handled by theme in JSX
+    },
+    footer: {
+      padding: 20,
+      marginTop: 20,
+    },
+    saveButton: {
+      paddingVertical: 15,
+      borderRadius: 10,
+      alignItems: 'center',
+    },
+    saveButtonText: {
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    themePicker: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      padding: 10,
+    },
+    themeButton: {
+      padding: 10,
+      borderRadius: 5,
+    },
+    themeButtonSelected: {
+      backgroundColor: theme.colors.accentBackground,
+    },
+    themeButtonText: {
+      fontSize: 14,
+    },
+  });
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.backgroundSecondary }]}>
@@ -188,13 +292,44 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         >
           <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
             <View style={styles.settingInfo}>
-              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Theme</Text>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
+                Theme Preference
+              </Text>
               <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                Currently: {settings.theme}
+                Currently: {scheme.preference.charAt(0).toUpperCase() + scheme.preference.slice(1)}
               </Text>
             </View>
-            <TouchableOpacity style={[styles.button, { backgroundColor: theme.colors.accent }]}>
-              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Change</Text>
+          </View>
+          <View style={styles.themePicker}>
+            <TouchableOpacity
+              style={[
+                styles.themeButton,
+                scheme.preference === 'light' && styles.themeButtonSelected,
+                { backgroundColor: theme.colors.surface },
+              ]}
+              onPress={() => scheme.setColorSchemePreference('light')}
+            >
+              <Text style={[styles.themeButtonText, { color: theme.colors.text }]}>Light</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.themeButton,
+                scheme.preference === 'dark' && styles.themeButtonSelected,
+                { backgroundColor: theme.colors.surface },
+              ]}
+              onPress={() => scheme.setColorSchemePreference('dark')}
+            >
+              <Text style={[styles.themeButtonText, { color: theme.colors.text }]}>Dark</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.themeButton,
+                scheme.preference === 'auto' && styles.themeButtonSelected,
+                { backgroundColor: theme.colors.surface },
+              ]}
+              onPress={() => scheme.setColorSchemePreference('auto')}
+            >
+              <Text style={[styles.themeButtonText, { color: theme.colors.text }]}>System</Text>
             </TouchableOpacity>
           </View>
 
@@ -306,86 +441,5 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    padding: 20,
-    borderBottomWidth: 1,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  section: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
-  },
-  card: {
-    borderRadius: 10,
-    padding: 15,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  settingRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-  },
-  settingInfo: {
-    flex: 1,
-  },
-  settingTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-    marginBottom: 2,
-  },
-  settingSubtitle: {
-    fontSize: 14,
-  },
-  button: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderRadius: 5,
-  },
-  buttonText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  buttonDisabled: {
-    // backgroundColor handled by theme in JSX
-  },
-  footer: {
-    padding: 20,
-    marginTop: 20,
-  },
-  saveButton: {
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
 
 export default Settings;

@@ -39,6 +39,14 @@ export interface Verse {
   text: string;
 }
 
+// Raw verse data from bible-api.com
+export interface RawVerseData {
+  book_name: string;
+  chapter: number;
+  verse: number;
+  text: string;
+}
+
 export interface FormattedPassage {
   reference: string;
   verses: Verse[];
@@ -62,7 +70,7 @@ export class BiblePassage {
     const data = await response.json();
     return {
       reference: data.reference,
-      verses: data.verses.map((v: any) => ({
+      verses: data.verses.map((v: RawVerseData) => ({
         book: v.book_name,
         chapter: v.chapter,
         verse: v.verse,

@@ -1,30 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import React from 'react';
 import BibleStudy from './src/pages/BibleStudy';
-import { ThemeProvider, useThemeContext } from './src/theme';
+import { ThemeProvider } from './src/theme';
+import { NotesProvider } from './src/context/NotesProvider';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Settings from './src/pages/Settings';
 
-// Main App Content with theme context
-const AppContent = () => {
-  const { theme } = useThemeContext();
-  
-  return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <BibleStudy />
-      <StatusBar style="auto" />
-    </View>
-  );
+type RootStackParamList = {
+  BibleStudy: undefined;
+  Settings: undefined;
 };
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <NotesProvider>
+      <ThemeProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="BibleStudy">
+            <Stack.Screen
+              name="BibleStudy"
+              component={BibleStudy}
+              options={{ title: 'Bible Study' }}
+            />
+            <Stack.Screen name="Settings" component={Settings} options={{ title: 'Settings' }} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ThemeProvider>
+    </NotesProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

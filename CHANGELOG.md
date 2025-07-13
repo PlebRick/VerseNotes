@@ -203,3 +203,30 @@ This release introduces a comprehensive theming system with full dark mode suppo
 **Platform Support**: Web, Android, iOS  
 **Accessibility**: WCAG 2.1 AA Compliant  
 **Status**: Production Ready 🚀 
+
+## [0.2.0-ux] - 2025-07-13
+
+### ✨ **Added**
+- **NotesProvider**: Full context for notes management with AsyncStorage persistence
+- **CRUD Operations**: Complete create, read, update, delete for notes
+- **Navigation System**: React Navigation with BibleStudy and Settings routes
+- **Theme Picker**: Light/Dark/System selection in Settings with persistence
+- **Notes Export**: JSON export with share sheet using expo-file-system and expo-sharing
+- **NoteCard Component**: Modern note rendering with title, verse badge, tags, preview
+- **Rich Text Editor**: Pell rich editor for note content with formatting tools
+- **Verse Range Pickers**: Start/end verse inputs in NoteEditor
+
+### 🔧 **Changed**
+- **Provider Stack**: Wrapped NotesProvider around ThemeProvider
+- **Pages Migration**: BibleStudy, NoteEditor, NotesColumn use useNotes hook
+- **Refactored NotesColumn**: Uses NoteCard for rendering
+- **Enhanced NoteEditor**: Added verse pickers and rich editing
+
+### 🐛 **Fixed**
+- **Notes Persistence**: Notes now display after reload via context
+- **Theme Persistence**: Selection persists across reboots
+
+### 🧪 **Testing**
+- **Regression QA**: Verified CRUD, export, theme toggle on Pixel 7 & iPhone 15
+
+--- 

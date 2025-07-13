@@ -5,6 +5,8 @@ export interface BibleNoteData {
   title: string;
   content: string;
   verse_reference: string;
+  start_verse?: number;
+  end_verse?: number;
   tags: string[];
   created_date: string;
   updated_date: string;
@@ -32,9 +34,9 @@ export class BibleNote {
         if (field === 'created_date' || field === 'updated_date') {
           comparison = new Date(a[field]).getTime() - new Date(b[field]).getTime();
         } else {
-          comparison = a[field as keyof BibleNoteData]
-            .toString()
-            .localeCompare(b[field as keyof BibleNoteData].toString());
+          comparison = (a[field as keyof BibleNoteData]?.toString() ?? '').localeCompare(
+            b[field as keyof BibleNoteData]?.toString() ?? '',
+          );
         }
 
         return isDescending ? -comparison : comparison;

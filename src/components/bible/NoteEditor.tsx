@@ -11,9 +11,11 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import { BibleNote, BibleNoteData } from '../../entities';
+import { BibleNoteData } from '../../entities';
 import { useThemeContext } from '../../theme';
 import VerseBracket from './VerseBracket';
+import { useNotes } from '../../context/NotesProvider';
+import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 
 interface NoteEditorProps {
   note?: BibleNoteData;
@@ -33,9 +35,12 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
   onSave,
 }) => {
   const { theme } = useThemeContext();
+  const { addNote, updateNote } = useNotes(); // Use hook for CRUD operations
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState('');
+  const [startVerse, setStartVerse] = useState('');
+  const [endVerse, setEndVerse] = useState('');
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
@@ -43,10 +48,14 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       setTitle(note.title);
       setContent(note.content);
       setTags(note.tags.join(', '));
+      setStartVerse(note.start_verse?.toString() || '');
+      setEndVerse(note.end_verse?.toString() || '');
     } else if (verseReference) {
       setTitle(`Notes on ${verseReference}`);
       setContent(verseText ? `"${verseText}"\n\n` : '');
       setTags('');
+      setStartVerse('');
+      setEndVerse('');
     }
   }, [note, verseReference, verseText]);
 
@@ -72,18 +81,22 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
 
       if (note) {
         // Update existing note
-        savedNote = await BibleNote.update(note.id, {
+        savedNote = await updateNote(note.id, {
           title: title.trim(),
-          content: content.trim(),
+          content: content, // It's now HTML
           tags: tagArray,
+          start_verse: startVerse ? parseInt(startVerse) : undefined,
+          end_verse: endVerse ? parseInt(endVerse) : undefined,
         });
       } else {
         // Create new note
-        savedNote = await BibleNote.create({
+        savedNote = await addNote({
           title: title.trim(),
-          content: content.trim(),
+          content: content, // It's now HTML
           verse_reference: verseReference || '',
           tags: tagArray,
+          start_verse: startVerse ? parseInt(startVerse) : undefined,
+          end_verse: endVerse ? parseInt(endVerse) : undefined,
         });
       }
 
@@ -106,6 +119,121 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
   if (!isVisible) {
     return null;
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderBottomWidth: 1,
+    },
+    cancelButton: {
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+    },
+    cancelButtonText: {
+      fontSize: 16,
+    },
+    headerTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    saveButton: {
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 6,
+      minWidth: 60,
+      alignItems: 'center',
+    },
+    saveButtonDisabled: {
+      // backgroundColor handled by theme in JSX
+    },
+    saveButtonText: {
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    content: {
+      flex: 1,
+      padding: 16,
+    },
+    verseReference: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      padding: 12,
+      borderRadius: 8,
+      marginBottom: 16,
+    },
+    verseReferenceText: {
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    inputGroup: {
+      marginBottom: 20,
+    },
+    label: {
+      fontSize: 16,
+      fontWeight: '600',
+      marginBottom: 8,
+    },
+    titleInput: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      fontSize: 16,
+    },
+    tagsInput: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      fontSize: 16,
+    },
+    contentInput: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      fontSize: 16,
+      minHeight: 200,
+    },
+    verseRangeContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    verseInput: {
+      flex: 1,
+      borderWidth: 1,
+      borderRadius: 8,
+      padding: 12,
+      marginHorizontal: 4,
+    },
+    verseRangeDash: {
+      fontSize: 16,
+      paddingHorizontal: 8,
+    },
+    richToolbar: {
+      height: 50,
+      borderTopLeftRadius: 8,
+      borderTopRightRadius: 8,
+    },
+    richEditorContainer: {
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderBottomLeftRadius: 8,
+      borderBottomRightRadius: 8,
+      minHeight: 200,
+    },
+    richEditor: {
+      padding: 12,
+      fontSize: 16,
+    },
+  });
 
   return (
     <KeyboardAvoidingView
@@ -199,111 +327,70 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         </View>
 
         <View style={styles.inputGroup}>
+          <Text style={[styles.label, { color: theme.colors.text }]}>Verse Range (optional)</Text>
+          <View style={styles.verseRangeContainer}>
+            <TextInput
+              style={[
+                styles.verseInput,
+                {
+                  borderColor: theme.colors.border,
+                  color: theme.colors.text,
+                  backgroundColor: theme.colors.backgroundSecondary,
+                },
+              ]}
+              value={startVerse}
+              onChangeText={setStartVerse}
+              placeholder="Start verse"
+              placeholderTextColor={theme.colors.textPlaceholder}
+              keyboardType="number-pad"
+            />
+            <Text style={[styles.verseRangeDash, { color: theme.colors.textSecondary }]}>-</Text>
+            <TextInput
+              style={[
+                styles.verseInput,
+                {
+                  borderColor: theme.colors.border,
+                  color: theme.colors.text,
+                  backgroundColor: theme.colors.backgroundSecondary,
+                },
+              ]}
+              value={endVerse}
+              onChangeText={setEndVerse}
+              placeholder="End verse"
+              placeholderTextColor={theme.colors.textPlaceholder}
+              keyboardType="number-pad"
+            />
+          </View>
+        </View>
+
+        <View style={styles.inputGroup}>
           <Text style={[styles.label, { color: theme.colors.text }]}>Content</Text>
-          <TextInput
-            style={[
-              styles.contentInput,
-              {
-                borderColor: theme.colors.border,
-                color: theme.colors.text,
-                backgroundColor: theme.colors.backgroundSecondary,
-              },
+          <RichToolbar
+            actions={[
+              actions.undo,
+              actions.redo,
+              actions.setBold,
+              actions.setItalic,
+              actions.setUnderline,
+              actions.insertBulletsList,
+              actions.insertOrderedList,
+              actions.checkboxList,
             ]}
-            value={content}
-            onChangeText={setContent}
-            placeholder="Write your thoughts, insights, and reflections..."
-            placeholderTextColor={theme.colors.textPlaceholder}
-            multiline={true}
-            textAlignVertical="top"
+            style={[styles.richToolbar, { backgroundColor: theme.colors.surface }]}
           />
+          <ScrollView style={styles.richEditorContainer}>
+            <RichEditor
+              initialContentHTML={content}
+              onChange={setContent}
+              placeholder="Write your thoughts, insights, and reflections..."
+              style={[styles.richEditor, { backgroundColor: theme.colors.backgroundSecondary }]}
+              editorStyle={{ color: theme.colors.text }}
+            />
+          </ScrollView>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-  },
-  cancelButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  cancelButtonText: {
-    fontSize: 16,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  saveButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    minWidth: 60,
-    alignItems: 'center',
-  },
-  saveButtonDisabled: {
-    // backgroundColor handled by theme in JSX
-  },
-  saveButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  content: {
-    flex: 1,
-    padding: 16,
-  },
-  verseReference: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 16,
-  },
-  verseReferenceText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  inputGroup: {
-    marginBottom: 20,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  titleInput: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontSize: 16,
-  },
-  tagsInput: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontSize: 16,
-  },
-  contentInput: {
-    borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    fontSize: 16,
-    minHeight: 200,
-  },
-});
 
 export default NoteEditor;

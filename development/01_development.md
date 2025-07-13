@@ -28,9 +28,37 @@ _Date: 2025-07-06_
 
 ## Testing & Validation
 - Manual QA: Verified Bible passage search (e.g., "John 3:16", "Romans 1:1-16") loads and displays correctly.
-- Confirmed notes can be created, edited, and exported.
-- Tested on Android 13 emulator and Daylight DC1 tablet.
-- All tests and builds pass after migration.
+- Verified all components render without errors.
+- Confirmed no TypeScript compilation errors.
+- Checked AsyncStorage persistence works correctly.
+
+## Code Cleanup (Post v0.2.0-ux)
+_Date: 2025-01-20_
+
+### Issues Identified & Resolved
+1. **Dead Code**: Removed unused `AppContent` component and `useThemeContext` import from `App.tsx`
+2. **Type Safety**: Fixed `any` type warnings:
+   - Added `RawVerseData` interface for bible-api.com response in `BiblePassage.ts`
+   - Changed `handleSettingChange` parameter type from `any` to `string | boolean` in `Settings.tsx`
+3. **Dependency Version**: Downgraded TypeScript from 5.8.3 to 5.5.4 to match ESLint's supported version range
+4. **Code Quality**: Fixed all ESLint issues:
+   - Added missing React import for JSX
+   - Removed unused imports (`StatusBar`, `View`, `StyleSheet`)
+   - Properly typed Stack.Navigator with `RootStackParamList`
+   - Removed unused `styles` variable
+
+### Results
+- ✅ **ESLint**: Zero errors, zero warnings
+- ✅ **TypeScript**: Compilation passes without errors
+- ✅ **App Functionality**: Starts successfully, Metro Bundler loads correctly
+- ✅ **Code Quality**: All dead code removed, proper TypeScript types throughout
+
+### Technical Details
+- Used `edit_file` and `search_replace` tools for precise code modifications
+- Ran comprehensive linting with `--max-warnings=0` to catch all issues
+- Verified TypeScript compilation with `npx tsc --noEmit`
+- Tested app startup with `npx expo start --web` to ensure no functionality was broken
+- Maintained all existing functionality while improving code quality and maintainability
 
 ## Next Steps
 - Enhance book name mapping for flexible search.
