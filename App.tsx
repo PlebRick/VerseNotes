@@ -22,7 +22,7 @@ export default function App() {
             <Stack.Screen
               name="BibleStudy"
               component={BibleStudy}
-              options={{ title: 'Bible Study' }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen name="Settings" component={Settings} options={{ title: 'Settings' }} />
           </Stack.Navigator>
