@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { BibleNoteData } from '../../entities';
 import { useThemeContext } from '../../theme';
-import VerseBracket from './VerseBracket';
 import { useNotes } from '../../context/NotesProvider';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 import ButterButton from '../common/ButterButton';
@@ -165,8 +164,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       flexDirection: 'row',
       alignItems: 'center',
       padding: 12,
-      borderRadius: 8,
+      borderRadius: 12,
       marginBottom: 16,
+      borderWidth: 1,
+    },
+    verseIcon: {
+      fontSize: 16,
+      marginRight: 8,
     },
     verseReferenceText: {
       fontSize: 16,
@@ -268,10 +272,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
           <View
             style={[
               styles.verseReference,
-              { backgroundColor: theme.colors.accentBackgroundSecondary },
+              {
+                backgroundColor: theme.colors.accentBackgroundSecondary,
+                borderColor: theme.colors.accent,
+              },
             ]}
           >
-            <VerseBracket />
+            <Text style={[styles.verseIcon, { color: theme.colors.accent }]}>📖</Text>
             <Text style={[styles.verseReferenceText, { color: theme.colors.accent }]}>
               {verseReference}
             </Text>

@@ -419,11 +419,6 @@ export const components = {
     padding: 20,
     marginBottom: 16,
   },
-  verseBracket: {
-    width: 16,
-    height: 48,
-    strokeWidth: 2,
-  },
 } as const;
 
 // Color palette interface
