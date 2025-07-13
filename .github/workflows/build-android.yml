@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     
     steps:
     - name: Checkout code
@@ -28,86 +29,82 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
       
-    - name: Install dependencies
-      run: npm install --legacy-peer-deps
-        
-    - name: Install Expo CLI
-      run: npm install -g @expo/cli
-      
     - name: Debug environment
       run: |
-        node --version
-        npm --version
-        java -version
+        echo "Node version: $(node --version)"
+        echo "NPM version: $(npm --version)"
+        echo "Java version: $(java -version 2>&1 | head -1)"
         echo "Android SDK: $ANDROID_SDK_ROOT"
+        echo "Android Home: $ANDROID_HOME"
+        echo "Current directory: $(pwd)"
+        echo "Directory contents:"
         ls -la
         
-    - name: Create basic eas.json
+    - name: Install dependencies
       run: |
-        cat > eas.json << 'EOF'
-        {
-          "cli": {
-            "version": ">= 13.2.0"
-          },
-          "build": {
-            "preview": {
-              "android": {
-                "buildType": "apk"
-              }
-            }
-          }
-        }
-        EOF
+        echo "Installing dependencies..."
+        npm install --legacy-peer-deps
+        echo "Dependencies installed successfully"
         
-    - name: Try prebuild
-      run: npx expo prebuild --platform android --clear --no-install
+    - name: Install Expo CLI
+      run: |
+        echo "Installing Expo CLI..."
+        npm install -g @expo/cli
+        echo "Expo CLI installed"
+        npx expo --version
         
-    - name: List android directory
+    - name: Check project structure
+      run: |
+        echo "Checking project files..."
+        ls -la
+        echo "Package.json exists: $(test -f package.json && echo 'YES' || echo 'NO')"
+        echo "App.tsx exists: $(test -f App.tsx && echo 'YES' || echo 'NO')"
+        echo "src directory exists: $(test -d src && echo 'YES' || echo 'NO')"
+        
+    - name: Test Expo prebuild (dry run)
+      run: |
+        echo "Testing Expo prebuild..."
+        npx expo prebuild --platform android --clear --no-install || echo "Prebuild failed, continuing..."
+        
+    - name: Check if Android project was created
       run: |
         if [ -d "android" ]; then
-          echo "Android directory exists"
+          echo "✅ Android directory created successfully"
+          echo "Android directory contents:"
           ls -la android/
+          echo "Gradlew exists: $(test -f android/gradlew && echo 'YES' || echo 'NO')"
         else
-          echo "Android directory not found"
+          echo "❌ Android directory not found"
+          echo "Available directories:"
+          ls -la
           exit 1
         fi
         
     - name: Make gradlew executable
-      run: chmod +x android/gradlew
-      
-    - name: Build APK
       run: |
+        if [ -f "android/gradlew" ]; then
+          chmod +x android/gradlew
+          echo "✅ Gradlew made executable"
+        else
+          echo "❌ Gradlew not found"
+          exit 1
+        fi
+        
+    - name: Test Gradle build
+      run: |
+        echo "Testing Gradle build..."
         cd android
-        ./gradlew assembleRelease --no-daemon --stacktrace
+        ./gradlew assembleRelease --no-daemon --stacktrace --info
         
-    - name: Find APK
-      run: find . -name "*.apk" -type f
+    - name: Check for APK
+      run: |
+        echo "Looking for APK files..."
+        find . -name "*.apk" -type f
         
-    - name: Upload APK
+    - name: Upload APK if found
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: android-apk
         path: android/app/build/outputs/apk/release/app-release.apk
-        
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
-      with:
-        files: android/app/build/outputs/apk/release/app-release.apk
-        name: VerseNotes ${{ github.ref_name }}
-        body: |
-          Android APK for VerseNotes ${{ github.ref_name }}
-          
-          Download the APK below and install on your Android device.
-          
-          Requirements:
-          - Android 13 or higher
-          - Enable "Unknown Sources" in settings
-          
-          Features:
-          - Bible study with WEB translation
-          - Note-taking with rich text
-          - Backup/export functionality
-          - Optimized for Daylight DC1 tablet
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+        if-no-files-found: warn 
