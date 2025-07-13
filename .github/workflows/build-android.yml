@@ -1,0 +1,125 @@
+name: Build Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      
+    - name: Install dependencies
+      run: npm ci --legacy-peer-deps
+      
+    - name: Install Expo CLI
+      run: npm install -g @expo/cli
+        
+    - name: Prebuild Android
+      run: npx expo prebuild --platform android --clean
+      
+    - name: Make gradlew executable
+      run: chmod +x android/gradlew
+      
+    - name: Build Android APK
+      run: |
+        cd android
+        ./gradlew assembleRelease
+        
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: versenotes-android-apk
+        path: android/app/build/outputs/apk/release/app-release.apk
+        
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: android/app/build/outputs/apk/release/app-release.apk
+        name: VerseNotes ${{ github.ref_name }}
+        body: |
+          ## VerseNotes ${{ github.ref_name }}
+          
+          ### 📱 Android APK Release
+          
+          This release contains a production-ready Android APK optimized for the Daylight DC1 tablet.
+          
+          ### 🚀 Installation Instructions
+          
+          1. **Download the APK** from the assets below
+          2. **Enable Unknown Sources** on your Android device:
+             - Go to Settings > Security > Unknown Sources (enable)
+             - Or Settings > Apps > Special Access > Install Unknown Apps
+          3. **Install the APK** by tapping on the downloaded file
+          4. **Launch VerseNotes** from your app drawer
+          
+          ### ✨ Features
+          
+          - **Bible Study Interface** with World English Bible (WEB) translation
+          - **Advanced Note-Taking** with rich text editing
+          - **Expandable Note Cards** with smooth animations
+          - **Full-Screen Reader** optimized for public speaking
+          - **Comprehensive Backup System** with JSON, Markdown, and Plain Text exports
+          - **Import Functionality** with conflict resolution
+          - **Base44 Design** optimized for e-ink displays
+          - **Cross-Platform Support** (Android, iOS, Web)
+          
+          ### 🎯 Optimized For
+          
+          - **Daylight DC1 Tablet** with e-ink display optimization
+          - **Android 13+** with tablet-friendly interface
+          - **Bible Study** and note-taking workflows
+          - **Public Speaking** scenarios with reader mode
+          
+          ### 📊 Technical Details
+          
+          - **Version**: ${{ github.ref_name }}
+          - **Platform**: Android APK
+          - **Min SDK**: 33 (Android 13)
+          - **Target SDK**: 34 (Android 14)
+          - **Architecture**: Universal APK
+          - **Size**: ~50MB (estimated)
+          
+          ### 🔧 Requirements
+          
+          - Android 13 or higher
+          - Internet connection for Bible verse fetching
+          - Storage permission for backup/export functionality
+          
+          ### 🐛 Known Issues
+          
+          - See [known_issues.md](https://github.com/PlebRick/VerseNotes/blob/main/development/known_issues.md) for current limitations
+          
+          ### 📚 Documentation
+          
+          - [README.md](https://github.com/PlebRick/VerseNotes/blob/main/README.md) - Complete project overview
+          - [Backup System Guide](https://github.com/PlebRick/VerseNotes/blob/main/development/backup_restore_system.md) - Backup/restore documentation
+          
+          ---
+          
+          **Download the APK below and enjoy studying the Bible with VerseNotes!**
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
