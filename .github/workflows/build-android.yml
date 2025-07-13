@@ -61,10 +61,17 @@ jobs:
         echo "App.tsx exists: $(test -f App.tsx && echo 'YES' || echo 'NO')"
         echo "src directory exists: $(test -d src && echo 'YES' || echo 'NO')"
         
-    - name: Test Expo prebuild (dry run)
+    - name: Clean existing Android project
       run: |
-        echo "Testing Expo prebuild..."
-        npx expo prebuild --platform android --clear --no-install || echo "Prebuild failed, continuing..."
+        echo "Cleaning any existing Android project..."
+        rm -rf android ios
+        echo "Cleaned successfully"
+        
+    - name: Run Expo prebuild
+      run: |
+        echo "Running Expo prebuild..."
+        npx expo prebuild --platform android --no-install
+        echo "Prebuild completed successfully"
         
     - name: Check if Android project was created
       run: |
@@ -107,4 +114,27 @@ jobs:
       with:
         name: android-apk
         path: android/app/build/outputs/apk/release/app-release.apk
-        if-no-files-found: warn 
+        if-no-files-found: warn
+        
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/') && success()
+      uses: softprops/action-gh-release@v1
+      with:
+        files: android/app/build/outputs/apk/release/app-release.apk
+        name: VerseNotes ${{ github.ref_name }}
+        body: |
+          Android APK for VerseNotes ${{ github.ref_name }}
+          
+          Download the APK below and install on your Android device.
+          
+          Requirements:
+          - Android 13 or higher
+          - Enable "Unknown Sources" in settings
+          
+          Features:
+          - Bible study with WEB translation
+          - Note-taking with rich text
+          - Backup/export functionality
+          - Optimized for Daylight DC1 tablet
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
