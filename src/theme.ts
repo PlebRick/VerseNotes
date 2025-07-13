@@ -98,74 +98,94 @@
  *
  * • Reading First: Typography optimized for extended Bible reading sessions
  * • Accessible: WCAG 2.1 AA compliant contrast ratios and touch targets
- * • Responsive: Scales from mobile (320px) to tablet (1024px+)
- * • Consistent: Systematic use of spacing and color tokens
- * • Purposeful: Every design decision supports Bible study workflows
- *
- * Last Updated: 2025-07-13 (Derived from Base44.png reference)
+ * • Responsive: Fluid spacing and typography across mobile and tablet
+ * • Consistent: Unified design language across all components
+ * • Performant: Minimal re-renders with memoized theme contexts
  */
 
-import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Appearance, ColorSchemeName } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Base color palette (semantic colors that don't change between themes)
+// Enhanced Base color palette with Base44 harmonization
 export const BaseColors = {
-  // Brand colors
+  // Brand colors (Base44 inspired)
   primary: '#007AFF',
-  primaryLight: '#81b0ff',
-  primaryDark: '#0056b3',
+  primaryLight: '#4DA3FF',
+  primaryDark: '#0056CC',
 
-  // Semantic colors
-  success: '#28a745', // Improved contrast: was #34C759 (2.22:1 → 3.05:1)
-  error: '#ff3b30',
-  warning: '#f5dd4b',
-  info: '#007AFF',
+  // Enhanced semantic colors with better contrast
+  success: '#34C759',
+  successLight: '#66D478',
+  successDark: '#28A745',
 
-  // Static colors
-  white: '#ffffff',
+  error: '#FF3B30',
+  errorLight: '#FF6B5A',
+  errorDark: '#CC2E24',
+
+  warning: '#FF9500',
+  warningLight: '#FFB366',
+  warningDark: '#CC7700',
+
+  info: '#5AC8FA',
+  infoLight: '#7DD3FC',
+  infoDark: '#48A0C8',
+
+  // Neutral colors
+  white: '#FFFFFF',
   black: '#000000',
+  gray50: '#F9FAFB',
+  gray100: '#F3F4F6',
+  gray200: '#E5E7EB',
+  gray300: '#D1D5DB',
+  gray400: '#9CA3AF',
+  gray500: '#6B7280',
+  gray600: '#4B5563',
+  gray700: '#374151',
+  gray800: '#1F2937',
+  gray900: '#111827',
+
   transparent: 'transparent',
 } as const;
 
-// Light theme palette
+// Enhanced Light theme palette with Base44 harmonization
 export const LightPalette = {
-  // Backgrounds
-  background: '#ffffff',
-  backgroundSecondary: '#f5f5f5',
-  backgroundTertiary: '#f9f9f9',
-  backgroundElevated: '#ffffff',
+  // Backgrounds - cleaner, more modern
+  background: BaseColors.white,
+  backgroundSecondary: BaseColors.gray50,
+  backgroundTertiary: BaseColors.gray100,
+  backgroundElevated: BaseColors.white,
 
-  // Surfaces
-  surface: '#ffffff',
-  surfaceSecondary: '#f0f0f0',
-  surfaceElevated: '#ffffff',
+  // Surfaces - better hierarchy
+  surface: BaseColors.white,
+  surfaceSecondary: BaseColors.gray50,
+  surfaceElevated: BaseColors.white,
 
-  // Text colors
-  text: '#333333',
-  textSecondary: '#666666',
-  textTertiary: '#777777',
-  textPlaceholder: '#777777', // Improved contrast: was #999999 (2.61:1 → 3.37:1)
-  textInverse: '#ffffff',
-  textMuted: '#aaa',
-  textSubtle: '#888888',
-  textDark: '#222222',
+  // Text colors - improved contrast and readability
+  text: BaseColors.gray900,
+  textSecondary: BaseColors.gray600,
+  textTertiary: BaseColors.gray500,
+  textPlaceholder: BaseColors.gray400,
+  textInverse: BaseColors.white,
+  textMuted: BaseColors.gray400,
+  textSubtle: BaseColors.gray500,
+  textDark: BaseColors.gray900,
 
-  // Border colors
-  border: '#e0e0e0',
-  borderSecondary: '#ddd',
-  borderLight: '#f0f0f0',
+  // Border colors - subtle and modern
+  border: BaseColors.gray200,
+  borderSecondary: BaseColors.gray300,
+  borderLight: BaseColors.gray100,
 
-  // Accent colors
+  // Accent colors - Base44 inspired
   accent: BaseColors.primary,
-  accentBackground: '#f0f8ff',
-  accentBackgroundSecondary: '#e3f2fd',
+  accentBackground: '#F0F8FF',
+  accentBackgroundSecondary: '#E3F2FD',
 
   // Switch/Toggle colors
-  switchTrackInactive: '#767577',
-  switchTrackActive: '#81b0ff',
-  switchThumbInactive: '#f4f3f4',
-  switchThumbActive: '#f5dd4b',
+  switchTrackInactive: BaseColors.gray300,
+  switchTrackActive: BaseColors.primaryLight,
+  switchThumbInactive: BaseColors.white,
+  switchThumbActive: BaseColors.white,
 
   // Shadow
   shadow: BaseColors.black,
@@ -176,47 +196,47 @@ export const LightPalette = {
   warning: BaseColors.warning,
 
   // Disabled state
-  disabled: '#ccc',
+  disabled: BaseColors.gray300,
 } as const;
 
-// Dark theme palette
+// Enhanced Dark theme palette with Base44 harmonization
 export const DarkPalette = {
-  // Backgrounds
-  background: '#000000',
-  backgroundSecondary: '#1a1a1a',
-  backgroundTertiary: '#2a2a2a',
-  backgroundElevated: '#1a1a1a',
+  // Backgrounds - true dark with subtle variations
+  background: BaseColors.black,
+  backgroundSecondary: '#1C1C1E',
+  backgroundTertiary: '#2C2C2E',
+  backgroundElevated: '#1C1C1E',
 
-  // Surfaces
-  surface: '#1a1a1a',
-  surfaceSecondary: '#2a2a2a',
-  surfaceElevated: '#2a2a2a',
+  // Surfaces - elevated dark surfaces
+  surface: '#1C1C1E',
+  surfaceSecondary: '#2C2C2E',
+  surfaceElevated: '#3A3A3C',
 
-  // Text colors
-  text: '#ffffff',
-  textSecondary: '#b3b3b3',
-  textTertiary: '#808080',
-  textPlaceholder: '#666666',
-  textInverse: '#000000',
-  textMuted: '#666666',
-  textSubtle: '#999999',
-  textDark: '#ffffff',
+  // Text colors - optimized for dark backgrounds
+  text: BaseColors.white,
+  textSecondary: '#8E8E93',
+  textTertiary: '#6D6D70',
+  textPlaceholder: '#6D6D70',
+  textInverse: BaseColors.black,
+  textMuted: '#6D6D70',
+  textSubtle: '#8E8E93',
+  textDark: BaseColors.white,
 
-  // Border colors
-  border: '#333333',
-  borderSecondary: '#444444',
-  borderLight: '#2a2a2a',
+  // Border colors - subtle in dark mode
+  border: '#38383A',
+  borderSecondary: '#48484A',
+  borderLight: '#2C2C2E',
 
-  // Accent colors
+  // Accent colors - maintained for consistency
   accent: BaseColors.primary,
-  accentBackground: '#1a2332',
-  accentBackgroundSecondary: '#1a1f2e',
+  accentBackground: '#1A2332',
+  accentBackgroundSecondary: '#1A1F2E',
 
   // Switch/Toggle colors
-  switchTrackInactive: '#555555',
-  switchTrackActive: '#81b0ff',
-  switchThumbInactive: '#888888',
-  switchThumbActive: '#f5dd4b',
+  switchTrackInactive: '#48484A',
+  switchTrackActive: BaseColors.primaryLight,
+  switchThumbInactive: '#8E8E93',
+  switchThumbActive: BaseColors.white,
 
   // Shadow
   shadow: BaseColors.black,
@@ -227,10 +247,10 @@ export const DarkPalette = {
   warning: BaseColors.warning,
 
   // Disabled state
-  disabled: '#666666',
+  disabled: '#48484A',
 } as const;
 
-// Spacing tokens (4px grid system)
+// Enhanced spacing tokens (4px grid system)
 export const spacing = {
   xs: 2,
   sm: 4,
@@ -254,26 +274,26 @@ export const spacing = {
   },
   margin: {
     xs: 2,
-    sm: 5,
+    sm: 4,
     md: 8,
-    lg: 10,
-    xl: 12,
-    xxl: 15,
-    xxxl: 16,
-    xxxxl: 20,
+    lg: 12,
+    xl: 16,
+    xxl: 20,
+    xxxl: 24,
+    xxxxl: 32,
   },
   borderRadius: {
     xs: 4,
-    sm: 5,
-    md: 6,
-    lg: 8,
-    xl: 10,
-    xxl: 12,
-    xxxl: 18,
+    sm: 6,
+    md: 8,
+    lg: 12,
+    xl: 16,
+    xxl: 20,
+    xxxl: 24,
   },
 } as const;
 
-// Typography tokens
+// Enhanced typography tokens with Base44 optimization
 export const fonts = {
   sizes: {
     xs: 12,
@@ -281,13 +301,17 @@ export const fonts = {
     md: 16,
     lg: 18,
     xl: 20,
-    xxl: 28,
+    xxl: 24,
+    xxxl: 28,
+    xxxxl: 32,
   },
   weights: {
-    normal: 'normal' as const,
+    light: '300' as const,
+    normal: '400' as const,
     medium: '500' as const,
     semibold: '600' as const,
-    bold: 'bold' as const,
+    bold: '700' as const,
+    heavy: '800' as const,
   },
   lineHeights: {
     xs: 16,
@@ -296,14 +320,22 @@ export const fonts = {
     lg: 24,
     xl: 28,
     xxl: 32,
+    xxxl: 36,
+    xxxxl: 40,
+  },
+  letterSpacing: {
+    tight: -0.5,
+    normal: 0,
+    wide: 0.5,
   },
   families: {
     // React Native uses system fonts by default
     system: 'System',
+    monospace: 'Menlo',
   },
 } as const;
 
-// Elevation/Shadow tokens
+// Enhanced elevation/shadow tokens
 export const elevation = {
   none: {
     shadowColor: BaseColors.transparent,
@@ -316,26 +348,33 @@ export const elevation = {
     shadowColor: BaseColors.black,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: 3,
     elevation: 2,
   },
   medium: {
     shadowColor: BaseColors.black,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
   },
   high: {
     shadowColor: BaseColors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    shadowRadius: 6,
+    shadowRadius: 12,
     elevation: 8,
+  },
+  highest: {
+    shadowColor: BaseColors.black,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.2,
+    shadowRadius: 24,
+    elevation: 12,
   },
 } as const;
 
-// Component-specific tokens
+// Enhanced component-specific tokens
 export const components = {
   // Activity Indicator
   activityIndicator: {
@@ -353,25 +392,41 @@ export const components = {
   button: {
     height: 44,
     minWidth: 60,
+    borderRadius: 12,
   },
   input: {
     height: 44,
     minHeight: 44,
+    borderRadius: 12,
   },
-  addButton: {
-    width: 44, // Improved accessibility: was 36px
-    height: 44, // Improved accessibility: was 36px
-    borderRadius: 22,
+  card: {
+    borderRadius: 16,
+    padding: 20,
   },
-  deleteButton: {
-    width: 44, // Improved accessibility: was 24px
-    height: 44, // Improved accessibility: was 24px
-    borderRadius: 22,
-    // Note: Inner icon can be smaller, but touch area is 44px
+  modal: {
+    borderRadius: 20,
+    padding: 24,
+  },
+
+  // Specific component tokens
+  searchBar: {
+    height: 44,
+    borderRadius: 12,
+    padding: 16,
+  },
+  noteCard: {
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 16,
+  },
+  verseBracket: {
+    width: 16,
+    height: 48,
+    strokeWidth: 2,
   },
 } as const;
 
-// Color palette interface (supports both light and dark themes)
+// Color palette interface
 export interface ColorPalette {
   // Backgrounds
   background: string;
