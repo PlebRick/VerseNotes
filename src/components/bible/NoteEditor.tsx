@@ -158,6 +158,9 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
     },
     content: {
       flex: 1,
+    },
+    scrollContent: {
+      flexGrow: 1,
       padding: 16,
     },
     verseReference: {
@@ -181,7 +184,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
     },
     contentGroup: {
       flex: 1,
-      marginBottom: 20,
       minHeight: 0, // Allows flex to work properly
     },
     topRowContainer: {
@@ -249,6 +251,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       paddingVertical: 12,
       fontSize: 16,
       flex: 1,
+      minHeight: 400,
       textAlignVertical: 'top',
     },
     verseRangeContainer: {
@@ -276,6 +279,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
       flex: 1,
+      minHeight: 400,
     },
     richEditor: {
       padding: 12,
@@ -311,7 +315,11 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         />
       </View>
 
-      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        style={styles.content} 
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         {verseReference && (
           <View
             style={[
