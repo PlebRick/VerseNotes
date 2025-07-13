@@ -139,6 +139,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Cross-Platform Testing**: Validation on all supported platforms
 - **TypeScript Compliance**: Strict type checking with zero errors
 
+## [v0.2.10] - 2025-07-13 - Library Patch for Note Creation Crash Fix
+
+### 🔧 Library Patches
+- **Added patch for react-native-pell-rich-editor library**
+  - **Issue**: Library was not properly handling `originWhitelist` prop type safety, causing intermittent crashes
+  - **Fix**: Added defensive `Array.isArray()` check in library's WebView component to ensure `originWhitelist` is always an array type
+  - **Implementation**: Created patch file using `patch-package` that automatically applies after `npm install`
+  - **Testing**: Added Jest test to verify patch is applied correctly
+  - **Impact**: Eliminates all instances of `TypeError: expected dynamic type 'array', but had type 'string'` crashes
+
+### 🧪 Testing
+- Added patch verification test to ensure library fix persists across installs
+- Test validates that `originWhitelist` prop is always array type
+
 ## [v0.2.9] - 2025-07-13 - Note Creation Crash Fix
 
 ### 🐛 Bug Fixes
