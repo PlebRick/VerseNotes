@@ -14,6 +14,7 @@ import { useThemeContext } from '../../theme';
 import { useNotes } from '../../context/NotesProvider';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 import ButterButton from '../common/ButterButton';
+import { SAFE_ORIGIN_WHITELIST } from '../../utils/safeOriginWhitelist';
 
 // Web-compatible alert functions
 const showAlert = (title: string, message: string, onOk?: () => void) => {
@@ -459,6 +460,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
                   placeholder="Write your thoughts, insights, and reflections..."
                   style={[styles.richEditor, { backgroundColor: theme.colors.backgroundSecondary }]}
                   editorStyle={{ color: theme.colors.text }}
+                  originWhitelist={SAFE_ORIGIN_WHITELIST}
                 />
               </ScrollView>
             </>

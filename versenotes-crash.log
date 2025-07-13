@@ -1,0 +1,1095 @@
+--------- beginning of main
+07-13 16:53:14.701  5796 10969 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.auth.account.be.legacy.AuthCronService started execution. cause:4 exec_start_elapsed_seconds: 1356 [CONTEXT service_id=218 ]
+07-13 16:53:14.724 10763 10777 W libc    : Access denied finding property "persist.adb.tls_server.enable"
+07-13 16:53:14.720 10763 10763 W binder:10763_1: type=1400 audit(0.0:340): avc: denied { read } for name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=260 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+07-13 16:53:14.748  5796  5825 W GmsUrlRequestImpl: Content-Type header is overwritten.
+07-13 16:53:14.750   302 11123 I resolv  : GetAddrInfoHandler::run: {100 786532 100 983140 10111 0}
+07-13 16:53:14.750   302 11124 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+07-13 16:53:14.750   302 11125 I resolv  : res_nmkquery: (QUERY, IN, A)
+07-13 16:53:14.750   302 11125 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0xb400007c72eda290
+07-13 16:53:14.750   302 11125 I resolv  : doQuery: rcode=0, ancount=16, return value=296
+07-13 16:53:14.777   302 11124 I resolv  : res_nsend: used send_dg 40 terrno: 0
+07-13 16:53:14.777   302 11124 I resolv  : doQuery: rcode=0, ancount=0, return value=40
+07-13 16:53:14.778  5796  6061 D TrafficStats: tagSocket(188) with statsTag=0x401, statsUid=10111
+07-13 16:53:14.781  5796  6061 D TrafficStats: tagSocket(196) with statsTag=0x401, statsUid=10111
+07-13 16:53:15.245  5796  5825 W GLSUser : [AppCertManager] Exception while requesting key: 
+07-13 16:53:15.245  5796  5825 W GLSUser : java.util.concurrent.ExecutionException: avvw: Parse Proto Exception.
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dlnv.s(:com.google.android.gms@231818044@23.18.18 (190400-535401451):3)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dlnv.get(:com.google.android.gms@231818044@23.18.18 (190400-535401451):7)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at oub.b(:com.google.android.gms@231818044@23.18.18 (190400-535401451):78)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at otz.b(:com.google.android.gms@231818044@23.18.18 (190400-535401451):4)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at otu.a(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at otx.a(:com.google.android.gms@231818044@23.18.18 (190400-535401451):6)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at lzq.call(:com.google.android.gms@231818044@23.18.18 (190400-535401451):14)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at aced.c(:com.google.android.gms@231818044@23.18.18 (190400-535401451):6)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at aced.run(:com.google.android.gms@231818044@23.18.18 (190400-535401451):7)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1137)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:637)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at acjn.run(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at java.lang.Thread.run(Thread.java:1012)
+07-13 16:53:15.245  5796  5825 W GLSUser : Caused by: avvw: Parse Proto Exception.
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at avwn.f(:com.google.android.gms@231818044@23.18.18 (190400-535401451):5)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at avxk.onSucceeded(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at jf.onSucceeded(:com.google.android.gms.dynamite_cronetdynamite@231818044@23.18.18 (190400-0):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at ie.run(:com.google.android.gms.dynamite_cronetdynamite@231818044@23.18.18 (190400-0):4)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	... 6 more
+07-13 16:53:15.245  5796  5825 W GLSUser : Caused by: dzfz: Protocol message contained an invalid tag (zero).
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzdb.k(:com.google.android.gms@231818044@23.18.18 (190400-535401451):13)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzha.c(:com.google.android.gms@231818044@23.18.18 (190400-535401451):47)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzha.h(:com.google.android.gms@231818044@23.18.18 (190400-535401451):45)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzfd.A(:com.google.android.gms@231818044@23.18.18 (190400-535401451):2)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzex.f(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzcx.d(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzcx.c(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at dzcx.n(:com.google.android.gms@231818044@23.18.18 (190400-535401451):0)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at avwn.h(:com.google.android.gms@231818044@23.18.18 (190400-535401451):7)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	at avwn.f(:com.google.android.gms@231818044@23.18.18 (190400-535401451):1)
+07-13 16:53:15.245  5796  5825 W GLSUser : 	... 9 more
+07-13 16:53:15.254  5796 11116 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.auth.account.be.legacy.AuthCronService finished executing. cause:4 result: 3 elapsed_millis: 557 uptime_millis: 557 exec_start_elapsed_seconds: 1356 [CONTEXT service_id=218 ]
+07-13 16:53:15.275  5796 11121 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.checkin.EventLogService started execution. cause:5 exec_start_elapsed_seconds: 1356 [CONTEXT service_id=218 ]
+07-13 16:53:15.280 11071 11114 I Checkin : [EventLogChimeraService] Opted in for usage reporting: false
+07-13 16:53:15.282 11071 11114 I Checkin : [EventLogChimeraService] Aggregate from 1752442275264 (log), 0 (data)
+--------- beginning of kernel
+07-13 16:53:15.292   153   153 I logd    : logdr: UID=10111 GID=10111 PID=11071 n tail=0 logMask=4 pid=0 start=0ns deadline=0ns
+--------- beginning of system
+07-13 16:53:15.296   505  5056 I DropBoxManagerService: add tag=event_data isTagEnabled=true flags=0x2
+07-13 16:53:15.296   505   539 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.stats.service.DropBoxEntryAddedReceiver
+07-13 16:53:15.297   505   539 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 16:53:15.315  5796 11116 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.checkin.EventLogService finished executing. cause:5 result: 1 elapsed_millis: 45 uptime_millis: 45 exec_start_elapsed_seconds: 1356 [CONTEXT service_id=218 ]
+07-13 16:53:17.515 11071 11071 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:53:18.157   505  3527 D CompatibilityChangeReporter: Compat change id reported: 171306433; UID 10111; state: ENABLED
+07-13 16:53:18.157   505  3527 D CompatibilityChangeReporter: Compat change id reported: 218533173; UID 10111; state: ENABLED
+07-13 16:53:22.211   153   153 I logd    : logdr: UID=2000 GID=2000 PID=11135 b tail=0 logMask=99 pid=0 start=0ns deadline=0ns
+07-13 16:53:25.185   833   896 D EGL_emulation: app_time_stats: avg=25145.48ms min=25145.48ms max=25145.48ms count=1
+07-13 16:53:26.649   505  5056 W AppOps  : Noting op not finished: uid 10111 pkg com.google.android.gms code 113 startTime of in progress event=1752442286005
+07-13 16:53:26.653   505  3527 W AppOps  : Noting op not finished: uid 10111 pkg com.google.android.gms code 113 startTime of in progress event=1752442286005
+07-13 16:53:32.477 11071 11071 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:53:32.477 11071 11071 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:53:32.949   505   815 D androidtc: Initializing SystemTextClassifier, type = System
+07-13 16:53:32.950   505   815 E ClipboardService: Denying clipboard access to com.android.chrome, application is not in focus nor is it a system service for user 0
+07-13 16:53:32.951  1727  1727 I AiAiTextClassifier: onCreateTextClassificationSession = TextClassificationSessionId {2d0d4e6d-9ae2-4f6a-b7f5-c7f5f9409b6a}
+07-13 16:53:32.952   833   833 I ClipboardListener: Clipboard overlay suppressed.
+07-13 16:53:32.952  1727  2415 I AiAiTextClassifier: Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+07-13 16:53:32.952  1727  2228 I AiAiTranslate: C2T - not in a conversation
+07-13 16:53:32.957  1727  2359 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+07-13 16:53:32.958  1727  2359 I AiAiTextClassifier: Initialize textClassifierLib, privileged changed = [true], TC null = [false]
+07-13 16:53:32.958  1727  2359 I AiAiTextClassifier: GenerateLinks did not find valid links, returning empty result
+07-13 16:53:32.959   505   816 E ClipboardService: Denying clipboard access to com.android.chrome, application is not in focus nor is it a system service for user 0
+07-13 16:53:32.960   833   833 I ClipboardListener: Clipboard overlay suppressed.
+07-13 16:53:35.888  1090  1090 D TaplEvents: Main / Touch event: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=402.07324, y[0]=56.922363, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1377202, downTime=1377202, deviceId=3, source=0x5002, displayId=0, eventId=277935567 }
+07-13 16:53:35.889  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=402.07324, y[0]=1838.9224, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1377202, downTime=1377202, deviceId=3, source=0x5002, displayId=0, eventId=277935567 }
+07-13 16:53:35.910  1090  1872 D EGL_emulation: app_time_stats: avg=9236.46ms min=1.02ms max=295079.66ms count=32
+07-13 16:53:35.981  1090  1090 D TaplEvents: Main / Touch event: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=402.07324, y[0]=56.922363, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1377297, downTime=1377202, deviceId=3, source=0x5002, displayId=0, eventId=397561737 }
+07-13 16:53:35.981  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=402.07324, y[0]=1838.9224, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1377297, downTime=1377202, deviceId=3, source=0x5002, displayId=0, eventId=397561737 }
+07-13 16:53:35.985  1090  1872 W Parcel  : Expecting binder but got null!
+07-13 16:53:36.018   341   469 D AudioFlinger: mixer(0xb400007417d729a0) throttle end: throttle time(36)
+07-13 16:53:36.022   505   903 D CoreBackPreview: Window{3e505e0 u0 Taskbar Overlay}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@a6e205b, mPriority=0}
+07-13 16:53:36.028   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7b0f0
+07-13 16:53:36.029   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e77970
+07-13 16:53:36.036  1090  1872 E OpenGLRenderer: Unable to match the desired swap behavior.
+07-13 16:53:36.051  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227 
+07-13 16:53:36.051  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+07-13 16:53:36.052  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.google.android.apps.nexuslauncher fieldId=-1 fieldName=null extras=null}, false)
+07-13 16:53:36.052  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+07-13 16:53:36.052  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+07-13 16:53:36.063   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e795f0
+07-13 16:53:36.068  1248  1338 D EGL_emulation: app_time_stats: avg=5149.62ms min=0.72ms max=272552.78ms count=53
+07-13 16:53:37.487  1090  1090 D TaplEvents: Main / Touch event: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=798.0194, y[0]=1273.9175, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1378802, downTime=1378802, deviceId=3, source=0x5002, displayId=0, eventId=14691128 }
+07-13 16:53:37.487  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=798.0194, y[0]=1273.9175, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1378802, downTime=1378802, deviceId=3, source=0x5002, displayId=0, eventId=14691128 }
+07-13 16:53:37.582  1090  1090 D TaplEvents: Main / Touch event: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=798.0194, y[0]=1273.9175, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1378898, downTime=1378802, deviceId=3, source=0x5002, displayId=0, eventId=305923631 }
+07-13 16:53:37.582  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=798.0194, y[0]=1273.9175, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1378898, downTime=1378802, deviceId=3, source=0x5002, displayId=0, eventId=305923631 }
+07-13 16:53:37.599  1090  1872 D EGL_emulation: app_time_stats: avg=50.19ms min=7.66ms max=1067.24ms count=31
+07-13 16:53:37.616  1090  1872 D EGL_emulation: app_time_stats: avg=45.99ms min=3.29ms max=1085.60ms count=37
+07-13 16:53:37.618  1090  1090 D TaplEvents: Main / start: taskbarAppIcon
+07-13 16:53:37.619   505  3527 D CompatibilityChangeReporter: Compat change id reported: 161252188; UID 10174; state: DISABLED
+07-13 16:53:37.619   505  3527 I ActivityTaskManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.versenotes.app/.MainActivity} from uid 10150
+07-13 16:53:37.619   344   819 I BpBinder: onLastStrongRef automatically unlinking death recipients: <uncached descriptor>
+07-13 16:53:37.619   505  3527 D CompatibilityChangeReporter: Compat change id reported: 265464455; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 265452344; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 266124927; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 265451093; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 265456536; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 255940284; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 236283604; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 263959004; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 264304459; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 264301586; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 254631730; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 273509367; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 263259275; UID 10174; state: DISABLED
+07-13 16:53:37.620   505  3527 D CompatibilityChangeReporter: Compat change id reported: 194480991; UID 10174; state: ENABLED
+07-13 16:53:37.621   505  3527 D CompatibilityChangeReporter: Compat change id reported: 174042980; UID 10174; state: DISABLED
+07-13 16:53:37.622   505  3527 D CompatibilityChangeReporter: Compat change id reported: 184838306; UID 10174; state: DISABLED
+07-13 16:53:37.622   505  3527 D CompatibilityChangeReporter: Compat change id reported: 185004937; UID 10174; state: DISABLED
+07-13 16:53:37.622   505  3527 D CompatibilityChangeReporter: Compat change id reported: 181136395; UID 10174; state: DISABLED
+07-13 16:53:37.622   505  3527 D CompatibilityChangeReporter: Compat change id reported: 174042936; UID 10174; state: DISABLED
+07-13 16:53:37.623   505  3527 D CompatibilityChangeReporter: Compat change id reported: 197654537; UID 10174; state: ENABLED
+07-13 16:53:37.623   505  3527 D CompatibilityChangeReporter: Compat change id reported: 205907456; UID 10174; state: ENABLED
+07-13 16:53:37.624   341   469 D AudioFlinger: mixer(0xb400007417d729a0) throttle end: throttle time(34)
+07-13 16:53:37.627   505  3527 D CompatibilityChangeReporter: Compat change id reported: 194833441; UID 10174; state: ENABLED
+07-13 16:53:37.628   833   896 W Parcel  : Expecting binder but got null!
+07-13 16:53:37.630   833   886 D SplashScreenView: Build android.window.SplashScreenView{7de3a19 V.E...... ......ID 0,0-0,0}
+07-13 16:53:37.630   833   886 D SplashScreenView: Icon: view: android.widget.ImageView{7a88ade V.ED..... ......I. 0,0-0,0 #10204dd android:id/splashscreen_icon_view} drawable: com.android.wm.shell.startingsurface.SplashscreenIconDrawableFactory$ImmobileIconDrawable@2c6f4bf size: 240
+07-13 16:53:37.630   833   886 D SplashScreenView: Branding: view: android.view.View{802978c G.ED..... ......I. 0,0-0,0 #10204dc android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+07-13 16:53:37.636   505  3527 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10174; state: DISABLED
+07-13 16:53:37.636   505  3527 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10174; state: DISABLED
+07-13 16:53:37.637   505   529 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10174; state: DISABLED
+07-13 16:53:37.637   505   529 D CompatibilityChangeReporter: Compat change id reported: 177438394; UID 10174; state: DISABLED
+07-13 16:53:37.637   505   529 D CompatibilityChangeReporter: Compat change id reported: 135772972; UID 10174; state: DISABLED
+07-13 16:53:37.637   505   529 D CompatibilityChangeReporter: Compat change id reported: 135754954; UID 10174; state: ENABLED
+07-13 16:53:37.637   505   903 D CoreBackPreview: Window{49f3209 u0 Splash Screen com.versenotes.app}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@2b6243c, mPriority=0}
+07-13 16:53:37.638   505   540 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10174; state: ENABLED
+07-13 16:53:37.645   303   303 D Zygote  : Forked child process 11147
+07-13 16:53:37.646   505   540 I ActivityManager: Start proc 11147:com.versenotes.app/u0a174 for next-top-activity {com.versenotes.app/com.versenotes.app.MainActivity}
+07-13 16:53:37.649   833   896 E OpenGLRenderer: Unable to match the desired swap behavior.
+07-13 16:53:37.651 11147 11147 I .versenotes.app: Using CollectorTypeCC GC.
+07-13 16:53:37.664   378   393 I adbd    : jdwp connection from 11147
+07-13 16:53:37.672 11147 11147 D CompatibilityChangeReporter: Compat change id reported: 171979766; UID 10174; state: ENABLED
+07-13 16:53:37.677 11147 11147 D nativeloader: Configuring classloader-namespace for other apk /data/app/~~0ZQquQxthUd5DLsu3j2KSw==/com.versenotes.app-SjVwFk9JUSKhwGBrtEpwVw==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~0ZQquQxthUd5DLsu3j2KSw==/com.versenotes.app-SjVwFk9JUSKhwGBrtEpwVw==/lib/arm64:/data/app/~~0ZQquQxthUd5DLsu3j2KSw==/com.versenotes.app-SjVwFk9JUSKhwGBrtEpwVw==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.versenotes.app
+07-13 16:53:37.716 11147 11147 V GraphicsEnvironment: ANGLE Developer option for 'com.versenotes.app' set to: 'default'
+07-13 16:53:37.716 11147 11147 V GraphicsEnvironment: ANGLE GameManagerService for com.versenotes.app: false
+07-13 16:53:37.716 11147 11147 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+07-13 16:53:37.718 11147 11147 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+07-13 16:53:37.718 11147 11147 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+07-13 16:53:37.731 11147 11147 W SoLoader: Initializing SoLoader: 0
+07-13 16:53:37.732 11147 11147 W SoLoader: Recording new base apk path: /data/app/~~0ZQquQxthUd5DLsu3j2KSw==/com.versenotes.app-SjVwFk9JUSKhwGBrtEpwVw==/base.apk
+07-13 16:53:37.732 11147 11147 W SoLoader: Previously recorded 0 base apk paths.
+07-13 16:53:37.732 11147 11147 I SoLoader: Preparing SO source: DirectorySoSource[root = /vendor/lib64 flags = 2]
+07-13 16:53:37.732 11147 11147 I SoLoader: Preparing SO source: DirectorySoSource[root = /system/lib64 flags = 2]
+07-13 16:53:37.732 11147 11147 I SoLoader: Preparing SO source: DirectApkSoSource[root = [/data/app/~~0ZQquQxthUd5DLsu3j2KSw==/com.versenotes.app-SjVwFk9JUSKhwGBrtEpwVw==/base.apk!/lib/arm64-v8a]]
+07-13 16:53:37.733 11147 11147 I SoLoader: Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~0ZQquQxthUd5DLsu3j2KSw==/com.versenotes.app-SjVwFk9JUSKhwGBrtEpwVw==/lib/arm64 flags = 0]]
+07-13 16:53:37.733 11147 11147 I SoLoader: init finish: 4 SO sources prepared
+07-13 16:53:37.733 11147 11147 W SoLoader: SoLoader initialized: 8
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Entering merged library JNI_OnLoad.
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing 11 pre-merged libs (including stub)
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libfabricjni_so.  onload_func: 0x70f79edda0
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libreact_devsupportjni_so.  onload_func: 0x70f7abf9ec
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libreact_featureflagsjni_so.  onload_func: 0x70f7ac7c88
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libreact_newarchdefaults_so.  onload_func: 0x70f7aebc70
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libreactnativeblob_so.  onload_func: 0x70f7b72ac4
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libreactnativejni_so.  onload_func: 0x70f7b90aac
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register librninstance_so.  onload_func: 0x70f7baa238
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libturbomodulejsijni_so.  onload_func: 0x70f7c24e60
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libuimanagerjni_so.  onload_func: 0x70f7c2c378
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: Preparing to register libyoga_so.  onload_func: 0x70f7c317cc
+07-13 16:53:37.738 11147 11147 D jni_lib_merge: About to register 10 actual methods.
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Entering merged library JNI_OnLoad.
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing 11 pre-merged libs (including stub)
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libfabricjni_so.  onload_func: 0x70f79edda0
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libreact_devsupportjni_so.  onload_func: 0x70f7abf9ec
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libreact_featureflagsjni_so.  onload_func: 0x70f7ac7c88
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libreact_newarchdefaults_so.  onload_func: 0x70f7aebc70
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libreactnativeblob_so.  onload_func: 0x70f7b72ac4
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libreactnativejni_so.  onload_func: 0x70f7b90aac
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register librninstance_so.  onload_func: 0x70f7baa238
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libturbomodulejsijni_so.  onload_func: 0x70f7c24e60
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libuimanagerjni_so.  onload_func: 0x70f7c2c378
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: Preparing to register libyoga_so.  onload_func: 0x70f7c317cc
+07-13 16:53:37.740 11147 11147 D jni_lib_merge: About to register 10 actual methods.
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Entering merged library JNI_OnLoad.
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing 11 pre-merged libs (including stub)
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libfabricjni_so.  onload_func: 0x70f79edda0
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libreact_devsupportjni_so.  onload_func: 0x70f7abf9ec
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libreact_featureflagsjni_so.  onload_func: 0x70f7ac7c88
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libreact_newarchdefaults_so.  onload_func: 0x70f7aebc70
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libreactnativeblob_so.  onload_func: 0x70f7b72ac4
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libreactnativejni_so.  onload_func: 0x70f7b90aac
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register librninstance_so.  onload_func: 0x70f7baa238
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libturbomodulejsijni_so.  onload_func: 0x70f7c24e60
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libuimanagerjni_so.  onload_func: 0x70f7c2c378
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: Preparing to register libyoga_so.  onload_func: 0x70f7c317cc
+07-13 16:53:37.741 11147 11147 D jni_lib_merge: About to register 10 actual methods.
+07-13 16:53:37.747 11147 11168 D libEGL  : loaded /vendor/lib64/egl/libEGL_emulation.so
+07-13 16:53:37.750 11147 11147 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+07-13 16:53:37.751 11147 11168 D libEGL  : loaded /vendor/lib64/egl/libGLESv1_CM_emulation.so
+07-13 16:53:37.752 11147 11168 D libEGL  : loaded /vendor/lib64/egl/libGLESv2_emulation.so
+07-13 16:53:37.765 11147 11147 W unknown:BridgelessReact: ReactHost{0}.startSurface(surfaceId = 0): Schedule
+07-13 16:53:37.765 11147 11147 W unknown:BridgelessReact: ReactHost{0}.attachSurface(surfaceId = 0)
+07-13 16:53:37.765 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask()
+07-13 16:53:37.765 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Start
+07-13 16:53:37.765 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getJSBundleLoader()
+07-13 16:53:37.765 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactContext(): Creating BridgelessReactContext
+07-13 16:53:37.765 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Creating ReactInstance
+07-13 16:53:37.769 11147 11147 W unknown:BridgelessReact: ReactHost{0}.onHostResume(activity)
+07-13 16:53:37.770 11147 11147 W unknown:BridgelessReact: ReactContext.onHostResume()
+07-13 16:53:37.770 11147 11171 D jni_lib_merge: Entering merged library JNI_OnLoad.
+07-13 16:53:37.770 11147 11171 D jni_lib_merge: Preparing 4 pre-merged libs (including stub)
+07-13 16:53:37.770 11147 11171 D jni_lib_merge: Preparing to register libhermes_executor_so.  onload_func: 0x70f7d2811c
+07-13 16:53:37.770 11147 11171 D jni_lib_merge: Preparing to register libhermesinstancejni_so.  onload_func: 0x70f7d2fa58
+07-13 16:53:37.770 11147 11171 D jni_lib_merge: Preparing to register libjsijniprofiler_so.  onload_func: 0x70f7d30114
+07-13 16:53:37.770 11147 11171 D jni_lib_merge: About to register 3 actual methods.
+07-13 16:53:37.772 11147 11147 D CompatibilityChangeReporter: Compat change id reported: 237531167; UID 10174; state: DISABLED
+07-13 16:53:37.774 11147 11166 W Parcel  : Expecting binder but got null!
+07-13 16:53:37.776   505  3229 D CoreBackPreview: Window{d94ad96 u0 com.versenotes.app/com.versenotes.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@b2f8504, mPriority=0}
+07-13 16:53:37.786 11147 11166 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_multi_configs GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+07-13 16:53:37.787 11147 11166 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+07-13 16:53:37.787 11147 11166 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+07-13 16:53:37.788 11147 11166 D EGL_emulation: eglCreateContext: 0xb40000720a126710: maj 3 min 0 rcv 3
+07-13 16:53:37.789 11147 11166 D EGL_emulation: eglMakeCurrent: 0xb40000720a126710: ver 3 0 (tinfo 0x742953d080) (first time)
+07-13 16:53:37.794   148   148 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device VINTF manifest.
+07-13 16:53:37.796 11147 11166 I Gralloc4: mapper 4.x is not supported
+07-13 16:53:37.798   148   148 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.allocator@4.0::IAllocator/default in either framework or device VINTF manifest.
+07-13 16:53:37.799   146   146 I servicemanager: Could not find android.hardware.graphics.allocator.IAllocator/default in the VINTF manifest.
+07-13 16:53:37.799 11147 11166 W Gralloc4: allocator 4.x is not supported
+07-13 16:53:37.801 11147 11166 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_vulkan_queue_submit_with_commands ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma ANDROID_EMU_hwc_multi_configs GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+07-13 16:53:37.802 11147 11166 E OpenGLRenderer: Unable to match the desired swap behavior.
+07-13 16:53:37.821   505   526 I ActivityTaskManager: Displayed com.versenotes.app/.MainActivity: +201ms
+07-13 16:53:37.827 11147 11171 I ExpoModulesCore: ✅ AppContext was initialized
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderStyle'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderEndColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderTopColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderLeftColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBlockColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderRightColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderStartColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBottomColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderEndEndRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderTopEndRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBlockEndColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderTopLeftRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderEndStartRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderStartEndRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderTopRightRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderTopStartRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBlockStartColor'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBottomEndRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBottomLeftRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderStartStartRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBottomRightRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.831 11147 11171 W ReactNativeJNI: Component property map contains multiple entries for 'borderBottomStartRadius'. Ensure all calls to convertRawProp use a consistent prefix, name and suffix.
+07-13 16:53:37.839 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Loading JS Bundle
+07-13 16:53:37.840 11147 11171 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Calling DevSupportManagerBase.onNewReactContextCreated(reactContext)
+07-13 16:53:37.840 11147 11171 W unknown:BridgelessReact: ReactHost{0}.startSurface(surfaceId = 0): Execute
+07-13 16:53:37.841 11147 11147 W unknown:BridgelessReact: ReactContext.onHostResume()
+07-13 16:53:37.841 11147 11147 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Executing ReactInstanceEventListeners
+07-13 16:53:37.849   833   896 D EGL_emulation: app_time_stats: avg=12663.45ms min=12663.45ms max=12663.45ms count=1
+07-13 16:53:37.851 11147 11172 D CompatibilityChangeReporter: Compat change id reported: 210923482; UID 10174; state: ENABLED
+07-13 16:53:37.852 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaProviderManager
+07-13 16:53:37.853 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.uimanager.LayoutShadowNode
+07-13 16:53:37.853 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.SearchBarManager
+07-13 16:53:37.854 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenFooterManager
+07-13 16:53:37.854 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewManager
+07-13 16:53:37.854 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.th3rdwave.safeareacontext.SafeAreaViewShadowNode
+07-13 16:53:37.854 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenViewManager
+07-13 16:53:37.855 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenContainerViewManager
+07-13 16:53:37.855 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.reactnativecommunity.webview.RNCWebViewManager
+07-13 16:53:37.856 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ModalScreenViewManager
+07-13 16:53:37.856 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderSubviewManager
+07-13 16:53:37.856 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackViewManager
+07-13 16:53:37.856 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenStackHeaderConfigViewManager
+07-13 16:53:37.856 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.swmansion.rnscreens.ScreenContentWrapperManager
+07-13 16:53:37.860 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$DefsViewManager
+07-13 16:53:37.860 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.VirtualViewManager$RenderableShadowNode
+07-13 16:53:37.860 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeMergeManager
+07-13 16:53:37.861 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.safeareaview.ReactSafeAreaViewManager
+07-13 16:53:37.863 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.safeareaview.ReactSafeAreaViewShadowNode
+07-13 16:53:37.863 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LinearGradientManager
+07-13 16:53:37.864 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeGaussianBlurManager
+07-13 16:53:37.864 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ReactProgressBarViewManager
+07-13 16:53:37.865 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.progressbar.ProgressBarShadowNode
+07-13 16:53:37.865 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollViewManager
+07-13 16:53:37.866 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextViewManager
+07-13 16:53:37.866 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactTextShadowNode
+07-13 16:53:37.866 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeColorMatrixManager
+07-13 16:53:37.867 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactHorizontalScrollContainerViewManager
+07-13 16:53:37.867 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ClipPathViewManager
+07-13 16:53:37.868 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$SymbolManager
+07-13 16:53:37.869 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PatternManager
+07-13 16:53:37.870 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeBlendManager
+07-13 16:53:37.870 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.view.ReactViewManager
+07-13 16:53:37.871 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.SvgViewManager
+07-13 16:53:37.871 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchManager
+07-13 16:53:37.872 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.switchview.ReactSwitchShadowNode
+07-13 16:53:37.872 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$UseViewManager
+07-13 16:53:37.872 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$CircleViewManager
+07-13 16:53:37.873 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TSpanViewManager
+07-13 16:53:37.874 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FilterManager
+07-13 16:53:37.874 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MarkerManager
+07-13 16:53:37.875 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.modal.ReactModalHostManager
+07-13 16:53:37.875 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ForeignObjectManager
+07-13 16:53:37.876 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$EllipseViewManager
+07-13 16:53:37.876 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$LineViewManager
+07-13 16:53:37.877 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageViewManager
+07-13 16:53:37.877 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.frescosupport.FrescoBasedReactTextInlineImageShadowNode
+07-13 16:53:37.878 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeFloodManager
+07-13 16:53:37.880 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$GroupViewManager
+07-13 16:53:37.880 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextViewManager
+07-13 16:53:37.881 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$ImageViewManager
+07-13 16:53:37.882 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeCompositeManager
+07-13 16:53:37.882 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.image.ReactImageManager
+07-13 16:53:37.883 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RadialGradientManager
+07-13 16:53:37.884 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$MaskManager
+07-13 16:53:37.884 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.unimplementedview.ReactUnimplementedViewManager
+07-13 16:53:37.885 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$RectViewManager
+07-13 16:53:37.885 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$TextPathViewManager
+07-13 16:53:37.886 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.scroll.ReactScrollViewManager
+07-13 16:53:37.887 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$FeOffsetManager
+07-13 16:53:37.888 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.horcrux.svg.RenderableViewManager$PathViewManager
+07-13 16:53:37.888 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.drawer.ReactDrawerLayoutManager
+07-13 16:53:37.889 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextViewManager
+07-13 16:53:37.889 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactVirtualTextShadowNode
+07-13 16:53:37.889 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.swiperefresh.SwipeRefreshLayoutManager
+07-13 16:53:37.890 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextManager
+07-13 16:53:37.890 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.text.ReactRawTextShadowNode
+07-13 16:53:37.890 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputManager
+07-13 16:53:37.891 11147 11172 W unknown:ViewManagerPropertyUpdater: Could not find generated setter for class com.facebook.react.views.textinput.ReactTextInputShadowNode
+07-13 16:53:37.892 11147 11172 W BridgelessReactContext: [WARNING] Bridgeless doesn't support CatalystInstance. Accessing an API that's not part of the new architecture is not encouraged usage.
+07-13 16:53:37.897 11147 11172 I ExpoModulesCore: ✅ JSI interop was installed
+07-13 16:53:37.898 11147 11172 I ExpoModulesCore: ✅ Constants were exported
+07-13 16:53:37.914 11147 11172 I ReactNativeJS: Running "main"
+07-13 16:53:37.937 11147 11147 W [RNScreens]: backTitleVisible prop is not available on Android
+07-13 16:53:37.937 11147 11147 W [RNScreens]: backTitleFontFamily prop is not available on Android
+07-13 16:53:37.937 11147 11147 W [RNScreens]: disableBackButtonMenu prop is not available on Android
+07-13 16:53:37.937 11147 11147 W [RNScreens]: largeTitleFontFamily prop is not available on Android
+07-13 16:53:37.937 11147 11147 W [RNScreens]: largeTitleFontWeight prop is not available on Android
+07-13 16:53:37.937 11147 11147 W [RNScreens]: largeTitleHideShadow prop is not available on Android
+07-13 16:53:37.985   505   505 D AutofillInlineSuggestionsRequestSession: onCreateInlineSuggestionsRequestLocked called: 1073741824@2069741553
+07-13 16:53:37.986   505  3229 D AutofillInlineSuggestionsRequestSession: onInlineSuggestionsSessionInvalidated() called.
+07-13 16:53:37.989 11147 11147 D CompatibilityChangeReporter: Compat change id reported: 171228096; UID 10174; state: ENABLED
+07-13 16:53:38.001 11147 11147 D CompatibilityChangeReporter: Compat change id reported: 163400105; UID 10174; state: ENABLED
+07-13 16:53:38.002 11147 11147 I AssistStructure: Flattened final assist data: 12512 bytes, containing 1 windows, 50 views
+07-13 16:53:38.002   505  3229 D AutofillSession: createPendingIntent for request 5
+07-13 16:53:38.002   505  3229 D ContentCapturePerUserService: Notified activity assist data for activity: Token{32885c2 ActivityRecord{70e3fd3 u0 com.versenotes.app/.MainActivity} t17}} without a session Id
+07-13 16:53:38.113   505  3229 D CoreBackPreview: Window{3e505e0 u0 Taskbar Overlay}: Setting back callback null
+07-13 16:53:38.114   505  3229 W InputManager-JNI: Input channel object '3e505e0 Taskbar Overlay (client)' was disposed without first being removed with the input manager!
+07-13 16:53:38.129   505   529 V WindowManager: Unknown focus tokens, dropping reportFocusChanged
+07-13 16:53:38.129   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e794d0
+07-13 16:53:38.129   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e79cb0
+07-13 16:53:38.129   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7b0f0
+07-13 16:53:38.129   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7df10
+07-13 16:53:38.129   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e76890
+07-13 16:53:38.129   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e78690
+07-13 16:53:38.146   505  3229 D CompatibilityChangeReporter: Compat change id reported: 214016041; UID 10174; state: ENABLED
+07-13 16:53:38.147  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227 
+07-13 16:53:38.148  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+07-13 16:53:38.148  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.versenotes.app fieldId=-1 fieldName=null extras=null}, false)
+07-13 16:53:38.148  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+07-13 16:53:38.148  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+07-13 16:53:38.162   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e76530
+07-13 16:53:38.167  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:38.167  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:38.178   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7ecf0
+07-13 16:53:38.178   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7a3d0
+07-13 16:53:38.178   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7a3d0
+07-13 16:53:38.178   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7ecf0
+07-13 16:53:38.178   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.179   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.179   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.179   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.179   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.179   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.184   505   903 D CoreBackPreview: Window{49f3209 u0 Splash Screen com.versenotes.app EXITING}: Setting back callback null
+07-13 16:53:38.184   505  3229 W InputManager-JNI: Input channel object '49f3209 Splash Screen com.versenotes.app (client)' was disposed without first being removed with the input manager!
+07-13 16:53:38.190  1248  1248 D DashboardFragment: unregister observer: @a0c09a1, uri: content://com.google.android.apps.wellbeing.api/digitalWellbeingSummary
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.196   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.211   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7b870
+07-13 16:53:38.211   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e78870
+07-13 16:53:38.212   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7b870
+07-13 16:53:38.261   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.261   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.261   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.261   344   384 W TransactionTracing: Could not find layer id -1
+07-13 16:53:38.273  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:38.273  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:38.273  5796  6069 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+07-13 16:53:38.274  5796  6069 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+07-13 16:53:38.275  5796  6069 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+07-13 16:53:38.276  5796  6069 I FontLog : Pulling font file for id = 15, cache size = 6 [CONTEXT service_id=132 ]
+07-13 16:53:38.278  5796  6069 I FontLog : Pulling font file for id = 15, cache size = 6 [CONTEXT service_id=132 ]
+07-13 16:53:38.362   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7af10
+07-13 16:53:38.362   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e79cb0
+07-13 16:53:38.362   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7a430
+07-13 16:53:38.362   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7a430
+07-13 16:53:38.362   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e79cb0
+07-13 16:53:42.179  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=531.04175, y[0]=229.94385, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1383494, downTime=1383494, deviceId=3, source=0x5002, displayId=0, eventId=5041821 }
+07-13 16:53:42.224 11147 11166 D EGL_emulation: app_time_stats: avg=621.87ms min=1.07ms max=4177.67ms count=7
+07-13 16:53:42.298  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=531.04175, y[0]=229.94385, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1383614, downTime=1383494, deviceId=3, source=0x5002, displayId=0, eventId=292564556 }
+07-13 16:53:42.354 11147 11189 I WebViewFactory: Loading com.google.android.webview version 109.0.5414.123 (code 541412334)
+07-13 16:53:42.374 11147 11189 W ziparchive: Unable to open '/data/app/~~0rfh6DgKW8hznyglBozgLQ==/com.google.android.trichromelibrary_541412334-bz4jv6LCRXfOJ3jkn1BXrQ==/TrichromeLibrary.dm': No such file or directory
+07-13 16:53:42.374 11147 11189 W ziparchive: Unable to open '/data/app/~~0rfh6DgKW8hznyglBozgLQ==/com.google.android.trichromelibrary_541412334-bz4jv6LCRXfOJ3jkn1BXrQ==/TrichromeLibrary.dm': No such file or directory
+07-13 16:53:42.374 11147 11189 W .versenotes.app: Entry not found
+07-13 16:53:42.375 11147 11189 D nativeloader: Configuring classloader-namespace for other apk /data/app/~~0rfh6DgKW8hznyglBozgLQ==/com.google.android.trichromelibrary_541412334-bz4jv6LCRXfOJ3jkn1BXrQ==/TrichromeLibrary.apk. target_sdk_version=33, uses_libraries=ALL, library_path=/data/app/~~GnJC7Kv97Siyz9kHebOFyg==/com.google.android.webview-pRGUmBRioQfoYeipQo7jGw==/lib/arm64:/data/app/~~GnJC7Kv97Siyz9kHebOFyg==/com.google.android.webview-pRGUmBRioQfoYeipQo7jGw==/WebViewGoogle.apk!/lib/arm64-v8a:/data/app/~~0rfh6DgKW8hznyglBozgLQ==/com.google.android.trichromelibrary_541412334-bz4jv6LCRXfOJ3jkn1BXrQ==/TrichromeLibrary.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand
+07-13 16:53:42.376 11147 11189 D nativeloader: Configuring classloader-namespace for other apk /data/app/~~GnJC7Kv97Siyz9kHebOFyg==/com.google.android.webview-pRGUmBRioQfoYeipQo7jGw==/WebViewGoogle.apk. target_sdk_version=33, uses_libraries=, library_path=/data/app/~~GnJC7Kv97Siyz9kHebOFyg==/com.google.android.webview-pRGUmBRioQfoYeipQo7jGw==/lib/arm64:/data/app/~~GnJC7Kv97Siyz9kHebOFyg==/com.google.android.webview-pRGUmBRioQfoYeipQo7jGw==/WebViewGoogle.apk!/lib/arm64-v8a:/data/app/~~0rfh6DgKW8hznyglBozgLQ==/com.google.android.trichromelibrary_541412334-bz4jv6LCRXfOJ3jkn1BXrQ==/TrichromeLibrary.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand
+07-13 16:53:42.391 11147 11189 I cr_WVCFactoryProvider: Loaded version=109.0.5414.123 minSdkVersion=29 isBundle=false multiprocess=true packageId=2
+07-13 16:53:42.396 11147 11194 I cr_VariationsUtils: Failed reading seed file "/data/user/0/com.versenotes.app/app_webview/variations_seed_new"
+07-13 16:53:42.396 11147 11194 I cr_VariationsUtils: Failed reading seed file "/data/user/0/com.versenotes.app/app_webview/variations_seed"
+07-13 16:53:42.398 11147 11189 I cr_LibraryLoader: Successfully loaded native library
+07-13 16:53:42.398 11147 11189 I cr_CachingUmaRecorder: Flushed 9 samples from 9 histograms.
+07-13 16:53:42.404   302 11197 I resolv  : GetAddrInfoHandler::run: {100 100 100 983140 10174 0}
+07-13 16:53:42.404   302 11199 I resolv  : res_nmkquery: (QUERY, IN, A)
+07-13 16:53:42.404   302 11199 I resolv  : resolv_cache_lookup: FOUND IN CACHE entry=0xb400007c22ed3950
+07-13 16:53:42.404   302 11199 I resolv  : doQuery: rcode=0, ancount=1, return value=47
+07-13 16:53:42.404   302 11198 I resolv  : res_nmkquery: (QUERY, IN, AAAA)
+07-13 16:53:42.490   302 11198 I resolv  : res_nsend: used send_dg 31 terrno: 0
+07-13 16:53:42.490   302 11198 I resolv  : doQuery: rcode=0, ancount=0, return value=31
+07-13 16:53:42.490 11147 11189 D TrafficStats: tagSocket(105) with statsTag=0xffffffff, statsUid=-1
+07-13 16:53:43.588 11147 11205 D ProfileInstaller: Skipping profile installation for com.versenotes.app
+07-13 16:53:44.298  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:44.298  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:45.400  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_DOWN, actionButton=0, id[0]=0, x[0]=1289.0424, y[0]=279.98877, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1386715, downTime=1386715, deviceId=3, source=0x5002, displayId=0, eventId=750445814 }
+07-13 16:53:45.446 11147 11166 D EGL_emulation: app_time_stats: avg=57.59ms min=0.77ms max=2241.97ms count=52
+07-13 16:53:45.532  1090  1090 D TaplEvents: TIS / TouchInteractionService.onInputEvent: MotionEvent { action=ACTION_UP, actionButton=0, id[0]=0, x[0]=1289.0424, y[0]=279.98877, toolType[0]=TOOL_TYPE_FINGER, buttonState=0, classification=NONE, metaState=0, flags=0x0, edgeFlags=0x0, pointerCount=1, historySize=0, eventTime=1386848, downTime=1386715, deviceId=3, source=0x5002, displayId=0, eventId=36722462 }
+07-13 16:53:45.557   341   469 D AudioFlinger: mixer(0xb400007417d729a0) throttle end: throttle time(38)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS: Error: Exception in HostFunction: TypeError: expected dynamic type 'array', but had type 'string'
+07-13 16:53:45.610 11147 11172 E ReactNativeJS: 
+07-13 16:53:45.610 11147 11172 E ReactNativeJS: This error is located at:
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RNCWebView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:869011)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RichTextEditor (address at index.android.bundle:1:863750)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTScrollView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ScrollView (address at index.android.bundle:1:710334)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at Wrapper (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTScrollView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ScrollView (address at index.android.bundle:1:710334)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at Wrapper (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at KeyboardAvoidingView (address at index.android.bundle:1:749454)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NoteEditor (address at index.android.bundle:1:856945)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at VirtualizedListContextResetter (address at index.android.bundle:1:688192)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTModalHostView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at Modal (address at index.android.bundle:1:752426)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at BibleStudy (address at index.android.bundle:1:830351)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at StaticContainer (address at index.android.bundle:1:974721)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at EnsureSingleNavigator (address at index.android.bundle:1:916522)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at SceneView (address at index.android.bundle:1:972254)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RNSScreenContentWrapper (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ScreenContentWrapper (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at DebugContainer (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RNSScreen (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:633433)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at Suspender (address at index.android.bundle:1:1069999)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at Suspense (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at Freeze (address at index.android.bundle:1:1070060)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at DelayedFreeze (address at index.android.bundle:1:1069254)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at InnerScreen (address at index.android.bundle:1:1066860)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:1068533)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ScreenStackItem (address at index.android.bundle:1:1078769)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at SceneView (address at index.android.bundle:1:1010181)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RNSScreenStack (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:1077747)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ScreenStack (address at index.android.bundle:1:1077028)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at FrameSizeProviderInner (address at index.android.bundle:1:1049011)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at FrameSizeProvider (address at index.android.bundle:1:1048932)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RNCSafeAreaProvider (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at SafeAreaProvider (address at index.android.bundle:1:1045488)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at SafeAreaProviderCompat (address at index.android.bundle:1:1062041)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NativeStackView (address at index.android.bundle:1:1008770)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at PreventRemoveProvider (address at index.android.bundle:1:951738)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NavigationStateListenerProvider (address at index.android.bundle:1:981322)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NavigationContent (address at index.android.bundle:1:968614)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:968517)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NativeStackNavigator (address at index.android.bundle:1:1007378)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ThemeProvider (address at index.android.bundle:1:919748)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at EnsureSingleNavigator (address at index.android.bundle:1:916522)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at BaseNavigationContainer (address at index.android.bundle:1:895360)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NavigationContainerInner (address at index.android.bundle:1:991296)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at ThemeProvider (address at index.android.bundle:1:838869)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at NotesProvider (address at index.android.bundle:1:851046)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at App (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at RCTView (<anonymous>)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.610 11147 11172 E ReactNativeJS:     at AppContainer (address at index.android.bundle:1:452803), js engine: hermes
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: ReactHost{0}.handleHostException(message = "Error: Exception in HostFunction: TypeError: expected dynamic type 'array', but had type 'string'
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: 
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: This error is located at:
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RNCWebView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:869011)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RichTextEditor (address at index.android.bundle:1:863750)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTScrollView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ScrollView (address at index.android.bundle:1:710334)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at Wrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTScrollView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ScrollView (address at index.android.bundle:1:710334)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at Wrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at KeyboardAvoidingView (address at index.android.bundle:1:749454)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NoteEditor (address at index.android.bundle:1:856945)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at VirtualizedListContextResetter (address at index.android.bundle:1:688192)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTModalHostView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at Modal (address at index.android.bundle:1:752426)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at BibleStudy (address at index.android.bundle:1:830351)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at StaticContainer (address at index.android.bundle:1:974721)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at EnsureSingleNavigator (address at index.android.bundle:1:916522)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at SceneView (address at index.android.bundle:1:972254)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RNSScreenContentWrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ScreenContentWrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at DebugContainer (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RNSScreen (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:633433)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at Suspender (address at index.android.bundle:1:1069999)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at Suspense (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at Freeze (address at index.android.bundle:1:1070060)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at DelayedFreeze (address at index.android.bundle:1:1069254)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at InnerScreen (address at index.android.bundle:1:1066860)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:1068533)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ScreenStackItem (address at index.android.bundle:1:1078769)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at SceneView (address at index.android.bundle:1:1010181)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RNSScreenStack (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:1077747)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ScreenStack (address at index.android.bundle:1:1077028)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at FrameSizeProviderInner (address at index.android.bundle:1:1049011)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at FrameSizeProvider (address at index.android.bundle:1:1048932)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RNCSafeAreaProvider (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at SafeAreaProvider (address at index.android.bundle:1:1045488)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at SafeAreaProviderCompat (address at index.android.bundle:1:1062041)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NativeStackView (address at index.android.bundle:1:1008770)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at PreventRemoveProvider (address at index.android.bundle:1:951738)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NavigationStateListenerProvider (address at index.android.bundle:1:981322)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NavigationContent (address at index.android.bundle:1:968614)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:968517)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NativeStackNavigator (address at index.android.bundle:1:1007378)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ThemeProvider (address at index.android.bundle:1:919748)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at EnsureSingleNavigator (address at index.android.bundle:1:916522)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at BaseNavigationContainer (address at index.android.bundle:1:895360)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NavigationContainerInner (address at index.android.bundle:1:991296)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at ThemeProvider (address at index.android.bundle:1:838869)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at NotesProvider (address at index.android.bundle:1:851046)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at App (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact:     at AppContainer (address at index.android.bundle:1:452803), js engine: hermes, stack:
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: completeWork@1:314441
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: completeUnitOfWork@1:329876
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: performUnitOfWork@1:329171
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: workLoopSync@1:328168
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: renderRootSync@1:328000
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: performWorkOnRoot@1:325490
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: performSyncWorkOnRoot@1:278837
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: flushSyncWorkAcrossRoots_impl@1:277850
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: processRootScheduleInMicrotask@1:278194
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: anonymous@1:278936
+07-13 16:53:45.612 11147 11173 W unknown:BridgelessReact: ")
+--------- beginning of crash
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: FATAL EXCEPTION: mqt_v_native
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: Process: com.versenotes.app, PID: 11147
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: com.facebook.react.common.JavascriptException: Error: Exception in HostFunction: TypeError: expected dynamic type 'array', but had type 'string'
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: This error is located at:
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RNCWebView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:869011)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RichTextEditor (address at index.android.bundle:1:863750)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTScrollView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ScrollView (address at index.android.bundle:1:710334)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at Wrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTScrollView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ScrollView (address at index.android.bundle:1:710334)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at Wrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at KeyboardAvoidingView (address at index.android.bundle:1:749454)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NoteEditor (address at index.android.bundle:1:856945)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at VirtualizedListContextResetter (address at index.android.bundle:1:688192)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTModalHostView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at Modal (address at index.android.bundle:1:752426)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at BibleStudy (address at index.android.bundle:1:830351)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at StaticContainer (address at index.android.bundle:1:974721)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at EnsureSingleNavigator (address at index.android.bundle:1:916522)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at SceneView (address at index.android.bundle:1:972254)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RNSScreenContentWrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ScreenContentWrapper (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at DebugContainer (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RNSScreen (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:633433)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at Suspender (address at index.android.bundle:1:1069999)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at Suspense (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at Freeze (address at index.android.bundle:1:1070060)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at DelayedFreeze (address at index.android.bundle:1:1069254)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at InnerScreen (address at index.android.bundle:1:1066860)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:1068533)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ScreenStackItem (address at index.android.bundle:1:1078769)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at SceneView (address at index.android.bundle:1:1010181)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RNSScreenStack (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:1077747)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ScreenStack (address at index.android.bundle:1:1077028)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at FrameSizeProviderInner (address at index.android.bundle:1:1049011)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at FrameSizeProvider (address at index.android.bundle:1:1048932)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RNCSafeAreaProvider (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at SafeAreaProvider (address at index.android.bundle:1:1045488)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at SafeAreaProviderCompat (address at index.android.bundle:1:1062041)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NativeStackView (address at index.android.bundle:1:1008770)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at PreventRemoveProvider (address at index.android.bundle:1:951738)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NavigationStateListenerProvider (address at index.android.bundle:1:981322)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NavigationContent (address at index.android.bundle:1:968614)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:968517)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NativeStackNavigator (address at index.android.bundle:1:1007378)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ThemeProvider (address at index.android.bundle:1:919748)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at EnsureSingleNavigator (address at index.android.bundle:1:916522)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at BaseNavigationContainer (address at index.android.bundle:1:895360)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NavigationContainerInner (address at index.android.bundle:1:991296)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at ThemeProvider (address at index.android.bundle:1:838869)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at NotesProvider (address at index.android.bundle:1:851046)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at App (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at RCTView (<anonymous>)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at anonymous (address at index.android.bundle:1:453603)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime:     at AppContainer (address at index.android.bundle:1:452803), js engine: hermes, stack:
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: completeWork@1:314441
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: completeUnitOfWork@1:329876
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: performUnitOfWork@1:329171
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: workLoopSync@1:328168
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: renderRootSync@1:328000
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: performWorkOnRoot@1:325490
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: performSyncWorkOnRoot@1:278837
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: flushSyncWorkAcrossRoots_impl@1:277850
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: processRootScheduleInMicrotask@1:278194
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: anonymous@1:278936
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at com.facebook.react.modules.core.ExceptionsManagerModule.reportException(ExceptionsManagerModule.kt:52)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at com.facebook.jni.NativeRunnable.run(Native Method)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:942)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.kt:20)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at android.os.Looper.loopOnce(Looper.java:201)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:288)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.startNewBackgroundThread$lambda$1(MessageQueueThreadImpl.kt:175)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.$r8$lambda$ldnZnqelhYFctGaUKkOKYj5rxo4(Unknown Source:0)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+07-13 16:53:45.612 11147 11173 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1012)
+07-13 16:53:45.615 11147 11172 I ReactNativeJNI: instanceHandle is null, event of type topDetached will be dropped
+07-13 16:53:45.615   505  1930 W ActivityTaskManager:   Force finishing activity com.versenotes.app/.MainActivity
+07-13 16:53:45.616   505 11208 I DropBoxManagerService: add tag=data_app_crash isTagEnabled=true flags=0x2
+07-13 16:53:45.636 11147 11173 I Process : Sending signal. PID: 11147 SIG: 9
+07-13 16:53:45.636   505   539 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.stats.service.DropBoxEntryAddedReceiver
+07-13 16:53:45.636   505   539 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+07-13 16:53:45.637   505  1930 D CompatibilityChangeReporter: Compat change id reported: 168419799; UID 10111; state: DISABLED
+07-13 16:53:45.637   505  1930 D CompatibilityChangeReporter: Compat change id reported: 273564678; UID 10111; state: DISABLED
+07-13 16:53:45.641  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:45.641  1044  1371 D BtGatt.ScanManager: uid 10111 isForeground true scanMode -1
+07-13 16:53:45.649   505  3527 I ActivityManager: Process com.versenotes.app (pid 11147) has died: fg  TOP 
+07-13 16:53:45.649   505  3899 I WindowManager: WIN DEATH: Window{d94ad96 u0 com.versenotes.app/com.versenotes.app.MainActivity}
+07-13 16:53:45.649   505  3899 W InputManager-JNI: Input channel object 'd94ad96 com.versenotes.app/com.versenotes.app.MainActivity (client)' was disposed without first being removed with the input manager!
+07-13 16:53:45.650   505   541 I libprocessgroup: Successfully killed process cgroup uid 10174 pid 11147 in 0ms
+07-13 16:53:45.650   505  1910 D AutofillSession: handling death of Token{32885c2 ActivityRecord{70e3fd3 u0 com.versenotes.app/.MainActivity} t17 f}}} when saving=false
+07-13 16:53:45.650   505   527 D AutofillUI: destroySaveUiUiThread(): already destroyed
+07-13 16:53:45.652    43    43 I binder  : undelivered transaction 866284, process died.
+07-13 16:53:45.654   303   303 I Zygote  : Process 11147 exited due to signal 9 (Killed)
+07-13 16:53:45.660  1248 11045 D SettingsActivity: No enabled state changed, skipping updateCategory call
+07-13 16:53:45.661  1248  1248 W AppButtonsPrefCtl: App is not explicitly stopped
+07-13 16:53:45.664   505  3229 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+07-13 16:53:45.668   505   903 D TelephonyManager: requestModemActivityInfo: Sending result to app: ModemActivityInfo{ mTimestamp=1052572 mSleepTimeMs=0 mIdleTimeMs=1052554 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[0, 0, 0, 0, 0],mRxTimeMs=0}]}
+07-13 16:53:45.676  1248  1248 E ndroid.settings: Invalid ID 0x00000000.
+07-13 16:53:45.676  1248  1248 W LocaleConfig: The resource file pointed to by the given resource ID isn't found.
+07-13 16:53:45.676  1248  1248 I AppLocaleUtil: Can display preference - [com.versenotes.app] : isDisallowedPackage : false / isSignedWithPlatformKey : false / hasLauncherEntry : true / canDisplay : false
+07-13 16:53:45.685   505  3899 W PackageConfigPersister: App-specific configuration not found for packageName: com.versenotes.app and userId: 0
+07-13 16:53:45.686  1248  1248 W AppButtonsPrefCtl: App is not explicitly stopped
+07-13 16:53:45.688   302  6525 I netd    : tetherGetStats() -> {[]} <0.59ms>
+07-13 16:53:45.691   302  6525 I netd    : bandwidthRemoveInterfaceQuota(eth0) <0.64ms>
+07-13 16:53:45.692   302  6525 I netd    : bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.43ms>
+07-13 16:53:45.692  1248 11216 W TileUtils: Found com.google.android.gms.auth.proximity.multidevice.SettingsMaterialNextActivity for intent Intent { act=com.android.settings.action.IA_SETTINGS } missing metadata 
+07-13 16:53:45.694  1248  1248 D DashboardFragment: register observer: @a0c09a1, uri: content://com.google.android.apps.wellbeing.api/digitalWellbeingSummary
+07-13 16:53:45.696   302  6525 I netd    : tetherGetStats() -> {[]} <0.24ms>
+07-13 16:53:45.696   505  1931 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50174 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50172 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50171 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50170 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50169 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50167 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50164 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50163 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50161 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50159 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50158 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50141 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50138 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 50109 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10174 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10164 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10163 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10159 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10158 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10157 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10155 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10154 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10152 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10151 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10150 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10146 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10145 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10144 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10143 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10142 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10141 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10138 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10136 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10133 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10131 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10128 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10127 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10126 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10125 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10123 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10120 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10118 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10117 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10116 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10115 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10113 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10112 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10111 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10110 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10109 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10108 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10107 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10106 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10105 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10104 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10102 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10100 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10095 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10094 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10084 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10079 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10076 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10075 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10074 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10073 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10072 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 10070 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 9999 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 2000 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1092 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1073 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1072 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1069 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1068 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1067 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1066 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1058 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1053 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1047 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1046 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1041 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1040 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1036 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1027 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1021 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1020 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1019 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1017 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1013 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1010 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1003 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1002 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1001 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 1000 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.697   505  1220 W CpuPowerCalculator: UID 0 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.704   505   903 D TelephonyManager: requestModemActivityInfo: Sending result to app: ModemActivityInfo{ mTimestamp=1387021 mSleepTimeMs=0 mIdleTimeMs=1052589 mActivityStatsTechSpecificInfo=[{mRat=UNKNOWN,mFrequencyRange=UNKNOWN,mTxTimeMs[]=[0, 0, 0, 0, 0],mRxTimeMs=0}]}
+07-13 16:53:45.705   505  1931 E AppOps  : Bad call made by uid 1000. Package "com.versenotes.app" does not belong to uid -1.
+07-13 16:53:45.705   505  1931 E AppOps  : noteOperation
+07-13 16:53:45.705   505  1931 E AppOps  : java.lang.SecurityException: Specified package "com.versenotes.app" under uid -1 but it is not
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService.verifyAndGetBypass(AppOpsService.java:4700)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService.noteOperationUnchecked(AppOpsService.java:3455)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService.noteOperationImpl(AppOpsService.java:3443)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService.-$$Nest$mnoteOperationImpl(Unknown Source:0)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.lambda$noteOperation$4(AppOpsService.java:7676)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.$r8$lambda$oOwUoG55BBmJ6yiwhp3OAq3tQ30(Unknown Source:0)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher$$ExternalSyntheticLambda3.apply(Unknown Source:32)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.policy.AppOpsPolicy.noteOperation(AppOpsPolicy.java:225)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService$CheckOpsDelegateDispatcher.noteOperation(AppOpsService.java:7674)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.server.appop.AppOpsService.noteOperation(AppOpsService.java:3427)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at com.android.internal.app.IAppOpsService$Stub.onTransact(IAppOpsService.java:479)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at android.os.Binder.execTransactInternal(Binder.java:1280)
+07-13 16:53:45.705   505  1931 E AppOps  : 	at android.os.Binder.execTransact(Binder.java:1244)
+07-13 16:53:45.714  1248 11045 W TileUtils: Found com.google.android.gms.auth.proximity.multidevice.SettingsMaterialNextActivity for intent Intent { act=com.android.settings.action.IA_SETTINGS } missing metadata 
+07-13 16:53:45.716   302  6525 I netd    : tetherGetStats() -> {[]} <0.30ms>
+07-13 16:53:45.716   505   530 W WindowManager: Failed to deliver inset state change to w=Window{d94ad96 u0 com.versenotes.app/com.versenotes.app.MainActivity EXITING}
+07-13 16:53:45.716   505   530 W WindowManager: android.os.DeadObjectException
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:473)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:4023)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$4(InsetsStateController.java:351)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$An2IoiA3BeA5IWc6QwBOjKArM80(Unknown Source:0)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda3.run(Unknown Source:2)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:345)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.WindowAnimator.animate(WindowAnimator.java:226)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.WindowAnimator.lambda$new$1(WindowAnimator.java:106)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.WindowAnimator.$r8$lambda$fo2Nk5bb9hY3lvmHsTnTEwtZMbI(Unknown Source:0)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.wm.WindowAnimator$$ExternalSyntheticLambda1.doFrame(Unknown Source:2)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1229)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1239)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.view.Choreographer.doCallbacks(Choreographer.java:899)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.view.Choreographer.doFrame(Choreographer.java:827)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1214)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:942)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:201)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.Looper.loop(Looper.java:288)
+07-13 16:53:45.716   505   530 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+07-13 16:53:45.716   505   530 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:44)
+07-13 16:53:45.716  1248  1338 E OpenGLRenderer: Unable to match the desired swap behavior.
+07-13 16:53:45.719   302  6525 I netd    : bandwidthRemoveInterfaceQuota(eth0) <0.33ms>
+07-13 16:53:45.719   302  6525 I netd    : bandwidthSetInterfaceQuota(eth0, 9223372036854775807) <0.49ms>
+07-13 16:53:45.724  1248  1338 E OpenGLRenderer: Unable to match the desired swap behavior.
+07-13 16:53:45.729   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7aa90
+07-13 16:53:45.729   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e776d0
+07-13 16:53:45.730   505   530 W WindowManager: Exception thrown during dispatchAppVisibility Window{d94ad96 u0 com.versenotes.app/com.versenotes.app.MainActivity EXITING}
+07-13 16:53:45.730   505   530 W WindowManager: android.os.DeadObjectException
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:536)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3478)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1234)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:392)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6825)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.ActivityRecord.onAnimationFinished(ActivityRecord.java:7647)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5508)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5468)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5472)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.AppTransitionController.handleClosingApps(AppTransitionController.java:1194)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.AppTransitionController.handleAppTransitionReady(AppTransitionController.java:304)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.RootWindowContainer.checkAppTransitionReady(RootWindowContainer.java:970)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacementNoTrace(RootWindowContainer.java:834)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.RootWindowContainer.performSurfacePlacement(RootWindowContainer.java:777)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacementLoop(WindowSurfacePlacer.java:177)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:126)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer.performSurfacePlacement(WindowSurfacePlacer.java:115)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.wm.WindowSurfacePlacer$Traverser.run(WindowSurfacePlacer.java:57)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:942)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:201)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.Looper.loop(Looper.java:288)
+07-13 16:53:45.730   505   530 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+07-13 16:53:45.730   505   530 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:44)
+07-13 16:53:45.730   505   530 I Process : Sending signal. PID: 11147 SIG: 9
+07-13 16:53:45.736   505   529 W ActivityManager: setHasOverlayUi called on unknown pid: 11147
+07-13 16:53:45.736  1248  1248 D AppInfoDashboard: Package change irrelevant, skipping
+07-13 16:53:45.737  1248  1496 D ContextualSuggestFrag: Start loading suggestions
+07-13 16:53:45.737  1248  3792 D ContextualSuggestFrag: Start loading suggestions
+07-13 16:53:45.738   302  6525 I netd    : tetherGetStats() -> {[]} <0.16ms>
+07-13 16:53:45.739  5667  9286 W MetricsFeatureProvider: Invalid suggestion ids!!! ids is null or empty. Please check. 
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50174 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50172 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50171 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50170 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50169 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50167 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50164 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50163 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50161 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50159 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50158 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50141 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50138 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 50109 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10174 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10164 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10163 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10159 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10158 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10157 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10155 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10154 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10152 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10151 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10150 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10146 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10145 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10144 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10143 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10142 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10141 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10138 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10136 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10133 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10131 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10128 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10127 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10126 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10125 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10123 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10120 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10118 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10117 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10116 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10115 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10113 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10112 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10111 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10110 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10109 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10108 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10107 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10106 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10105 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10104 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10102 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10100 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10095 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10094 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10084 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10079 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10076 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10075 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10074 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10073 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10072 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 10070 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 9999 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 2000 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1092 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1073 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1072 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1069 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1068 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1067 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1066 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1058 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1053 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1047 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1046 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1041 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1040 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1036 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1027 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1021 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1020 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1019 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1017 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1013 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1010 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1003 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1002 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1001 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 1000 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.739   505  1150 W CpuPowerCalculator: UID 0 CPU freq # mismatch: Power Profile # 2 actual # 8
+07-13 16:53:45.740  1248  3792 D ContextualSuggestFrag: Loaded suggests: 0
+07-13 16:53:45.740  1248 11217 D BatteryInfo: time for getStats: 0ms
+07-13 16:53:45.742  1248 11217 D BatteryInfo: time for regular BatteryInfo: 2ms
+07-13 16:53:45.742  1248 11217 D BatteryInfo: time for getBatteryInfo: 0ms
+07-13 16:53:45.742  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.743  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.743  5667  5681 W MetricsFeatureProvider: Invalid suggestion ids!!! ids is null or empty. Please check. 
+07-13 16:53:45.743  1248  1496 D ContextualSuggestFrag: Loaded suggests: 0
+07-13 16:53:45.745   344   344 E ClientCache: failed to get buffer, invalid process token
+07-13 16:53:45.745   344   344 E BpTransactionCompletedListener: Failed to transact (-32)
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isFlagEnabled = true
+07-13 16:53:45.746  1248  1248 D ActivityEmbeddingUtils: isSplitSupported = true
+07-13 16:53:45.746  1248  1248 D TopLevelSettings: Start waiting observers
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7fe30
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7edb0
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e772b0
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7a370
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7bc90
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e7fe30
+07-13 16:53:45.747   344   384 W TransactionTracing: Could not find layer handle 0xb400007a05e772b0
+07-13 16:53:45.750   833   896 D EGL_emulation: app_time_stats: avg=877.87ms min=14.11ms max=7767.04ms count=9
+07-13 16:53:45.751  1248  1248 D TopLevelSettings: Stop waiting observers
+07-13 16:53:45.752  1248  1248 D AppInfoDashboard: Package change irrelevant, skipping
+07-13 16:53:45.752  1248  1248 D ContextualSuggestFrag: Remove suggestion
+07-13 16:53:45.752  1248  1248 D ContextualSuggestFrag: Total loading time: 16 ms
+07-13 16:53:45.752  1248  1248 D AppInfoDashboard: Package change irrelevant, skipping
+07-13 16:53:45.752  1248  1248 D BatteryInfo: time for callback: 0ms
+07-13 16:53:45.757  1248  1248 D ContextualSuggestFrag: Remove suggestion
+07-13 16:53:45.757  1248  1248 D ContextualSuggestFrag: Total loading time: 20 ms
+07-13 16:53:45.759  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():3227 
+07-13 16:53:45.759  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 0, unlocked = true
+07-13 16:53:45.759  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.android.settings fieldId=-1 fieldName=null extras=null}, false)
+07-13 16:53:45.759  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.shouldHideHeaderOnInitialState():4008 ShouldHideHeaderOnInitialState = false
+07-13 16:53:45.760  1576  1576 I GoogleInputMethodService: GoogleInputMethodService.updateDeviceLockedStatus():2087 repeatCheckTimes = 2, unlocked = true
+07-13 16:53:45.764   302  6525 I netd    : tetherGetStats() -> {[]} <0.29ms>
+07-13 16:53:45.767   505   832 D NetworkStatsObservers: Unregistering RequestInfo from pid/uid:505/1000(android) for DataUsageRequest [ requestId=17, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=3364853 ] accessLevel:3
+07-13 16:53:45.767   505   759 D NetworkStatsObservers: Registering observer for RequestInfo from pid/uid:505/1000(android) for DataUsageRequest [ requestId=18, networkTemplate=NetworkTemplate: matchRule=MOBILE, matchSubscriberIds=[310260...], matchWifiNetworkKeys=[], metered=YES, defaultNetwork=NO, thresholdInBytes=3361109 ] accessLevel:3
+07-13 16:53:45.775   302  6525 I netd    : tetherGetStats() -> {[]} <0.21ms>
+07-13 16:53:45.790  1248  1248 D AppInfoDashboard: Package change irrelevant, skipping
+07-13 16:53:47.327  1248  1338 D EGL_emulation: app_time_stats: avg=178.51ms min=12.68ms max=1462.08ms count=9
+07-13 16:53:47.330  1248  1338 D EGL_emulation: app_time_stats: avg=160.22ms min=9.05ms max=1465.65ms count=10
+07-13 16:53:47.531 11071 11071 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:00.004  1727  2148 I AiAiEcho: Predicting[0]: 
+07-13 16:54:00.004  1727  2148 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+07-13 16:54:00.005  1727  2148 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+07-13 16:54:00.005  1727  2148 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+07-13 16:54:00.042   833   896 D EGL_emulation: app_time_stats: avg=1587.99ms min=13.63ms max=14162.39ms count=9
+07-13 16:54:02.507 11071 11071 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:02.507 11071 11071 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:05.211   833   896 D EGL_emulation: app_time_stats: avg=5169.18ms min=5169.18ms max=5169.18ms count=1
+07-13 16:54:17.575 11071 11071 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:28.962 11071 11114 I GMS_MM_Logger: Memory Metric Logging not allowed. Stopping.
+07-13 16:54:32.519 11071 11071 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:32.519 11071 11071 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:45.732   505  3229 W BatteryExternalStatsWorker: error reading Bluetooth stats: 11
+07-13 16:54:47.582 11071 11071 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:54:53.717   326   326 E android.hardware.power.stats@1.0-service-mock: Failed to getEnergyData
+07-13 16:54:53.914   505  3229 D WifiNl80211Manager: Scan result ready event
+07-13 16:54:53.914   505  3229 D WifiNative: Scan result ready event
+07-13 16:55:00.007  1727  2148 I AiAiEcho: Predicting[0]: 
+07-13 16:55:00.007  1727  2148 I AiAiEcho: Ranked targets strategy: SORT, count: 0, ranking metadata: 
+07-13 16:55:00.008  1727  2148 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface lockscreen with targets# 0
+07-13 16:55:00.008  1727  2148 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0
+07-13 16:55:00.052   833   896 D EGL_emulation: app_time_stats: avg=54840.76ms min=54840.76ms max=54840.76ms count=1
+07-13 16:55:02.522 11071 11071 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:55:02.522 11071 11071 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
+07-13 16:55:17.586 11071 11071 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.safetynet.service.START pkg=com.google.android.gms }
