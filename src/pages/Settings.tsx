@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Switch,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Switch, Alert } from 'react-native';
 import { User, UserSettings } from '../entities/User';
 import { useThemeContext, useColorSchemeFromContext } from '../theme';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { useNotes } from '../context/NotesProvider';
+import ButterButton from '../components/common/ButterButton';
 
 interface SettingsProps {
   navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -96,13 +88,21 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     setIsExporting(false);
   };
 
+  const handleNavigateToBibleStudy = () => {
+    if (navigation?.navigate) {
+      navigation.navigate('BibleStudy');
+    } else {
+      Alert.alert('Info', 'Navigation not available in this context');
+    }
+  };
+
   const renderSettingRow = (
     title: string,
     subtitle: string,
     value: boolean,
     onValueChange: (value: boolean) => void,
   ) => (
-    <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
+    <View style={[styles.settingRow, { borderBottomColor: theme.colors.border }]}>
       <View style={styles.settingInfo}>
         <Text style={[styles.settingTitle, { color: theme.colors.text }]}>{title}</Text>
         <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
@@ -113,8 +113,70 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         value={value}
         onValueChange={onValueChange}
         trackColor={{ false: theme.colors.disabled, true: theme.colors.accentBackground }}
-        thumbColor={value ? theme.colors.warning : theme.colors.backgroundTertiary}
+        thumbColor={value ? theme.colors.accent : theme.colors.surface}
+        style={styles.switch}
       />
+    </View>
+  );
+
+  const renderActionRow = (
+    title: string,
+    subtitle: string,
+    buttonTitle: string,
+    onPress: () => void,
+    loading?: boolean,
+    variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'ghost',
+  ) => (
+    <View style={[styles.settingRow, { borderBottomColor: theme.colors.border }]}>
+      <View style={styles.settingInfo}>
+        <Text style={[styles.settingTitle, { color: theme.colors.text }]}>{title}</Text>
+        <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+          {subtitle}
+        </Text>
+      </View>
+      <ButterButton
+        title={buttonTitle}
+        onPress={onPress}
+        variant={variant || 'primary'}
+        size="small"
+        loading={loading}
+        disabled={loading}
+        style={styles.actionButton}
+      />
+    </View>
+  );
+
+  const renderThemeSelector = () => (
+    <View style={styles.themeSelector}>
+      <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Theme Preference</Text>
+      <Text
+        style={[styles.settingSubtitle, { color: theme.colors.textSecondary, marginBottom: 12 }]}
+      >
+        Currently: {scheme.preference.charAt(0).toUpperCase() + scheme.preference.slice(1)}
+      </Text>
+      <View style={styles.themeOptions}>
+        <ButterButton
+          title="Light"
+          onPress={() => scheme.setColorSchemePreference('light')}
+          variant={scheme.preference === 'light' ? 'primary' : 'secondary'}
+          size="small"
+          style={styles.themeButton}
+        />
+        <ButterButton
+          title="Dark"
+          onPress={() => scheme.setColorSchemePreference('dark')}
+          variant={scheme.preference === 'dark' ? 'primary' : 'secondary'}
+          size="small"
+          style={styles.themeButton}
+        />
+        <ButterButton
+          title="System"
+          onPress={() => scheme.setColorSchemePreference('auto')}
+          variant={scheme.preference === 'auto' ? 'primary' : 'secondary'}
+          size="small"
+          style={styles.themeButton}
+        />
+      </View>
     </View>
   );
 
@@ -123,146 +185,173 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       flex: 1,
     },
     header: {
-      padding: 20,
+      padding: 24,
       borderBottomWidth: 1,
+      ...theme.elevation.low,
+    },
+    headerContent: {
+      alignItems: 'center',
     },
     title: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 5,
+      fontSize: 32,
+      fontWeight: '700',
+      marginBottom: 8,
+      letterSpacing: -0.5,
     },
     subtitle: {
       fontSize: 16,
+      textAlign: 'center',
+      opacity: 0.8,
     },
     section: {
-      marginTop: 20,
+      marginTop: 24,
       paddingHorizontal: 20,
     },
     sectionTitle: {
-      fontSize: 18,
+      fontSize: 20,
       fontWeight: '600',
-      marginBottom: 10,
+      marginBottom: 16,
+      letterSpacing: -0.3,
     },
     card: {
-      borderRadius: 10,
-      padding: 15,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
+      borderRadius: 16,
+      padding: 0,
+      marginBottom: 16,
+      borderWidth: 1,
+      overflow: 'hidden',
+      ...theme.elevation.low,
     },
     settingRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      paddingVertical: 15,
+      paddingVertical: 16,
+      paddingHorizontal: 20,
       borderBottomWidth: 1,
     },
     settingInfo: {
       flex: 1,
+      marginRight: 16,
     },
     settingTitle: {
       fontSize: 16,
-      fontWeight: '500',
-      marginBottom: 2,
+      fontWeight: '600',
+      marginBottom: 4,
+      letterSpacing: -0.2,
     },
     settingSubtitle: {
       fontSize: 14,
+      lineHeight: 18,
     },
-    button: {
-      paddingHorizontal: 15,
-      paddingVertical: 8,
-      borderRadius: 5,
+    switch: {
+      transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }],
     },
-    buttonText: {
-      fontSize: 14,
-      fontWeight: '500',
+    actionButton: {
+      minWidth: 80,
     },
-    buttonDisabled: {
-      // backgroundColor handled by theme in JSX
+    themeSelector: {
+      padding: 20,
+    },
+    themeOptions: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      gap: 12,
+    },
+    themeButton: {
+      flex: 1,
     },
     footer: {
       padding: 20,
-      marginTop: 20,
+      marginTop: 24,
+      marginBottom: 40,
     },
     saveButton: {
-      paddingVertical: 15,
-      borderRadius: 10,
+      marginBottom: 16,
+    },
+    backButton: {
+      marginTop: 8,
+    },
+    statsCard: {
+      padding: 20,
       alignItems: 'center',
     },
-    saveButtonText: {
-      fontSize: 16,
+    statsTitle: {
+      fontSize: 18,
       fontWeight: '600',
+      marginBottom: 8,
     },
-    themePicker: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      padding: 10,
+    statsValue: {
+      fontSize: 32,
+      fontWeight: '700',
+      marginBottom: 4,
     },
-    themeButton: {
-      padding: 10,
-      borderRadius: 5,
-    },
-    themeButtonSelected: {
-      backgroundColor: theme.colors.accentBackground,
-    },
-    themeButtonText: {
+    statsLabel: {
       fontSize: 14,
+      opacity: 0.8,
     },
   });
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.colors.backgroundSecondary }]}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View
         style={[
           styles.header,
           { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
         ]}
       >
-        <Text style={[styles.title, { color: theme.colors.text }]}>Settings</Text>
-        <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-          Customize your Bible study experience
-        </Text>
+        <View style={styles.headerContent}>
+          <Text style={[styles.title, { color: theme.colors.text }]}>Settings</Text>
+          <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
+            Customize your Bible study experience
+          </Text>
+        </View>
+      </View>
+
+      {/* Study Statistics */}
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Study Statistics</Text>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
+          ]}
+        >
+          <View style={styles.statsCard}>
+            <Text style={[styles.statsTitle, { color: theme.colors.text }]}>Total Notes</Text>
+            <Text style={[styles.statsValue, { color: theme.colors.accent }]}>{notes.length}</Text>
+            <Text style={[styles.statsLabel, { color: theme.colors.textSecondary }]}>
+              {notes.length === 1 ? 'study note' : 'study notes'}
+            </Text>
+          </View>
+        </View>
       </View>
 
       {/* Bible Settings */}
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Bible Settings</Text>
-
         <View
           style={[
             styles.card,
-            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+            { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
           ]}
         >
-          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
-            <View style={styles.settingInfo}>
-              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
-                Default Translation
-              </Text>
-              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                Currently: {settings.default_translation}
-              </Text>
-            </View>
-            <TouchableOpacity style={[styles.button, { backgroundColor: theme.colors.accent }]}>
-              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Change</Text>
-            </TouchableOpacity>
-          </View>
+          {renderActionRow(
+            'Default Translation',
+            `Currently: ${settings.default_translation}`,
+            'Change',
+            () => Alert.alert('Info', 'Translation selection coming soon!'),
+            false,
+            'secondary',
+          )}
 
-          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
-            <View style={styles.settingInfo}>
-              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Font Size</Text>
-              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                Currently: {settings.font_size}
-              </Text>
-            </View>
-            <TouchableOpacity style={[styles.button, { backgroundColor: theme.colors.accent }]}>
-              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Change</Text>
-            </TouchableOpacity>
-          </View>
+          {renderActionRow(
+            'Font Size',
+            `Currently: ${settings.font_size}`,
+            'Change',
+            () => Alert.alert('Info', 'Font size selection coming soon!'),
+            false,
+            'secondary',
+          )}
 
           {renderSettingRow(
             'Show Verse Numbers',
@@ -271,67 +360,36 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             (value) => handleSettingChange('verse_numbers', value),
           )}
 
-          {renderSettingRow(
-            'Paragraph Breaks',
-            'Show paragraph formatting',
-            settings.paragraph_breaks,
-            (value) => handleSettingChange('paragraph_breaks', value),
-          )}
+          <View style={[styles.settingRow, { borderBottomWidth: 0 }]}>
+            <View style={styles.settingInfo}>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
+                Paragraph Breaks
+              </Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Show paragraph formatting
+              </Text>
+            </View>
+            <Switch
+              value={settings.paragraph_breaks}
+              onValueChange={(value) => handleSettingChange('paragraph_breaks', value)}
+              trackColor={{ false: theme.colors.disabled, true: theme.colors.accentBackground }}
+              thumbColor={settings.paragraph_breaks ? theme.colors.accent : theme.colors.surface}
+              style={styles.switch}
+            />
+          </View>
         </View>
       </View>
 
       {/* App Settings */}
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>App Settings</Text>
-
         <View
           style={[
             styles.card,
-            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+            { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
           ]}
         >
-          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
-            <View style={styles.settingInfo}>
-              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
-                Theme Preference
-              </Text>
-              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                Currently: {scheme.preference.charAt(0).toUpperCase() + scheme.preference.slice(1)}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.themePicker}>
-            <TouchableOpacity
-              style={[
-                styles.themeButton,
-                scheme.preference === 'light' && styles.themeButtonSelected,
-                { backgroundColor: theme.colors.surface },
-              ]}
-              onPress={() => scheme.setColorSchemePreference('light')}
-            >
-              <Text style={[styles.themeButtonText, { color: theme.colors.text }]}>Light</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.themeButton,
-                scheme.preference === 'dark' && styles.themeButtonSelected,
-                { backgroundColor: theme.colors.surface },
-              ]}
-              onPress={() => scheme.setColorSchemePreference('dark')}
-            >
-              <Text style={[styles.themeButtonText, { color: theme.colors.text }]}>Dark</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[
-                styles.themeButton,
-                scheme.preference === 'auto' && styles.themeButtonSelected,
-                { backgroundColor: theme.colors.surface },
-              ]}
-              onPress={() => scheme.setColorSchemePreference('auto')}
-            >
-              <Text style={[styles.themeButtonText, { color: theme.colors.text }]}>System</Text>
-            </TouchableOpacity>
-          </View>
+          {renderThemeSelector()}
 
           {renderSettingRow(
             'Auto-save Notes',
@@ -340,44 +398,48 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             (value) => handleSettingChange('auto_save', value),
           )}
 
-          {renderSettingRow(
-            'Notifications',
-            'Daily reading reminders',
-            settings.notifications,
-            (value) => handleSettingChange('notifications', value),
-          )}
+          <View style={[styles.settingRow, { borderBottomWidth: 0 }]}>
+            <View style={styles.settingInfo}>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Notifications</Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Daily reading reminders
+              </Text>
+            </View>
+            <Switch
+              value={settings.notifications}
+              onValueChange={(value) => handleSettingChange('notifications', value)}
+              trackColor={{ false: theme.colors.disabled, true: theme.colors.accentBackground }}
+              thumbColor={settings.notifications ? theme.colors.accent : theme.colors.surface}
+              style={styles.switch}
+            />
+          </View>
         </View>
       </View>
 
       {/* Navigation */}
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Navigation</Text>
-
         <View
           style={[
             styles.card,
-            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+            { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
           ]}
         >
-          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
+          <View style={[styles.settingRow, { borderBottomWidth: 0 }]}>
             <View style={styles.settingInfo}>
               <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Bible Study</Text>
               <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                Go to main Bible study interface
+                Return to main study interface
               </Text>
             </View>
-            <TouchableOpacity
-              style={[styles.button, { backgroundColor: theme.colors.accent }]}
-              onPress={() => {
-                if (navigation?.navigate) {
-                  navigation.navigate('BibleStudy');
-                } else {
-                  Alert.alert('Info', 'Navigation not available in this context');
-                }
-              }}
-            >
-              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Go</Text>
-            </TouchableOpacity>
+            <ButterButton
+              title="Go"
+              onPress={handleNavigateToBibleStudy}
+              variant="accent"
+              size="small"
+              icon="📖"
+              style={styles.actionButton}
+            />
           </View>
         </View>
       </View>
@@ -385,58 +447,53 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       {/* Data Management */}
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Data Management</Text>
-
         <View
           style={[
             styles.card,
-            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+            { backgroundColor: theme.colors.surface, borderColor: theme.colors.border },
           ]}
         >
-          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
+          <View style={[styles.settingRow, { borderBottomWidth: 0 }]}>
             <View style={styles.settingInfo}>
               <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Export Notes</Text>
               <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                Export all notes to markdown
+                Export all {notes.length} notes to JSON
               </Text>
             </View>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                { backgroundColor: theme.colors.accent },
-                isExporting && [styles.buttonDisabled, { backgroundColor: theme.colors.disabled }],
-              ]}
+            <ButterButton
+              title="Export"
               onPress={handleExportNotes}
+              variant="secondary"
+              size="small"
+              loading={isExporting}
               disabled={isExporting}
-            >
-              {isExporting ? (
-                <ActivityIndicator size="small" color={theme.colors.textInverse} />
-              ) : (
-                <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Export</Text>
-              )}
-            </TouchableOpacity>
+              icon="📤"
+              style={styles.actionButton}
+            />
           </View>
         </View>
       </View>
 
       {/* Save Button */}
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={[
-            styles.saveButton,
-            { backgroundColor: theme.colors.success },
-            isSaving && [styles.buttonDisabled, { backgroundColor: theme.colors.disabled }],
-          ]}
+        <ButterButton
+          title="Save All Settings"
           onPress={handleSaveSettings}
+          variant="success"
+          size="large"
+          loading={isSaving}
           disabled={isSaving}
-        >
-          {isSaving ? (
-            <ActivityIndicator size="small" color={theme.colors.textInverse} />
-          ) : (
-            <Text style={[styles.saveButtonText, { color: theme.colors.textInverse }]}>
-              Save All Settings
-            </Text>
-          )}
-        </TouchableOpacity>
+          fullWidth
+          style={styles.saveButton}
+        />
+        <ButterButton
+          title="Back to Bible Study"
+          onPress={handleNavigateToBibleStudy}
+          variant="ghost"
+          size="medium"
+          fullWidth
+          style={styles.backButton}
+        />
       </View>
     </ScrollView>
   );
