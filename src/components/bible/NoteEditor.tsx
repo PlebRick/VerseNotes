@@ -259,7 +259,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         <ButterButton
           title="Save"
           onPress={handleSave}
-          variant="primary"
+          variant="darkGray"
           size="medium"
           loading={isSaving}
           disabled={isSaving}
