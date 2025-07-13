@@ -33,7 +33,7 @@ export class User {
         name: 'User',
         email: '',
         settings: {
-          default_translation: 'ESV',
+          default_translation: 'WEB',
           font_size: 'medium',
           theme: 'light',
           auto_save: true,

@@ -17,7 +17,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_unusedUserVar, setUser] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [settings, setSettings] = useState<UserSettings>({
-    default_translation: 'ESV',
+    default_translation: 'WEB',
     font_size: 'medium',
     theme: 'light',
     auto_save: true,
@@ -337,7 +337,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         >
           {renderActionRow(
             'Default Translation',
-            `Currently: ${settings.default_translation}`,
+            'Currently: WEB',
             'Change',
             () => Alert.alert('Info', 'Translation selection coming soon!'),
             false,

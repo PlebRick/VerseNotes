@@ -13,7 +13,7 @@ describe('User', () => {
   describe('saveSettings', () => {
     it('should save settings successfully', async () => {
       const testSettings = {
-        default_translation: 'ESV',
+        default_translation: 'WEB',
         font_size: 'large',
         theme: 'dark',
         auto_save: true,
