@@ -132,7 +132,8 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
             accessibilityLabel="Settings"
             accessibilityRole="button"
           >
-            <Text style={[styles.settingsIcon, { color: theme.colors.text }]}>⚙️</Text>
+            <Text style={[styles.settingsIcon, { color: theme.colors.text }]}>⚙</Text>
+            <Text style={[styles.settingsText, { color: theme.colors.text }]}>Settings</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -256,14 +257,19 @@ const styles = StyleSheet.create({
     marginTop: -2,
   },
   settingsButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    justifyContent: 'center',
+    flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
   },
   settingsIcon: {
-    fontSize: 20,
+    fontSize: 18,
+    marginRight: 6,
+  },
+  settingsText: {
+    fontSize: 16,
+    fontWeight: '500',
   },
   searchContainer: {
     paddingHorizontal: 20,
