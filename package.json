@@ -1,6 +1,6 @@
 {
   "name": "versenotes",
-  "version": "0.2.0-ux",
+  "version": "0.2.1",
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
