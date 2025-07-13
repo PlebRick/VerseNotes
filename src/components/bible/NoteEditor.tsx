@@ -228,7 +228,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
     },
     richEditorContainer: {
       borderWidth: 1,
-      borderColor: theme.colors.border,
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
       minHeight: 200,
@@ -273,13 +272,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
             style={[
               styles.verseReference,
               {
-                backgroundColor: theme.colors.accentBackgroundSecondary,
-                borderColor: theme.colors.accent,
+                backgroundColor: theme.colors.backgroundSecondary,
+                borderColor: theme.colors.buttonDarkGray,
               },
             ]}
           >
-            <Text style={[styles.verseIcon, { color: theme.colors.accent }]}>📖</Text>
-            <Text style={[styles.verseReferenceText, { color: theme.colors.accent }]}>
+            <Text style={[styles.verseIcon, { color: theme.colors.text }]}>📖</Text>
+            <Text style={[styles.verseReferenceText, { color: theme.colors.text }]}>
               {verseReference}
             </Text>
           </View>
@@ -291,7 +290,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
             style={[
               styles.titleInput,
               {
-                borderColor: theme.colors.border,
+                borderColor: theme.colors.buttonDarkGray,
                 color: theme.colors.text,
                 backgroundColor: theme.colors.backgroundSecondary,
               },
@@ -311,7 +310,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
             style={[
               styles.tagsInput,
               {
-                borderColor: theme.colors.border,
+                borderColor: theme.colors.buttonDarkGray,
                 color: theme.colors.text,
                 backgroundColor: theme.colors.backgroundSecondary,
               },
@@ -331,7 +330,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
               style={[
                 styles.verseInput,
                 {
-                  borderColor: theme.colors.border,
+                  borderColor: theme.colors.buttonDarkGray,
                   color: theme.colors.text,
                   backgroundColor: theme.colors.backgroundSecondary,
                 },
@@ -347,7 +346,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
               style={[
                 styles.verseInput,
                 {
-                  borderColor: theme.colors.border,
+                  borderColor: theme.colors.buttonDarkGray,
                   color: theme.colors.text,
                   backgroundColor: theme.colors.backgroundSecondary,
                 },
@@ -369,7 +368,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
               style={[
                 styles.contentInput,
                 {
-                  borderColor: theme.colors.border,
+                  borderColor: theme.colors.buttonDarkGray,
                   color: theme.colors.text,
                   backgroundColor: theme.colors.backgroundSecondary,
                 },
@@ -397,7 +396,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
                 ]}
                 style={[styles.richToolbar, { backgroundColor: theme.colors.surface }]}
               />
-              <ScrollView style={styles.richEditorContainer}>
+              <ScrollView style={[styles.richEditorContainer, { borderColor: theme.colors.buttonDarkGray }]}>
                 <RichEditor
                   initialContentHTML={content}
                   onChange={setContent}
