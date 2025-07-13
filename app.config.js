@@ -18,29 +18,25 @@ export default {
       supportsTablet: true
     },
     android: {
+      package: "com.versenotes.app",
+      versionCode: 1,
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
       },
-      edgeToEdgeEnabled: true,
-      compileSdkVersion: 34,
-      targetSdkVersion: 34,
-      minSdkVersion: 33,
-      supportsTablet: true,
-      screenOrientation: "default",
       permissions: [
         "android.permission.INTERNET",
-        "android.permission.ACCESS_NETWORK_STATE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.READ_EXTERNAL_STORAGE"
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
       ]
     },
     web: {
       favicon: "./assets/favicon.png"
     },
-    extra: {
-      // Note: No API key required for bible-api.com (WEB translation)
-      bibleApiUrl: 'https://bible-api.com',
-    },
-  },
+    plugins: [
+      "expo-document-picker",
+      "expo-file-system",
+      "expo-sharing"
+    ]
+  }
 }; 
