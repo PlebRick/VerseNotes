@@ -179,6 +179,46 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
     inputGroup: {
       marginBottom: 20,
     },
+    contentGroup: {
+      flex: 1,
+      marginBottom: 20,
+    },
+    topRowContainer: {
+      flexDirection: 'row',
+      marginBottom: 20,
+      gap: 16,
+    },
+    titleColumn: {
+      flex: 2,
+    },
+    verseRangeColumn: {
+      flex: 1,
+    },
+    tagsColumn: {
+      flex: 1.5,
+    },
+    titleInputCompact: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      fontSize: 16,
+    },
+    tagsInputCompact: {
+      borderWidth: 1,
+      borderRadius: 8,
+      paddingHorizontal: 12,
+      paddingVertical: 12,
+      fontSize: 16,
+    },
+    verseInputCompact: {
+      flex: 1,
+      borderWidth: 1,
+      borderRadius: 8,
+      padding: 12,
+      marginHorizontal: 2,
+      fontSize: 16,
+    },
     label: {
       fontSize: 16,
       fontWeight: '600',
@@ -204,7 +244,8 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       paddingHorizontal: 12,
       paddingVertical: 12,
       fontSize: 16,
-      minHeight: 200,
+      minHeight: 300,
+      flex: 1,
     },
     verseRangeContainer: {
       flexDirection: 'row',
@@ -230,7 +271,8 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       borderWidth: 1,
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
-      minHeight: 200,
+      minHeight: 300,
+      flex: 1,
     },
     richEditor: {
       padding: 12,
@@ -284,83 +326,86 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
           </View>
         )}
 
-        <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: theme.colors.text }]}>Title</Text>
-          <TextInput
-            style={[
-              styles.titleInput,
-              {
-                borderColor: theme.colors.buttonDarkGray,
-                color: theme.colors.text,
-                backgroundColor: theme.colors.backgroundSecondary,
-              },
-            ]}
-            value={title}
-            onChangeText={setTitle}
-            placeholder="Enter note title"
-            placeholderTextColor={theme.colors.textPlaceholder}
-            multiline={false}
-            maxLength={100}
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: theme.colors.text }]}>Tags (comma separated)</Text>
-          <TextInput
-            style={[
-              styles.tagsInput,
-              {
-                borderColor: theme.colors.buttonDarkGray,
-                color: theme.colors.text,
-                backgroundColor: theme.colors.backgroundSecondary,
-              },
-            ]}
-            value={tags}
-            onChangeText={setTags}
-            placeholder="study, devotion, prayer"
-            placeholderTextColor={theme.colors.textPlaceholder}
-            multiline={false}
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={[styles.label, { color: theme.colors.text }]}>Verse Range (optional)</Text>
-          <View style={styles.verseRangeContainer}>
+        {/* Horizontal row with Title, Verse Range, and Tags */}
+        <View style={styles.topRowContainer}>
+          <View style={styles.titleColumn}>
+            <Text style={[styles.label, { color: theme.colors.text }]}>Title</Text>
             <TextInput
               style={[
-                styles.verseInput,
+                styles.titleInputCompact,
                 {
                   borderColor: theme.colors.buttonDarkGray,
                   color: theme.colors.text,
                   backgroundColor: theme.colors.backgroundSecondary,
                 },
               ]}
-              value={startVerse}
-              onChangeText={setStartVerse}
-              placeholder="Start verse"
+              value={title}
+              onChangeText={setTitle}
+              placeholder="Enter note title"
               placeholderTextColor={theme.colors.textPlaceholder}
-              keyboardType="number-pad"
+              multiline={false}
+              maxLength={100}
             />
-            <Text style={[styles.verseRangeDash, { color: theme.colors.textSecondary }]}>-</Text>
+          </View>
+
+          <View style={styles.verseRangeColumn}>
+            <Text style={[styles.label, { color: theme.colors.text }]}>Verse Range</Text>
+            <View style={styles.verseRangeContainer}>
+              <TextInput
+                style={[
+                  styles.verseInputCompact,
+                  {
+                    borderColor: theme.colors.buttonDarkGray,
+                    color: theme.colors.text,
+                    backgroundColor: theme.colors.backgroundSecondary,
+                  },
+                ]}
+                value={startVerse}
+                onChangeText={setStartVerse}
+                placeholder="1"
+                placeholderTextColor={theme.colors.textPlaceholder}
+                keyboardType="number-pad"
+              />
+              <Text style={[styles.verseRangeDash, { color: theme.colors.textSecondary }]}>-</Text>
+              <TextInput
+                style={[
+                  styles.verseInputCompact,
+                  {
+                    borderColor: theme.colors.buttonDarkGray,
+                    color: theme.colors.text,
+                    backgroundColor: theme.colors.backgroundSecondary,
+                  },
+                ]}
+                value={endVerse}
+                onChangeText={setEndVerse}
+                placeholder="7"
+                placeholderTextColor={theme.colors.textPlaceholder}
+                keyboardType="number-pad"
+              />
+            </View>
+          </View>
+
+          <View style={styles.tagsColumn}>
+            <Text style={[styles.label, { color: theme.colors.text }]}>Tags</Text>
             <TextInput
               style={[
-                styles.verseInput,
+                styles.tagsInputCompact,
                 {
                   borderColor: theme.colors.buttonDarkGray,
                   color: theme.colors.text,
                   backgroundColor: theme.colors.backgroundSecondary,
                 },
               ]}
-              value={endVerse}
-              onChangeText={setEndVerse}
-              placeholder="End verse"
+              value={tags}
+              onChangeText={setTags}
+              placeholder="study, devotion"
               placeholderTextColor={theme.colors.textPlaceholder}
-              keyboardType="number-pad"
+              multiline={false}
             />
           </View>
         </View>
 
-        <View style={styles.inputGroup}>
+        <View style={styles.contentGroup}>
           <Text style={[styles.label, { color: theme.colors.text }]}>Content</Text>
           {Platform.OS === 'web' ? (
             // Web fallback: Use regular TextInput
