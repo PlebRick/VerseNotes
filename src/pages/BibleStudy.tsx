@@ -48,10 +48,9 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
           setPassage(savedPassage);
         }
       } catch (error) {
-        console.error('Error restoring last passage:', error);
+        console.warn('Failed to restore last passage:', error);
       }
     };
-
     restoreLastPassage();
   }, []);
 
@@ -65,41 +64,29 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         return;
       }
       const passageData = await BiblePassage.fetchPassage(parsed);
-
       setPassage(passageData);
       setSelectedVerses([]);
       setSelectedVerseText('');
 
-      // Save to localStorage for persistence
-      try {
-        const dataToSave = {
-          searchQuery: reference,
-          passage: passageData,
-          timestamp: new Date().toISOString(),
-        };
-        await AsyncStorage.setItem(LAST_PASSAGE_STORAGE_KEY, JSON.stringify(dataToSave));
-      } catch (storageError) {
-        console.error('Error saving passage to localStorage:', storageError);
-      }
+      // Save the search query and passage for persistence
+      const dataToSave = {
+        searchQuery: reference,
+        passage: passageData,
+        timestamp: new Date().toISOString(),
+      };
+      await AsyncStorage.setItem(LAST_PASSAGE_STORAGE_KEY, JSON.stringify(dataToSave));
     } catch (error) {
       console.error('Error fetching passage:', error);
-      Alert.alert(
-        'Error',
-        'Failed to load Bible passage. Please check your internet connection and try again.',
-      );
+      Alert.alert('Error', 'Failed to fetch passage. Please check your reference and try again.');
     } finally {
       setLoading(false);
     }
   };
 
   const handleVersePress = (verseId: string, verseText: string) => {
-    if (selectedVerses.includes(verseId)) {
-      setSelectedVerses(selectedVerses.filter((id) => id !== verseId));
-      setSelectedVerseText('');
-    } else {
-      setSelectedVerses([...selectedVerses, verseId]);
-      setSelectedVerseText(verseText);
-    }
+    setSelectedVerses([verseId]);
+    setSelectedVerseText(verseText);
+    setIsNoteEditorVisible(true);
   };
 
   const handleAddNote = () => {
@@ -114,8 +101,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
 
   const handleSaveNote = (_note: BibleNoteData) => {
     setNotesRefreshTrigger((prev) => prev + 1);
-    setSelectedVerses([]);
-    setSelectedVerseText('');
+    setIsNoteEditorVisible(false);
   };
 
   const handleCloseNoteEditor = () => {
@@ -127,29 +113,53 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const showBibleColumn = !isNoteEditorVisible || isTablet;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.backgroundSecondary }]}>
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      {/* Enhanced Header with Better Typography and Spacing */}
       <View
         style={[
           styles.header,
-          { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+          {
+            backgroundColor: theme.colors.surface,
+            borderBottomColor: theme.colors.border,
+            ...theme.elevation.low,
+          },
         ]}
       >
-        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Bible Study</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Settings')}
-          style={styles.settingsButton}
-        >
-          <Text style={[styles.settingsIcon, { color: theme.colors.accent }]}>⚙️</Text>
-        </TouchableOpacity>
+        <View style={styles.headerContent}>
+          <View style={styles.brandSection}>
+            <View style={styles.logoContainer}>
+              <Text style={[styles.logoIcon, { color: theme.colors.accent }]}>📖</Text>
+            </View>
+            <View style={styles.titleSection}>
+              <Text style={[styles.appTitle, { color: theme.colors.text }]}>VerseNotes</Text>
+              <Text style={[styles.appSubtitle, { color: theme.colors.textSecondary }]}>
+                A Study Companion
+              </Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Settings')}
+            style={[styles.settingsButton, { backgroundColor: theme.colors.backgroundSecondary }]}
+            accessibilityLabel="Settings"
+            accessibilityRole="button"
+          >
+            <Text style={[styles.settingsIcon, { color: theme.colors.text }]}>⚙️</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
-      <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
+      {/* Enhanced Search Bar Container */}
+      <View style={[styles.searchContainer, { backgroundColor: theme.colors.surface }]}>
+        <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
+      </View>
 
+      {/* Main Content with Improved Layout */}
       <View style={styles.content}>
         {showBibleColumn && (
           <View
             style={[
               styles.column,
+              styles.bibleColumnContainer,
               { backgroundColor: theme.colors.surface },
               isTablet
                 ? [styles.bibleColumn, { borderRightColor: theme.colors.border }]
@@ -167,7 +177,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         )}
 
         {isTablet && (
-          <View style={styles.notesColumn}>
+          <View style={[styles.notesColumn, styles.notesColumnContainer]}>
             <NotesColumn
               verseReference={passage?.reference}
               onAddNote={handleAddNote}
@@ -208,40 +218,80 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between', // Added space-between for settings button
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingTop: 16,
+    paddingBottom: 16,
     borderBottomWidth: 1,
   },
-  headerTitle: {
+  headerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  brandSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  logoContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  logoIcon: {
+    fontSize: 24,
+  },
+  titleSection: {
+    flexDirection: 'column',
+  },
+  appTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    letterSpacing: -0.5,
+  },
+  appSubtitle: {
+    fontSize: 12,
+    fontWeight: '400',
+    marginTop: -2,
   },
   settingsButton: {
-    padding: 8,
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   settingsIcon: {
-    fontSize: 24,
+    fontSize: 20,
+  },
+  searchContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
   },
   content: {
     flex: 1,
     flexDirection: width > 768 ? 'row' : 'column',
   },
   column: {
-    // backgroundColor handled by theme in JSX
+    // Base column styles
   },
   fullColumn: {
     flex: 1,
   },
+  bibleColumnContainer: {
+    // Enhanced bible column container
+  },
   bibleColumn: {
     flex: 1,
     borderRightWidth: 1,
-    // borderRightColor handled by theme in JSX
   },
   notesColumn: {
     flex: 1,
+  },
+  notesColumnContainer: {
+    // Enhanced notes column container
   },
   mobileNotesContainer: {
     flex: 1,
