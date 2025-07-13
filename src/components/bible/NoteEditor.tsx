@@ -182,20 +182,23 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
     contentGroup: {
       flex: 1,
       marginBottom: 20,
+      minHeight: 0, // Allows flex to work properly
     },
     topRowContainer: {
       flexDirection: 'row',
       marginBottom: 20,
-      gap: 16,
+      alignItems: 'flex-end',
     },
     titleColumn: {
-      flex: 2,
+      flex: 3,
+      marginRight: 16,
     },
     verseRangeColumn: {
-      flex: 1,
+      width: 120,
+      marginRight: 24,
     },
     tagsColumn: {
-      flex: 1.5,
+      flex: 2,
     },
     titleInputCompact: {
       borderWidth: 1,
@@ -212,12 +215,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       fontSize: 16,
     },
     verseInputCompact: {
-      flex: 1,
+      width: 50,
       borderWidth: 1,
       borderRadius: 8,
       padding: 12,
       marginHorizontal: 2,
       fontSize: 16,
+      textAlign: 'center',
     },
     label: {
       fontSize: 16,
@@ -244,8 +248,8 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       paddingHorizontal: 12,
       paddingVertical: 12,
       fontSize: 16,
-      minHeight: 300,
       flex: 1,
+      textAlignVertical: 'top',
     },
     verseRangeContainer: {
       flexDirection: 'row',
@@ -271,7 +275,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       borderWidth: 1,
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
-      minHeight: 300,
       flex: 1,
     },
     richEditor: {
@@ -386,7 +389,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
           </View>
 
           <View style={styles.tagsColumn}>
-            <Text style={[styles.label, { color: theme.colors.text }]}>Tags</Text>
+            <Text style={[styles.label, { color: theme.colors.text }]}>Tags (comma separated)</Text>
             <TextInput
               style={[
                 styles.tagsInputCompact,
