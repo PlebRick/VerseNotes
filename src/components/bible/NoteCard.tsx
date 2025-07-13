@@ -38,6 +38,21 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
     return html.replace(/<[^>]*>/g, '').trim();
   };
 
+  const getFullVerseReference = (note: BibleNoteData): string => {
+    // If we have start_verse and end_verse, construct the full reference
+    if (note.start_verse && note.end_verse) {
+      if (note.start_verse === note.end_verse) {
+        return `${note.verse_reference}:${note.start_verse}`;
+      } else {
+        return `${note.verse_reference}:${note.start_verse}-${note.end_verse}`;
+      }
+    } else if (note.start_verse) {
+      return `${note.verse_reference}:${note.start_verse}`;
+    } else {
+      return note.verse_reference;
+    }
+  };
+
   const handleEdit = () => {
     if (onEdit) {
       onEdit(note);
@@ -63,16 +78,38 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
       onPress={handleEdit}
       activeOpacity={0.8}
     >
-      {/* Header with title and actions */}
+      {/* Header with verse reference, date, and actions */}
       <View style={styles.header}>
-        <View style={styles.titleContainer}>
+        <View style={styles.headerLeft}>
+          {/* Verse reference badge and date in same row */}
+          <View style={styles.topRow}>
+            {note.verse_reference && (
+              <View
+                style={[
+                  styles.verseBadge,
+                  {
+                    backgroundColor: theme.colors.backgroundSecondary,
+                    borderColor: theme.colors.buttonDarkGray,
+                  },
+                ]}
+              >
+                <Text style={[styles.verseIcon, { color: theme.colors.text }]}>📖</Text>
+                <Text style={[styles.verseText, { color: theme.colors.text }]}>
+                  {getFullVerseReference(note)}
+                </Text>
+              </View>
+            )}
+            <Text style={[styles.date, { color: theme.colors.textMuted }]}>
+              {formatDate(note.updated_date)}
+            </Text>
+          </View>
+          
+          {/* Title below verse reference and date */}
           <Text style={[styles.title, { color: theme.colors.text }]} numberOfLines={1}>
             {note.title}
           </Text>
-          <Text style={[styles.date, { color: theme.colors.textMuted }]}>
-            {formatDate(note.updated_date)}
-          </Text>
         </View>
+        
         <View style={styles.actions}>
           <ButterButton
             title="Edit"
@@ -92,26 +129,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
           )}
         </View>
       </View>
-
-      {/* Verse reference badge */}
-      {note.verse_reference && (
-        <View style={styles.verseBadgeContainer}>
-          <View
-            style={[
-              styles.verseBadge,
-              {
-                backgroundColor: theme.colors.accentBackgroundSecondary,
-                borderColor: theme.colors.accent,
-              },
-            ]}
-          >
-            <Text style={[styles.verseIcon, { color: theme.colors.accent }]}>📖</Text>
-            <Text style={[styles.verseText, { color: theme.colors.accent }]}>
-              {note.verse_reference}
-            </Text>
-          </View>
-        </View>
-      )}
 
       {/* Content preview */}
       <View style={styles.contentContainer}>
@@ -183,21 +200,26 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: 12,
   },
-  titleContainer: {
+  headerLeft: {
     flex: 1,
     marginRight: 12,
+  },
+  topRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   title: {
     fontSize: 18,
     fontWeight: '600',
     lineHeight: 22,
-    marginBottom: 4,
     letterSpacing: -0.3,
   },
   date: {
     fontSize: 13,
     fontWeight: '400',
     opacity: 0.8,
+    marginLeft: 8,
   },
   actions: {
     flexDirection: 'row',
@@ -206,9 +228,6 @@ const styles = StyleSheet.create({
   actionButton: {
     marginLeft: 8,
     minWidth: 50,
-  },
-  verseBadgeContainer: {
-    marginBottom: 12,
   },
   verseBadge: {
     flexDirection: 'row',
