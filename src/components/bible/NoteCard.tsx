@@ -1,9 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { BibleNoteData } from '../../entities/BibleNote';
 import { useTheme } from '../../theme';
-
-import VerseBracket from './VerseBracket';
+import ButterButton from '../common/ButterButton';
 
 interface NoteCardProps {
   note: BibleNoteData;
@@ -11,117 +10,260 @@ interface NoteCardProps {
   onDelete?: (id: string) => void;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit: _onEdit, onDelete: _onDelete }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
   const theme = useTheme();
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - date.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 1) {
+      return 'Today';
+    } else if (diffDays === 2) {
+      return 'Yesterday';
+    } else if (diffDays <= 7) {
+      return `${diffDays - 1} days ago`;
+    } else {
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: now.getFullYear() !== date.getFullYear() ? 'numeric' : undefined,
+      });
+    }
+  };
+
+  const stripHtmlTags = (html: string) => {
+    return html.replace(/<[^>]*>/g, '').trim();
+  };
+
+  const handleEdit = () => {
+    if (onEdit) {
+      onEdit(note);
+    }
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(note.id);
+    }
   };
 
   return (
-    <View style={[styles.card, { backgroundColor: theme.colors.surface }]}>
+    <TouchableOpacity
+      style={[
+        styles.card,
+        {
+          backgroundColor: theme.colors.surface,
+          borderColor: theme.colors.border,
+          ...theme.elevation.low,
+        },
+      ]}
+      onPress={handleEdit}
+      activeOpacity={0.8}
+    >
+      {/* Header with title and actions */}
       <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.colors.text }]} numberOfLines={1}>
-          {note.title}
-        </Text>
-        <View style={styles.actions}>
+        <View style={styles.titleContainer}>
+          <Text style={[styles.title, { color: theme.colors.text }]} numberOfLines={1}>
+            {note.title}
+          </Text>
           <Text style={[styles.date, { color: theme.colors.textMuted }]}>
             {formatDate(note.updated_date)}
           </Text>
         </View>
+        <View style={styles.actions}>
+          <ButterButton
+            title="Edit"
+            onPress={handleEdit}
+            variant="ghost"
+            size="small"
+            style={styles.actionButton}
+          />
+          {onDelete && (
+            <ButterButton
+              title="Delete"
+              onPress={handleDelete}
+              variant="error"
+              size="small"
+              style={styles.actionButton}
+            />
+          )}
+        </View>
       </View>
 
+      {/* Verse reference badge */}
       {note.verse_reference && (
-        <View style={styles.verseBadge}>
-          <VerseBracket />
-          <Text style={[styles.verseText, { color: theme.colors.accent }]}>
-            {note.verse_reference}
+        <View style={styles.verseBadgeContainer}>
+          <View
+            style={[
+              styles.verseBadge,
+              {
+                backgroundColor: theme.colors.accentBackgroundSecondary,
+                borderColor: theme.colors.accent,
+              },
+            ]}
+          >
+            <Text style={[styles.verseIcon, { color: theme.colors.accent }]}>📖</Text>
+            <Text style={[styles.verseText, { color: theme.colors.accent }]}>
+              {note.verse_reference}
+            </Text>
+          </View>
+        </View>
+      )}
+
+      {/* Content preview */}
+      <View style={styles.contentContainer}>
+        <Text style={[styles.preview, { color: theme.colors.textSecondary }]} numberOfLines={3}>
+          {stripHtmlTags(note.content)}
+        </Text>
+      </View>
+
+      {/* Tags */}
+      {note.tags && note.tags.length > 0 && (
+        <View style={styles.tagsContainer}>
+          {note.tags.slice(0, 3).map((tag, index) => (
+            <View
+              key={index}
+              style={[
+                styles.tag,
+                {
+                  backgroundColor: theme.colors.backgroundSecondary,
+                  borderColor: theme.colors.border,
+                },
+              ]}
+            >
+              <Text style={[styles.tagText, { color: theme.colors.textSecondary }]}>#{tag}</Text>
+            </View>
+          ))}
+          {note.tags.length > 3 && (
+            <View
+              style={[
+                styles.tag,
+                styles.moreTag,
+                {
+                  backgroundColor: theme.colors.backgroundSecondary,
+                  borderColor: theme.colors.border,
+                },
+              ]}
+            >
+              <Text style={[styles.tagText, { color: theme.colors.textMuted }]}>
+                +{note.tags.length - 3}
+              </Text>
+            </View>
+          )}
+        </View>
+      )}
+
+      {/* Verse range indicator */}
+      {(note.start_verse || note.end_verse) && (
+        <View style={styles.verseRangeContainer}>
+          <Text style={[styles.verseRange, { color: theme.colors.textMuted }]}>
+            Verses {note.start_verse || '?'}
+            {note.end_verse && note.end_verse !== note.start_verse && `-${note.end_verse}`}
           </Text>
         </View>
       )}
-
-      <Text style={[styles.preview, { color: theme.colors.textSecondary }]} numberOfLines={2}>
-        {note.content}
-      </Text>
-
-      {note.tags && note.tags.length > 0 && (
-        <View style={styles.tags}>
-          {note.tags.map((tag, index) => (
-            <View
-              key={index}
-              style={[styles.tag, { backgroundColor: theme.colors.surfaceElevated }]}
-            >
-              <Text style={[styles.tagText, { color: theme.colors.textSecondary }]}>{tag}</Text>
-            </View>
-          ))}
-        </View>
-      )}
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 16,
+    borderWidth: 1,
+    // Shadow and elevation handled by theme
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+    alignItems: 'flex-start',
+    marginBottom: 12,
+  },
+  titleContainer: {
+    flex: 1,
+    marginRight: 12,
   },
   title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    flex: 1,
+    fontSize: 18,
+    fontWeight: '600',
+    lineHeight: 22,
+    marginBottom: 4,
+    letterSpacing: -0.3,
+  },
+  date: {
+    fontSize: 13,
+    fontWeight: '400',
+    opacity: 0.8,
   },
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  date: {
-    fontSize: 12,
+  actionButton: {
+    marginLeft: 8,
+    minWidth: 50,
+  },
+  verseBadgeContainer: {
+    marginBottom: 12,
   },
   verseBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    alignSelf: 'flex-start',
+  },
+  verseIcon: {
+    fontSize: 14,
+    marginRight: 6,
   },
   verseText: {
     fontSize: 14,
-    marginLeft: 8,
+    fontWeight: '600',
+    letterSpacing: -0.1,
+  },
+  contentContainer: {
+    marginBottom: 16,
   },
   preview: {
-    fontSize: 14,
-    marginBottom: 8,
+    fontSize: 15,
+    lineHeight: 20,
+    fontWeight: '400',
   },
-  tags: {
+  tagsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginBottom: 8,
   },
   tag: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 16,
+    borderRadius: 12,
     marginRight: 8,
-    marginBottom: 8,
+    marginBottom: 6,
+    borderWidth: 1,
+  },
+  moreTag: {
+    // Additional styling for the "+N" tag
   },
   tagText: {
     fontSize: 12,
+    fontWeight: '500',
+    letterSpacing: -0.1,
+  },
+  verseRangeContainer: {
+    marginTop: 4,
+  },
+  verseRange: {
+    fontSize: 12,
+    fontWeight: '400',
+    fontStyle: 'italic',
   },
 });
 
