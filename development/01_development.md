@@ -60,6 +60,39 @@ _Date: 2025-01-20_
 - Tested app startup with `npx expo start --web` to ensure no functionality was broken
 - Maintained all existing functionality while improving code quality and maintainability
 
+## Platform Compatibility & Note Synchronization Fixes
+_Date: 2025-01-20_
+
+### Issues Identified & Resolved
+1. **Theme Switching**: Fixed theme preferences not updating UI in real-time
+   - Problem: `ThemeProvider` and `Settings` used separate `useColorScheme()` instances
+   - Solution: Created `useColorSchemeFromContext()` for shared state management
+   - Added `React.useMemo` for proper dependency tracking in ThemeProvider
+
+2. **Note Editor Web Compatibility**: Fixed rich text editor failing on web platform
+   - Problem: `react-native-pell-rich-editor` uses WebView which doesn't work on web
+   - Solution: Added platform-specific conditional rendering (TextInput for web, RichEditor for mobile)
+   - Fixed Save/Cancel buttons with web-compatible alert functions
+
+3. **Note Synchronization**: Fixed saved notes not appearing in Bible passage sections
+   - Problem: `verseReference` passed as empty string when no verses selected
+   - Root Cause: `verseReference={selectedVerses.length > 0 ? passage?.reference : undefined}`
+   - Solution: Always pass current passage reference: `verseReference={passage?.reference}`
+
+### Results
+- ✅ **Theme Switching**: Light/Dark/System themes work instantly on all platforms
+- ✅ **Note Editor**: Works on both web (TextInput) and mobile (RichEditor) platforms
+- ✅ **Note Synchronization**: Notes appear immediately in correct Bible passage sections
+- ✅ **Cross-Platform**: Consistent functionality across web and mobile
+- ✅ **User Experience**: Seamless note creation and theme switching
+
+### Technical Details
+- Added web-compatible alert system using `window.alert()` and `window.confirm()`
+- Implemented platform detection with `Platform.OS === 'web'` conditional rendering
+- Fixed context state sharing with proper React hooks and memoization
+- Verified note filtering logic matches `verse_reference` with current `verseReference`
+- Maintained all existing functionality while adding web platform support
+
 ## Next Steps
 - Enhance book name mapping for flexible search.
 - Add offline passage caching.

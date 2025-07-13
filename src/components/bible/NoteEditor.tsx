@@ -17,6 +17,37 @@ import VerseBracket from './VerseBracket';
 import { useNotes } from '../../context/NotesProvider';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 
+// Web-compatible alert functions
+const showAlert = (title: string, message: string, onOk?: () => void) => {
+  if (Platform.OS === 'web') {
+    window.alert(`${title}\n\n${message}`);
+    if (onOk) onOk();
+  } else {
+    Alert.alert(title, message, [{ text: 'OK', onPress: onOk }]);
+  }
+};
+
+const showConfirm = (
+  title: string,
+  message: string,
+  onConfirm: () => void,
+  onCancel?: () => void,
+) => {
+  if (Platform.OS === 'web') {
+    const result = window.confirm(`${title}\n\n${message}`);
+    if (result) {
+      onConfirm();
+    } else if (onCancel) {
+      onCancel();
+    }
+  } else {
+    Alert.alert(title, message, [
+      { text: 'Cancel', style: 'cancel', onPress: onCancel },
+      { text: 'OK', style: 'destructive', onPress: onConfirm },
+    ]);
+  }
+};
+
 interface NoteEditorProps {
   note?: BibleNoteData;
   verseReference?: string;
@@ -61,12 +92,12 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
 
   const handleSave = async () => {
     if (!title.trim()) {
-      Alert.alert('Error', 'Please enter a title for your note');
+      showAlert('Error', 'Please enter a title for your note');
       return;
     }
 
     if (!content.trim()) {
-      Alert.alert('Error', 'Please enter some content for your note');
+      showAlert('Error', 'Please enter some content for your note');
       return;
     }
 
@@ -104,16 +135,13 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       onClose();
     } catch (error) {
       console.error('Error saving note:', error);
-      Alert.alert('Error', 'Failed to save note. Please try again.');
+      showAlert('Error', 'Failed to save note. Please try again.');
     }
     setIsSaving(false);
   };
 
   const handleCancel = () => {
-    Alert.alert('Discard Changes', 'Are you sure you want to discard your changes?', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Discard', style: 'destructive', onPress: onClose },
-    ]);
+    showConfirm('Discard Changes', 'Are you sure you want to discard your changes?', onClose);
   };
 
   if (!isVisible) {
@@ -249,14 +277,21 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
           },
         ]}
       >
-        <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
+        <TouchableOpacity
+          onPress={() => {
+            handleCancel();
+          }}
+          style={styles.cancelButton}
+        >
           <Text style={[styles.cancelButtonText, { color: theme.colors.accent }]}>Cancel</Text>
         </TouchableOpacity>
         <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
           {note ? 'Edit Note' : 'New Note'}
         </Text>
         <TouchableOpacity
-          onPress={handleSave}
+          onPress={() => {
+            handleSave();
+          }}
           style={[
             styles.saveButton,
             { backgroundColor: theme.colors.accent },
@@ -365,28 +400,51 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
 
         <View style={styles.inputGroup}>
           <Text style={[styles.label, { color: theme.colors.text }]}>Content</Text>
-          <RichToolbar
-            actions={[
-              actions.undo,
-              actions.redo,
-              actions.setBold,
-              actions.setItalic,
-              actions.setUnderline,
-              actions.insertBulletsList,
-              actions.insertOrderedList,
-              actions.checkboxList,
-            ]}
-            style={[styles.richToolbar, { backgroundColor: theme.colors.surface }]}
-          />
-          <ScrollView style={styles.richEditorContainer}>
-            <RichEditor
-              initialContentHTML={content}
-              onChange={setContent}
+          {Platform.OS === 'web' ? (
+            // Web fallback: Use regular TextInput
+            <TextInput
+              style={[
+                styles.contentInput,
+                {
+                  borderColor: theme.colors.border,
+                  color: theme.colors.text,
+                  backgroundColor: theme.colors.backgroundSecondary,
+                },
+              ]}
+              value={content}
+              onChangeText={setContent}
               placeholder="Write your thoughts, insights, and reflections..."
-              style={[styles.richEditor, { backgroundColor: theme.colors.backgroundSecondary }]}
-              editorStyle={{ color: theme.colors.text }}
+              placeholderTextColor={theme.colors.textPlaceholder}
+              multiline={true}
+              textAlignVertical="top"
             />
-          </ScrollView>
+          ) : (
+            // Mobile: Use RichEditor
+            <>
+              <RichToolbar
+                actions={[
+                  actions.undo,
+                  actions.redo,
+                  actions.setBold,
+                  actions.setItalic,
+                  actions.setUnderline,
+                  actions.insertBulletsList,
+                  actions.insertOrderedList,
+                  actions.checkboxList,
+                ]}
+                style={[styles.richToolbar, { backgroundColor: theme.colors.surface }]}
+              />
+              <ScrollView style={styles.richEditorContainer}>
+                <RichEditor
+                  initialContentHTML={content}
+                  onChange={setContent}
+                  placeholder="Write your thoughts, insights, and reflections..."
+                  style={[styles.richEditor, { backgroundColor: theme.colors.backgroundSecondary }]}
+                  editorStyle={{ color: theme.colors.text }}
+                />
+              </ScrollView>
+            </>
+          )}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

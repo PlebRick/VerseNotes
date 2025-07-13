@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { User, UserSettings } from '../entities/User';
-import { useThemeContext, useColorScheme } from '../theme';
+import { useThemeContext, useColorSchemeFromContext } from '../theme';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { useNotes } from '../context/NotesProvider';
@@ -21,7 +21,7 @@ interface SettingsProps {
 
 const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const { theme } = useThemeContext();
-  const scheme = useColorScheme(); // Use for toggle
+  const scheme = useColorSchemeFromContext(); // Use context-based colorScheme
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_unusedUserVar, setUser] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [settings, setSettings] = useState<UserSettings>({

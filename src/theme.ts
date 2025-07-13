@@ -551,10 +551,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, initialT
   // Select theme based on effective theme mode (unless override provided)
   const selectedTheme = initialTheme || (colorScheme.isDark ? darkTheme : lightTheme);
 
-  const contextValue: ThemeContextValue = {
-    theme: selectedTheme,
-    colorScheme,
-  };
+  // Create context value with proper dependency tracking
+  const contextValue: ThemeContextValue = React.useMemo(
+    () => ({
+      theme: selectedTheme,
+      colorScheme,
+    }),
+    [selectedTheme, colorScheme],
+  );
 
   return React.createElement(ThemeContext.Provider, { value: contextValue }, children);
 };
@@ -579,6 +583,17 @@ export const useThemeContext = (): ThemeContextValue => {
   }
 
   return context;
+};
+
+// useColorScheme hook should be used via context to ensure state is shared
+export const useColorSchemeFromContext = (): ReturnType<typeof useColorScheme> => {
+  const context = useContext(ThemeContext);
+
+  if (context === undefined) {
+    throw new Error('useColorSchemeFromContext must be used within a ThemeProvider');
+  }
+
+  return context.colorScheme;
 };
 
 // Default export for convenience

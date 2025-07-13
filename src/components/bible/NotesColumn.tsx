@@ -36,6 +36,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
     const filtered = verseReference
       ? notes.filter((note) => note.verse_reference === verseReference)
       : notes;
+
     setFilteredNotes(filtered);
   }, [notes, verseReference]);
 

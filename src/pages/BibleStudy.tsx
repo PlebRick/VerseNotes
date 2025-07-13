@@ -146,7 +146,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
       <Modal visible={isNoteEditorVisible} animationType="slide" presentationStyle="fullScreen">
         <NoteEditor
           note={editingNote}
-          verseReference={selectedVerses.length > 0 ? passage?.reference : undefined}
+          verseReference={passage?.reference}
           verseText={selectedVerseText}
           isVisible={isNoteEditorVisible}
           onClose={handleCloseNoteEditor}
