@@ -114,4 +114,9 @@ _Date: 2025-01-20_
 - Expand test coverage and CI/CD integration.
 - Document future milestones in new files: `development/02_*.md`, etc.
 
+## Milestone Updates
+- **Milestone 2**: Notes Enhancement - See `development/02_notes_enhancement.md`
+- **Milestone 3**: UI Theming & Dark Mode - See `development/03_ui_theming.md`
+- **Milestone 4**: Base44 UI Implementation - See `development/04_base44_ui_implementation.md`
+
 ---
