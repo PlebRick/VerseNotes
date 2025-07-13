@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "VerseNotes",
     slug: "VerseNotes",
-    version: "1.0.0",
+    version: "0.2.2",
     orientation: "default",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
