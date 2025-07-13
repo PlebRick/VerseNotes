@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Switch, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Switch, Alert, Platform } from 'react-native';
 import { User, UserSettings } from '../entities/User';
 import { useThemeContext, useColorSchemeFromContext } from '../theme';
 import * as FileSystem from 'expo-file-system';
@@ -61,29 +61,58 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  // Web-specific export function
+  const exportNotesWeb = (jsonContent: string) => {
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `versenotes_export_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  // Mobile-specific export function
+  const exportNotesMobile = async (jsonContent: string) => {
+    const fileUri = `${FileSystem.documentDirectory}versenotes_export_${new Date().toISOString().split('T')[0]}.json`;
+    
+    await FileSystem.writeAsStringAsync(fileUri, jsonContent, {
+      encoding: FileSystem.EncodingType.UTF8,
+    });
+
+    // Check if sharing is available
+    const isAvailable = await Sharing.isAvailableAsync();
+    if (isAvailable) {
+      await Sharing.shareAsync(fileUri, {
+        mimeType: 'application/json',
+        dialogTitle: 'Export Notes',
+        UTI: 'public.json',
+      });
+    } else {
+      Alert.alert('Export Complete', `Notes exported to: ${fileUri}`);
+    }
+  };
+
   const handleExportNotes = async () => {
     setIsExporting(true);
     try {
       // Create JSON content
       const jsonContent = JSON.stringify(notes, null, 2);
 
-      // Define file path
-      const fileUri = `${FileSystem.documentDirectory}versenotes_export_${new Date().toISOString()}.json`;
-
-      // Write file
-      await FileSystem.writeAsStringAsync(fileUri, jsonContent, {
-        encoding: FileSystem.EncodingType.UTF8,
-      });
-
-      // Share the file
-      await Sharing.shareAsync(fileUri, {
-        mimeType: 'application/json',
-        dialogTitle: 'Export Notes',
-        UTI: 'public.json',
-      });
+      if (Platform.OS === 'web') {
+        // Web platform - use browser download
+        exportNotesWeb(jsonContent);
+        Alert.alert('Success', 'Notes exported successfully!');
+      } else {
+        // Mobile platforms - use file system and sharing
+        await exportNotesMobile(jsonContent);
+      }
     } catch (error) {
       console.error('Error exporting notes:', error);
-      Alert.alert('Error', 'Failed to export notes. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      Alert.alert('Error', `Failed to export notes: ${errorMessage}`);
     }
     setIsExporting(false);
   };
