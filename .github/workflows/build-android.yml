@@ -18,7 +18,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
         
     - name: Setup Java
       uses: actions/setup-java@v4
@@ -30,123 +29,88 @@ jobs:
       uses: android-actions/setup-android@v3
       
     - name: Install dependencies
-      run: npm ci --legacy-peer-deps
-      
+      run: |
+        npm install --legacy-peer-deps
+        
     - name: Install Expo CLI
       run: npm install -g @expo/cli
       
-    - name: Create keystore
+    - name: Debug environment
       run: |
-        keytool -genkey -v -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
-          -storepass android -keypass android \
-          -alias upload -keystore upload-keystore.jks \
-          -dname "CN=VerseNotes,OU=,O=,L=,S=,C=US"
+        node --version
+        npm --version
+        java -version
+        echo "Android SDK: $ANDROID_SDK_ROOT"
+        ls -la
         
-    - name: Create credentials.json
+    - name: Create basic eas.json
       run: |
-        cat > credentials.json << EOF
+        cat > eas.json << 'EOF'
         {
-          "android": {
-            "keystore": {
-              "keystorePath": "upload-keystore.jks",
-              "keystorePassword": "android",
-              "keyAlias": "upload",
-              "keyPassword": "android"
+          "cli": {
+            "version": ">= 13.2.0"
+          },
+          "build": {
+            "preview": {
+              "android": {
+                "buildType": "apk"
+              }
             }
           }
         }
         EOF
         
-    - name: Prebuild Android
+    - name: Try prebuild
       run: |
-        EAS_NO_VCS=1 npx expo prebuild --platform android --clean
+        npx expo prebuild --platform android --clear --no-install
+        
+    - name: List android directory
+      run: |
+        if [ -d "android" ]; then
+          echo "Android directory exists"
+          ls -la android/
+        else
+          echo "Android directory not found"
+          exit 1
+        fi
         
     - name: Make gradlew executable
       run: chmod +x android/gradlew
       
-    - name: Build Android APK
+    - name: Build APK
       run: |
         cd android
-        ./gradlew assembleRelease
+        ./gradlew assembleRelease --no-daemon --stacktrace
         
-    - name: Rename APK
+    - name: Find APK
       run: |
-        cp android/app/build/outputs/apk/release/app-release.apk versenotes-${{ github.ref_name }}.apk
+        find . -name "*.apk" -type f
         
-    - name: Upload APK artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: versenotes-android-apk
-        path: versenotes-${{ github.ref_name }}.apk
+        name: android-apk
+        path: android/app/build/outputs/apk/release/app-release.apk
         
-    - name: Create GitHub Release
+    - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: versenotes-${{ github.ref_name }}.apk
+        files: android/app/build/outputs/apk/release/app-release.apk
         name: VerseNotes ${{ github.ref_name }}
         body: |
-          ## VerseNotes ${{ github.ref_name }}
+          Android APK for VerseNotes ${{ github.ref_name }}
           
-          ### 📱 Android APK Release
+          Download the APK below and install on your Android device.
           
-          This release contains a production-ready Android APK optimized for the Daylight DC1 tablet.
-          
-          ### 🚀 Installation Instructions
-          
-          1. **Download the APK** from the assets below
-          2. **Enable Unknown Sources** on your Android device:
-             - Go to Settings > Security > Unknown Sources (enable)
-             - Or Settings > Apps > Special Access > Install Unknown Apps
-          3. **Install the APK** by tapping on the downloaded file
-          4. **Launch VerseNotes** from your app drawer
-          
-          ### ✨ Features
-          
-          - **Bible Study Interface** with World English Bible (WEB) translation
-          - **Advanced Note-Taking** with rich text editing
-          - **Expandable Note Cards** with smooth animations
-          - **Full-Screen Reader** optimized for public speaking
-          - **Comprehensive Backup System** with JSON, Markdown, and Plain Text exports
-          - **Import Functionality** with conflict resolution
-          - **Base44 Design** optimized for e-ink displays
-          - **Cross-Platform Support** (Android, iOS, Web)
-          
-          ### 🎯 Optimized For
-          
-          - **Daylight DC1 Tablet** with e-ink display optimization
-          - **Android 13+** with tablet-friendly interface
-          - **Bible Study** and note-taking workflows
-          - **Public Speaking** scenarios with reader mode
-          
-          ### 📊 Technical Details
-          
-          - **Version**: ${{ github.ref_name }}
-          - **Platform**: Android APK
-          - **Min SDK**: 33 (Android 13)
-          - **Target SDK**: 34 (Android 14)
-          - **Architecture**: Universal APK
-          - **Size**: ~50MB (estimated)
-          
-          ### 🔧 Requirements
-          
+          Requirements:
           - Android 13 or higher
-          - Internet connection for Bible verse fetching
-          - Storage permission for backup/export functionality
+          - Enable "Unknown Sources" in settings
           
-          ### 🐛 Known Issues
-          
-          - See [known_issues.md](https://github.com/PlebRick/VerseNotes/blob/main/development/known_issues.md) for current limitations
-          
-          ### 📚 Documentation
-          
-          - [README.md](https://github.com/PlebRick/VerseNotes/blob/main/README.md) - Complete project overview
-          - [Backup System Guide](https://github.com/PlebRick/VerseNotes/blob/main/development/backup_restore_system.md) - Backup/restore documentation
-          
-          ---
-          
-          **Download the APK below and enjoy studying the Bible with VerseNotes!**
-        draft: false
-        prerelease: false
+          Features:
+          - Bible study with WEB translation
+          - Note-taking with rich text
+          - Backup/export functionality
+          - Optimized for Daylight DC1 tablet
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
