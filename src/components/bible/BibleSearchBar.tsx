@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, StyleSheet, Alert } from 'react-native';
 import { useThemeContext } from '../../theme';
+import ButterButton from '../common/ButterButton';
 
 interface BibleSearchBarProps {
   onSearch: (reference: string) => void;
@@ -46,12 +47,7 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
-      ]}
-    >
+    <View style={styles.container}>
       <View style={[styles.searchContainer, { backgroundColor: theme.colors.backgroundSecondary }]}>
         <TextInput
           style={[styles.input, { color: theme.colors.text }]}
@@ -64,13 +60,14 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
           autoCapitalize="words"
           autoCorrect={false}
         />
-        <TouchableOpacity
-          style={[styles.searchButton, { backgroundColor: theme.colors.accent }]}
+        <ButterButton
+          title="Go"
           onPress={handleSearch}
-          activeOpacity={0.7}
-        >
-          <Text style={[styles.searchButtonText, { color: theme.colors.textInverse }]}>Search</Text>
-        </TouchableOpacity>
+          variant="primary"
+          size="medium"
+          icon="🔍"
+          style={styles.searchButton}
+        />
       </View>
     </View>
   );
@@ -78,31 +75,24 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
+    // Container styles handled by parent
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 8,
-    paddingHorizontal: 12,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
   },
   input: {
     flex: 1,
     height: 44,
     fontSize: 16,
     paddingVertical: 0,
+    marginRight: 12,
   },
   searchButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 6,
-    marginLeft: 8,
-  },
-  searchButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
+    minWidth: 80,
   },
 });
 

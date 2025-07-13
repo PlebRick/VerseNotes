@@ -4,18 +4,17 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   Alert,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator,
 } from 'react-native';
 import { BibleNoteData } from '../../entities';
 import { useThemeContext } from '../../theme';
 import VerseBracket from './VerseBracket';
 import { useNotes } from '../../context/NotesProvider';
 import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
+import ButterButton from '../common/ButterButton';
 
 // Web-compatible alert functions
 const showAlert = (title: string, message: string, onOk?: () => void) => {
@@ -27,23 +26,14 @@ const showAlert = (title: string, message: string, onOk?: () => void) => {
   }
 };
 
-const showConfirm = (
-  title: string,
-  message: string,
-  onConfirm: () => void,
-  onCancel?: () => void,
-) => {
+const showConfirm = (title: string, message: string, onConfirm: () => void) => {
   if (Platform.OS === 'web') {
     const result = window.confirm(`${title}\n\n${message}`);
-    if (result) {
-      onConfirm();
-    } else if (onCancel) {
-      onCancel();
-    }
+    if (result) onConfirm();
   } else {
     Alert.alert(title, message, [
-      { text: 'Cancel', style: 'cancel', onPress: onCancel },
-      { text: 'OK', style: 'destructive', onPress: onConfirm },
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'OK', onPress: onConfirm },
     ]);
   }
 };
@@ -160,30 +150,12 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       paddingVertical: 12,
       borderBottomWidth: 1,
     },
-    cancelButton: {
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-    },
-    cancelButtonText: {
-      fontSize: 16,
-    },
     headerTitle: {
       fontSize: 18,
-      fontWeight: 'bold',
-    },
-    saveButton: {
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-      borderRadius: 6,
-      minWidth: 60,
-      alignItems: 'center',
-    },
-    saveButtonDisabled: {
-      // backgroundColor handled by theme in JSX
-    },
-    saveButtonText: {
-      fontSize: 16,
       fontWeight: '600',
+      flex: 1,
+      textAlign: 'center',
+      marginHorizontal: 12,
     },
     content: {
       flex: 1,
@@ -277,34 +249,18 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
           },
         ]}
       >
-        <TouchableOpacity
-          onPress={() => {
-            handleCancel();
-          }}
-          style={styles.cancelButton}
-        >
-          <Text style={[styles.cancelButtonText, { color: theme.colors.accent }]}>Cancel</Text>
-        </TouchableOpacity>
+        <ButterButton title="Cancel" onPress={handleCancel} variant="ghost" size="medium" />
         <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
           {note ? 'Edit Note' : 'New Note'}
         </Text>
-        <TouchableOpacity
-          onPress={() => {
-            handleSave();
-          }}
-          style={[
-            styles.saveButton,
-            { backgroundColor: theme.colors.accent },
-            isSaving && [styles.saveButtonDisabled, { backgroundColor: theme.colors.disabled }],
-          ]}
+        <ButterButton
+          title="Save"
+          onPress={handleSave}
+          variant="primary"
+          size="medium"
+          loading={isSaving}
           disabled={isSaving}
-        >
-          {isSaving ? (
-            <ActivityIndicator size="small" color={theme.colors.textInverse} />
-          ) : (
-            <Text style={[styles.saveButtonText, { color: theme.colors.textInverse }]}>Save</Text>
-          )}
-        </TouchableOpacity>
+        />
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>

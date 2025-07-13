@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Alert,
   ActivityIndicator,
   RefreshControl,
@@ -13,6 +12,7 @@ import { BibleNoteData } from '../../entities';
 import { useThemeContext } from '../../theme';
 import { useNotes } from '../../context/NotesProvider';
 import NoteCard from './NoteCard';
+import ButterButton from '../common/ButterButton';
 
 interface NotesColumnProps {
   verseReference?: string;
@@ -74,29 +74,37 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
     setFilteredNotes(filtered);
   }, [notes, verseReference]);
 
-  // Remove loadNotes and handleRefresh since context handles loading
-  // For pull-to-refresh, we can simulate or add refresh to context later
-
   const handleDeleteNote = async (noteId: string) => {
-    Alert.alert('Delete Note', 'Are you sure you want to delete this note?', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete',
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            await deleteNote(noteId);
-          } catch (error) {
-            console.error('Error deleting note:', error);
-            Alert.alert('Error', 'Failed to delete note. Please try again.');
-          }
+    Alert.alert(
+      'Delete Note',
+      'Are you sure you want to delete this note? This action cannot be undone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteNote(noteId);
+            } catch (error) {
+              console.error('Error deleting note:', error);
+              Alert.alert('Error', 'Failed to delete note. Please try again.');
+            }
+          },
         },
-      },
-    ]);
+      ],
+    );
   };
 
   const renderNote = (note: BibleNoteData) => {
-    return <NoteCard key={note.id} note={note} onEdit={onEditNote} onDelete={handleDeleteNote} />;
+    return (
+      <NoteCard
+        key={note.id}
+        note={note}
+        onEdit={() => onEditNote(note)}
+        onDelete={() => handleDeleteNote(note.id)}
+      />
+    );
   };
 
   return (
@@ -108,15 +116,16 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
         ]}
       >
         <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
-          {verseReference ? `Notes for ${verseReference}` : 'All Notes'}
+          {verseReference ? `Notes for ${verseReference}` : 'Study Notes'}
         </Text>
-        <TouchableOpacity
+        <ButterButton
+          title="Note"
           onPress={onAddNote}
-          style={[styles.addButton, { backgroundColor: theme.colors.accent }]}
-          activeOpacity={0.7}
-        >
-          <Text style={[styles.addButtonText, { color: theme.colors.textInverse }]}>+</Text>
-        </TouchableOpacity>
+          variant="primary"
+          size="small"
+          icon="📝"
+          style={styles.addButton}
+        />
       </View>
 
       {loading && filteredNotes.length === 0 ? (
@@ -143,7 +152,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
               <Text style={[styles.emptyText, { color: theme.colors.text }]}>No notes yet</Text>
               <Text style={[styles.emptySubtext, { color: theme.colors.textSecondary }]}>
                 {verseReference
-                  ? 'Tap the + button to add a note for this passage'
+                  ? 'Tap the Note button to add a note for this passage'
                   : 'Search for a Bible passage and start taking notes'}
               </Text>
             </View>
@@ -170,19 +179,12 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '600',
     flex: 1,
+    marginRight: 12,
   },
   addButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addButtonText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    // Button styles handled by ButterButton
   },
   scrollView: {
     flex: 1,
