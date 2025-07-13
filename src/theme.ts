@@ -181,6 +181,11 @@ export const LightPalette = {
   accentBackground: '#F0F8FF',
   accentBackgroundSecondary: '#E3F2FD',
 
+  // Base44 button colors for Daylight DC1
+  buttonDarkGray: BaseColors.gray700,
+  buttonDarkGrayHover: BaseColors.gray600,
+  buttonWhite: BaseColors.white,
+
   // Switch/Toggle colors
   switchTrackInactive: BaseColors.gray300,
   switchTrackActive: BaseColors.primaryLight,
@@ -231,6 +236,11 @@ export const DarkPalette = {
   accent: BaseColors.primary,
   accentBackground: '#1A2332',
   accentBackgroundSecondary: '#1A1F2E',
+
+  // Base44 button colors for Daylight DC1 (dark mode)
+  buttonDarkGray: BaseColors.gray300,
+  buttonDarkGrayHover: BaseColors.gray200,
+  buttonWhite: BaseColors.white,
 
   // Switch/Toggle colors
   switchTrackInactive: '#48484A',
@@ -453,6 +463,11 @@ export interface ColorPalette {
   accent: string;
   accentBackground: string;
   accentBackgroundSecondary: string;
+
+  // Base44 button colors for Daylight DC1
+  buttonDarkGray: string;
+  buttonDarkGrayHover: string;
+  buttonWhite: string;
 
   // Switch/Toggle colors
   switchTrackInactive: string;

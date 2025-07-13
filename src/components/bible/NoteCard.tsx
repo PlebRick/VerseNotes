@@ -85,7 +85,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete }) => {
             <ButterButton
               title="Delete"
               onPress={handleDelete}
-              variant="error"
+              variant="darkGray"
               size="small"
               style={styles.actionButton}
             />

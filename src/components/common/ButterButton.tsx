@@ -14,7 +14,7 @@ const { width: screenWidth } = Dimensions.get('window');
 export interface ButterButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'ghost' | 'darkGray' | 'white';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   loading?: boolean;
@@ -103,6 +103,14 @@ const ButterButton: React.FC<ButterButtonProps> = ({
           baseStyle.borderWidth = 1;
           baseStyle.borderColor = theme.colors.border;
           break;
+        case 'darkGray':
+          baseStyle.backgroundColor = theme.colors.buttonDarkGray;
+          break;
+        case 'white':
+          baseStyle.backgroundColor = theme.colors.buttonWhite;
+          baseStyle.borderWidth = 1;
+          baseStyle.borderColor = theme.colors.border;
+          break;
       }
     }
 
@@ -145,6 +153,12 @@ const ButterButton: React.FC<ButterButtonProps> = ({
           break;
         case 'accent':
           baseTextStyle.color = theme.colors.accent;
+          break;
+        case 'darkGray':
+          baseTextStyle.color = theme.colors.textInverse;
+          break;
+        case 'white':
+          baseTextStyle.color = theme.colors.text;
           break;
       }
     }

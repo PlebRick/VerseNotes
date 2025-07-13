@@ -121,7 +121,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
         <ButterButton
           title="Note"
           onPress={onAddNote}
-          variant="primary"
+          variant="darkGray"
           size="small"
           icon="📝"
           style={styles.addButton}

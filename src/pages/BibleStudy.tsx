@@ -137,12 +137,7 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         </View>
       </View>
 
-      {/* Enhanced Search Bar Container */}
-      <View style={[styles.searchContainer, { backgroundColor: theme.colors.surface }]}>
-        <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
-      </View>
-
-      {/* Main Content with Improved Layout */}
+      {/* Two-Column Layout with Aligned Headers */}
       <View style={styles.content}>
         {showBibleColumn && (
           <View
@@ -155,6 +150,17 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
                 : styles.fullColumn,
             ]}
           >
+            {/* Bible Search Bar - Only in Bible Column */}
+            <View style={[
+              styles.searchContainer, 
+              { 
+                backgroundColor: theme.colors.surface,
+                borderBottomColor: theme.colors.border
+              }
+            ]}>
+              <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
+            </View>
+            
             <BibleColumn
               passage={passage}
               loading={loading}
@@ -167,6 +173,17 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
 
         {isTablet && (
           <View style={[styles.notesColumn, styles.notesColumnContainer]}>
+            {/* Study Notes Header aligned with Bible Search */}
+            <View style={[
+              styles.notesHeader, 
+              { 
+                backgroundColor: theme.colors.surface,
+                borderBottomColor: theme.colors.border
+              }
+            ]}>
+              <Text style={[styles.notesHeaderText, { color: theme.colors.text }]}>Study Notes</Text>
+            </View>
+            
             <NotesColumn
               verseReference={passage?.reference}
               onAddNote={handleAddNote}
@@ -251,6 +268,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingHorizontal: 20,
     paddingVertical: 12,
+    borderBottomWidth: 1,
   },
   content: {
     flex: 1,
@@ -274,6 +292,15 @@ const styles = StyleSheet.create({
   },
   notesColumnContainer: {
     // Enhanced notes column container
+  },
+  notesHeader: {
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+  },
+  notesHeaderText: {
+    fontSize: 18,
+    fontWeight: '600',
   },
   mobileNotesContainer: {
     flex: 1,

@@ -12,7 +12,7 @@ interface BibleSearchBarProps {
 
 const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
   onSearch,
-  placeholder = 'Enter reference (e.g., John 3 or Romans 1:1-16)',
+  placeholder = 'Search... (e.g., Romans 1:1-16, John 3:16)',
   value,
   onChangeText,
 }) => {
@@ -48,7 +48,13 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
 
   return (
     <View style={styles.container}>
-      <View style={[styles.searchContainer, { backgroundColor: theme.colors.backgroundSecondary }]}>
+      <View style={[
+        styles.searchContainer, 
+        { 
+          backgroundColor: theme.colors.backgroundSecondary,
+          borderColor: theme.colors.border
+        }
+      ]}>
         <TextInput
           style={[styles.input, { color: theme.colors.text }]}
           value={searchText}
@@ -63,7 +69,7 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
         <ButterButton
           title="Go"
           onPress={handleSearch}
-          variant="primary"
+          variant="darkGray"
           size="medium"
           icon="🔍"
           style={styles.searchButton}
@@ -80,9 +86,10 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
+    borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 8,
+    borderWidth: 1,
   },
   input: {
     flex: 1,
@@ -90,6 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingVertical: 0,
     marginRight: 12,
+    borderRadius: 8,
   },
   searchButton: {
     minWidth: 80,
