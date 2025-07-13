@@ -6,6 +6,7 @@ import BibleSearchBar from '../components/bible/BibleSearchBar';
 import BibleColumn from '../components/bible/BibleColumn';
 import NotesColumn from '../components/bible/NotesColumn';
 import NoteEditor from '../components/bible/NoteEditor';
+import { useThemeContext } from '../theme';
 
 const { width } = Dimensions.get('window');
 
@@ -14,6 +15,7 @@ interface BibleStudyProps {
 }
 
 const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
+  const { theme } = useThemeContext();
   const [passage, setPassage] = useState<FormattedPassage | null>(null);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,16 +84,29 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const showBibleColumn = !isNoteEditorVisible || isTablet;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Bible Study</Text>
+    <View style={[styles.container, { backgroundColor: theme.colors.backgroundSecondary }]}>
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+        ]}
+      >
+        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Bible Study</Text>
       </View>
 
       <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
 
       <View style={styles.content}>
         {showBibleColumn && (
-          <View style={[styles.column, isTablet ? styles.bibleColumn : styles.fullColumn]}>
+          <View
+            style={[
+              styles.column,
+              { backgroundColor: theme.colors.surface },
+              isTablet
+                ? [styles.bibleColumn, { borderRightColor: theme.colors.border }]
+                : styles.fullColumn,
+            ]}
+          >
             <BibleColumn
               passage={passage}
               loading={loading}
@@ -142,28 +157,24 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
   },
   content: {
     flex: 1,
     flexDirection: width > 768 ? 'row' : 'column',
   },
   column: {
-    backgroundColor: '#fff',
+    // backgroundColor handled by theme in JSX
   },
   fullColumn: {
     flex: 1,
@@ -171,7 +182,7 @@ const styles = StyleSheet.create({
   bibleColumn: {
     flex: 1,
     borderRightWidth: 1,
-    borderRightColor: '#e0e0e0',
+    // borderRightColor handled by theme in JSX
   },
   notesColumn: {
     flex: 1,

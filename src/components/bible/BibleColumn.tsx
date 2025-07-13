@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { FormattedPassage, Verse } from '../../entities/BiblePassage';
+import { useThemeContext } from '../../theme';
 
 interface BibleColumnProps {
   passage: FormattedPassage | null;
@@ -24,6 +25,8 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   _selectedVerses = [],
   fontSize = 'medium',
 }) => {
+  const { theme } = useThemeContext();
+
   const getFontSize = () => {
     switch (fontSize) {
       case 'small':
@@ -38,8 +41,10 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#007AFF" />
-        <Text style={styles.loadingText}>Loading passage...</Text>
+        <ActivityIndicator size="large" color={theme.colors.accent} />
+        <Text style={[styles.loadingText, { color: theme.colors.textSecondary }]}>
+          Loading passage...
+        </Text>
       </View>
     );
   }
@@ -47,8 +52,12 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   if (!passage) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>Search for a Bible passage to begin studying</Text>
-        <Text style={styles.emptySubtext}>Try "Romans 1:1-16" or "John 3"</Text>
+        <Text style={[styles.emptyText, { color: theme.colors.textMuted }]}>
+          Search for a Bible passage to begin studying
+        </Text>
+        <Text style={[styles.emptySubtext, { color: theme.colors.textSubtle }]}>
+          Try "Romans 1:1-16" or "John 3"
+        </Text>
       </View>
     );
   }
@@ -56,7 +65,7 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   if (!passage.verses || passage.verses.length === 0) {
     return (
       <View style={styles.emptyContainer}>
-        <Text style={styles.emptyText}>
+        <Text style={[styles.emptyText, { color: theme.colors.textMuted }]}>
           Unable to load passage. Please check your reference or try again later.
         </Text>
       </View>
@@ -64,9 +73,14 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.reference}>{passage.reference}</Text>
+    <View style={[styles.container, { backgroundColor: theme.colors.surface }]}>
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+        ]}
+      >
+        <Text style={[styles.reference, { color: theme.colors.text }]}>{passage.reference}</Text>
       </View>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
@@ -79,7 +93,12 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
               }
               activeOpacity={0.7}
             >
-              <Text style={[styles.verseText, { fontSize: getFontSize() }]}>
+              <Text
+                style={[
+                  styles.verseText,
+                  { fontSize: getFontSize(), color: theme.colors.textDark },
+                ]}
+              >
                 [{verse.verse}] {verse.text}
               </Text>
             </TouchableOpacity>
@@ -93,21 +112,17 @@ const BibleColumn: React.FC<BibleColumnProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   reference: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
   },
   scrollView: {
     flex: 1,
@@ -119,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   verseText: {
-    color: '#222',
+    // color handled by theme in JSX
   },
   loadingContainer: {
     flex: 1,
@@ -129,7 +144,6 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     fontSize: 16,
-    color: '#666',
   },
   emptyContainer: {
     flex: 1,
@@ -138,12 +152,10 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#888',
     textAlign: 'center',
   },
   emptySubtext: {
     fontSize: 14,
-    color: '#aaa',
     textAlign: 'center',
     marginTop: 8,
   },

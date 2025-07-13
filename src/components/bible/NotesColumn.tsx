@@ -10,6 +10,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { BibleNote, BibleNoteData } from '../../entities';
+import { useThemeContext } from '../../theme';
 
 interface NotesColumnProps {
   verseReference?: string;
@@ -24,6 +25,7 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
   onEditNote,
   refreshTrigger,
 }) => {
+  const { theme } = useThemeContext();
   const [notes, setNotes] = useState<BibleNoteData[]>([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -88,57 +90,92 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
 
   const renderNote = (note: BibleNoteData) => {
     return (
-      <View key={note.id} style={styles.noteCard}>
+      <View
+        key={note.id}
+        style={[
+          styles.noteCard,
+          {
+            backgroundColor: theme.colors.surface,
+            shadowColor: theme.colors.shadow,
+          },
+        ]}
+      >
         <View style={styles.noteHeader}>
-          <Text style={styles.noteTitle} numberOfLines={2}>
+          <Text style={[styles.noteTitle, { color: theme.colors.text }]} numberOfLines={2}>
             {note.title}
           </Text>
           <View style={styles.noteActions}>
-            <TouchableOpacity onPress={() => onEditNote(note)} style={styles.editButton}>
-              <Text style={styles.editButtonText}>Edit</Text>
+            <TouchableOpacity
+              onPress={() => onEditNote(note)}
+              style={[styles.editButton, { backgroundColor: theme.colors.accent }]}
+            >
+              <Text style={[styles.editButtonText, { color: theme.colors.textInverse }]}>Edit</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleDeleteNote(note.id)} style={styles.deleteButton}>
-              <Text style={styles.deleteButtonText}>×</Text>
+            <TouchableOpacity
+              onPress={() => handleDeleteNote(note.id)}
+              style={[styles.deleteButton, { backgroundColor: theme.colors.error }]}
+            >
+              <Text style={[styles.deleteButtonText, { color: theme.colors.textInverse }]}>×</Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        {note.verse_reference && <Text style={styles.verseReference}>{note.verse_reference}</Text>}
+        {note.verse_reference && (
+          <Text style={[styles.verseReference, { color: theme.colors.accent }]}>
+            {note.verse_reference}
+          </Text>
+        )}
 
-        <Text style={styles.noteContent} numberOfLines={3}>
+        <Text style={[styles.noteContent, { color: theme.colors.textSecondary }]} numberOfLines={3}>
           {note.content}
         </Text>
 
         {note.tags && note.tags.length > 0 && (
           <View style={styles.tagsContainer}>
             {note.tags.map((tag, index) => (
-              <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>{tag}</Text>
+              <View
+                key={index}
+                style={[styles.tag, { backgroundColor: theme.colors.accentBackgroundSecondary }]}
+              >
+                <Text style={[styles.tagText, { color: theme.colors.accent }]}>{tag}</Text>
               </View>
             ))}
           </View>
         )}
 
-        <Text style={styles.noteDate}>{formatDate(note.updated_date)}</Text>
+        <Text style={[styles.noteDate, { color: theme.colors.textPlaceholder }]}>
+          {formatDate(note.updated_date)}
+        </Text>
       </View>
     );
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>
+    <View style={[styles.container, { backgroundColor: theme.colors.backgroundSecondary }]}>
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+        ]}
+      >
+        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
           {verseReference ? `Notes for ${verseReference}` : 'All Notes'}
         </Text>
-        <TouchableOpacity onPress={onAddNote} style={styles.addButton} activeOpacity={0.7}>
-          <Text style={styles.addButtonText}>+</Text>
+        <TouchableOpacity
+          onPress={onAddNote}
+          style={[styles.addButton, { backgroundColor: theme.colors.accent }]}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.addButtonText, { color: theme.colors.textInverse }]}>+</Text>
         </TouchableOpacity>
       </View>
 
       {loading && notes.length === 0 ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#007AFF" />
-          <Text style={styles.loadingText}>Loading notes...</Text>
+          <ActivityIndicator size="large" color={theme.colors.accent} />
+          <Text style={[styles.loadingText, { color: theme.colors.textSecondary }]}>
+            Loading notes...
+          </Text>
         </View>
       ) : (
         <ScrollView
@@ -148,14 +185,14 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              colors={['#007AFF']}
+              colors={[theme.colors.accent]}
             />
           }
         >
           {notes.length === 0 ? (
             <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No notes yet</Text>
-              <Text style={styles.emptySubtext}>
+              <Text style={[styles.emptyText, { color: theme.colors.text }]}>No notes yet</Text>
+              <Text style={[styles.emptySubtext, { color: theme.colors.textSecondary }]}>
                 {verseReference
                   ? 'Tap the + button to add a note for this passage'
                   : 'Search for a Bible passage and start taking notes'}
@@ -173,7 +210,6 @@ const NotesColumn: React.FC<NotesColumnProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   header: {
     flexDirection: 'row',
@@ -181,18 +217,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
     flex: 1,
   },
   addButton: {
-    backgroundColor: '#007AFF',
     width: 36,
     height: 36,
     borderRadius: 18,
@@ -200,7 +232,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addButtonText: {
-    color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
   },
@@ -211,11 +242,9 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   noteCard: {
-    backgroundColor: '#fff',
     borderRadius: 8,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 1,
@@ -233,7 +262,6 @@ const styles = StyleSheet.create({
   noteTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333',
     flex: 1,
     marginRight: 8,
   },
@@ -242,19 +270,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   editButton: {
-    backgroundColor: '#007AFF',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 4,
     marginRight: 8,
   },
   editButtonText: {
-    color: '#fff',
     fontSize: 12,
     fontWeight: '600',
   },
   deleteButton: {
-    backgroundColor: '#ff3b30',
     width: 24,
     height: 24,
     borderRadius: 12,
@@ -262,19 +287,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   deleteButtonText: {
-    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
   },
   verseReference: {
     fontSize: 14,
-    color: '#007AFF',
     fontWeight: '600',
     marginBottom: 8,
   },
   noteContent: {
     fontSize: 14,
-    color: '#666',
     lineHeight: 20,
     marginBottom: 8,
   },
@@ -284,7 +306,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   tag: {
-    backgroundColor: '#e3f2fd',
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -293,12 +314,10 @@ const styles = StyleSheet.create({
   },
   tagText: {
     fontSize: 12,
-    color: '#007AFF',
     fontWeight: '500',
   },
   noteDate: {
     fontSize: 12,
-    color: '#999',
     textAlign: 'right',
   },
   loadingContainer: {
@@ -310,7 +329,6 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 12,
     fontSize: 16,
-    color: '#666',
   },
   emptyContainer: {
     flex: 1,
@@ -321,13 +339,11 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 18,
-    color: '#333',
     textAlign: 'center',
     marginBottom: 8,
   },
   emptySubtext: {
     fontSize: 14,
-    color: '#666',
     textAlign: 'center',
   },
 });

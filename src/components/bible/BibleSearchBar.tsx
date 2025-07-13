@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { useThemeContext } from '../../theme';
 
 interface BibleSearchBarProps {
   onSearch: (reference: string) => void;
@@ -14,6 +15,7 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
   value,
   onChangeText,
 }) => {
+  const { theme } = useThemeContext();
   const [searchText, setSearchText] = useState(value || '');
 
   const handleTextChange = (text: string) => {
@@ -37,21 +39,30 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.searchContainer}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+      ]}
+    >
+      <View style={[styles.searchContainer, { backgroundColor: theme.colors.backgroundSecondary }]}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { color: theme.colors.text }]}
           value={searchText}
           onChangeText={handleTextChange}
           placeholder={placeholder}
-          placeholderTextColor="#999"
+          placeholderTextColor={theme.colors.textPlaceholder}
           onSubmitEditing={handleSubmitEditing}
           returnKeyType="search"
           autoCapitalize="words"
           autoCorrect={false}
         />
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch} activeOpacity={0.7}>
-          <Text style={styles.searchButtonText}>Search</Text>
+        <TouchableOpacity
+          style={[styles.searchButton, { backgroundColor: theme.colors.accent }]}
+          onPress={handleSearch}
+          activeOpacity={0.7}
+        >
+          <Text style={[styles.searchButtonText, { color: theme.colors.textInverse }]}>Search</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -62,14 +73,11 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
     borderRadius: 8,
     paddingHorizontal: 12,
   },
@@ -77,18 +85,15 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 44,
     fontSize: 16,
-    color: '#333',
     paddingVertical: 0,
   },
   searchButton: {
-    backgroundColor: '#007AFF',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 6,
     marginLeft: 8,
   },
   searchButtonText: {
-    color: '#fff',
     fontSize: 14,
     fontWeight: '600',
   },

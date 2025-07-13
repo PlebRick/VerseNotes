@@ -230,6 +230,7 @@ npm run lint       # Run ESLint
 ## 📱 User Interface
 
 ### Design System
+- **Design Reference**: See [`development/Base44.png`](development/Base44.png) for original design inspiration and color palette reference
 - **Colors**: Blue (#007AFF) primary, gray (#666) secondary
 - **Typography**: System fonts with responsive sizing
 - **Layout**: Flexbox-based responsive design

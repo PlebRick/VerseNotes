@@ -11,12 +11,14 @@ import {
 } from 'react-native';
 import { User, UserSettings } from '../entities/User';
 import { BibleNote } from '../entities/BibleNote';
+import { useThemeContext } from '../theme';
 
 interface SettingsProps {
   navigation?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 const Settings: React.FC<SettingsProps> = ({ navigation }) => {
+  const { theme } = useThemeContext();
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [_unusedUserVar, setUser] = useState<any>(null); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [settings, setSettings] = useState<UserSettings>({
@@ -92,49 +94,69 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     value: boolean,
     onValueChange: (value: boolean) => void,
   ) => (
-    <View style={styles.settingRow}>
+    <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
       <View style={styles.settingInfo}>
-        <Text style={styles.settingTitle}>{title}</Text>
-        <Text style={styles.settingSubtitle}>{subtitle}</Text>
+        <Text style={[styles.settingTitle, { color: theme.colors.text }]}>{title}</Text>
+        <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+          {subtitle}
+        </Text>
       </View>
       <Switch
         value={value}
         onValueChange={onValueChange}
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={value ? '#f5dd4b' : '#f4f3f4'}
+        trackColor={{ false: theme.colors.disabled, true: theme.colors.accentBackground }}
+        thumbColor={value ? theme.colors.warning : theme.colors.backgroundTertiary}
       />
     </View>
   );
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Settings</Text>
-        <Text style={styles.subtitle}>Customize your Bible study experience</Text>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.backgroundSecondary }]}>
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+        ]}
+      >
+        <Text style={[styles.title, { color: theme.colors.text }]}>Settings</Text>
+        <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
+          Customize your Bible study experience
+        </Text>
       </View>
 
       {/* Bible Settings */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Bible Settings</Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Bible Settings</Text>
 
-        <View style={styles.card}>
-          <View style={styles.settingRow}>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+          ]}
+        >
+          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
             <View style={styles.settingInfo}>
-              <Text style={styles.settingTitle}>Default Translation</Text>
-              <Text style={styles.settingSubtitle}>Currently: {settings.default_translation}</Text>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
+                Default Translation
+              </Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Currently: {settings.default_translation}
+              </Text>
             </View>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Change</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: theme.colors.accent }]}>
+              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Change</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={styles.settingRow}>
+          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
             <View style={styles.settingInfo}>
-              <Text style={styles.settingTitle}>Font Size</Text>
-              <Text style={styles.settingSubtitle}>Currently: {settings.font_size}</Text>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Font Size</Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Currently: {settings.font_size}
+              </Text>
             </View>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Change</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: theme.colors.accent }]}>
+              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Change</Text>
             </TouchableOpacity>
           </View>
 
@@ -156,16 +178,23 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
       {/* App Settings */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>App Settings</Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>App Settings</Text>
 
-        <View style={styles.card}>
-          <View style={styles.settingRow}>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+          ]}
+        >
+          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
             <View style={styles.settingInfo}>
-              <Text style={styles.settingTitle}>Theme</Text>
-              <Text style={styles.settingSubtitle}>Currently: {settings.theme}</Text>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Theme</Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Currently: {settings.theme}
+              </Text>
             </View>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Change</Text>
+            <TouchableOpacity style={[styles.button, { backgroundColor: theme.colors.accent }]}>
+              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Change</Text>
             </TouchableOpacity>
           </View>
 
@@ -187,16 +216,23 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
       {/* Navigation */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Navigation</Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Navigation</Text>
 
-        <View style={styles.card}>
-          <View style={styles.settingRow}>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+          ]}
+        >
+          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
             <View style={styles.settingInfo}>
-              <Text style={styles.settingTitle}>Bible Study</Text>
-              <Text style={styles.settingSubtitle}>Go to main Bible study interface</Text>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Bible Study</Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Go to main Bible study interface
+              </Text>
             </View>
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button, { backgroundColor: theme.colors.accent }]}
               onPress={() => {
                 if (navigation?.navigate) {
                   navigation.navigate('BibleStudy');
@@ -205,7 +241,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                 }
               }}
             >
-              <Text style={styles.buttonText}>Go</Text>
+              <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Go</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -213,23 +249,34 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
       {/* Data Management */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Data Management</Text>
+        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Data Management</Text>
 
-        <View style={styles.card}>
-          <View style={styles.settingRow}>
+        <View
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.surface, shadowColor: theme.colors.shadow },
+          ]}
+        >
+          <View style={[styles.settingRow, { borderBottomColor: theme.colors.borderSecondary }]}>
             <View style={styles.settingInfo}>
-              <Text style={styles.settingTitle}>Export Notes</Text>
-              <Text style={styles.settingSubtitle}>Export all notes to markdown</Text>
+              <Text style={[styles.settingTitle, { color: theme.colors.text }]}>Export Notes</Text>
+              <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                Export all notes to markdown
+              </Text>
             </View>
             <TouchableOpacity
-              style={[styles.button, isExporting && styles.buttonDisabled]}
+              style={[
+                styles.button,
+                { backgroundColor: theme.colors.accent },
+                isExporting && [styles.buttonDisabled, { backgroundColor: theme.colors.disabled }],
+              ]}
               onPress={handleExportNotes}
               disabled={isExporting}
             >
               {isExporting ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator size="small" color={theme.colors.textInverse} />
               ) : (
-                <Text style={styles.buttonText}>Export</Text>
+                <Text style={[styles.buttonText, { color: theme.colors.textInverse }]}>Export</Text>
               )}
             </TouchableOpacity>
           </View>
@@ -239,14 +286,20 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       {/* Save Button */}
       <View style={styles.footer}>
         <TouchableOpacity
-          style={[styles.saveButton, isSaving && styles.buttonDisabled]}
+          style={[
+            styles.saveButton,
+            { backgroundColor: theme.colors.success },
+            isSaving && [styles.buttonDisabled, { backgroundColor: theme.colors.disabled }],
+          ]}
           onPress={handleSaveSettings}
           disabled={isSaving}
         >
           {isSaving ? (
-            <ActivityIndicator size="small" color="#fff" />
+            <ActivityIndicator size="small" color={theme.colors.textInverse} />
           ) : (
-            <Text style={styles.saveButtonText}>Save All Settings</Text>
+            <Text style={[styles.saveButtonText, { color: theme.colors.textInverse }]}>
+              Save All Settings
+            </Text>
           )}
         </TouchableOpacity>
       </View>
@@ -257,23 +310,18 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   header: {
     padding: 20,
-    backgroundColor: '#fff',
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
     marginBottom: 5,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
   },
   section: {
     marginTop: 20,
@@ -282,14 +330,11 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#333',
     marginBottom: 10,
   },
   card: {
-    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 15,
-    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -304,7 +349,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
   },
   settingInfo: {
     flex: 1,
@@ -312,39 +356,33 @@ const styles = StyleSheet.create({
   settingTitle: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#333',
     marginBottom: 2,
   },
   settingSubtitle: {
     fontSize: 14,
-    color: '#666',
   },
   button: {
-    backgroundColor: '#007AFF',
     paddingHorizontal: 15,
     paddingVertical: 8,
     borderRadius: 5,
   },
   buttonText: {
-    color: '#fff',
     fontSize: 14,
     fontWeight: '500',
   },
   buttonDisabled: {
-    backgroundColor: '#ccc',
+    // backgroundColor handled by theme in JSX
   },
   footer: {
     padding: 20,
     marginTop: 20,
   },
   saveButton: {
-    backgroundColor: '#34C759',
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
   },
   saveButtonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600',
   },

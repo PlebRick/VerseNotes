@@ -12,6 +12,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { BibleNote, BibleNoteData } from '../../entities';
+import { useThemeContext } from '../../theme';
+import VerseBracket from './VerseBracket';
 
 interface NoteEditorProps {
   note?: BibleNoteData;
@@ -30,6 +32,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
   onClose,
   onSave,
 }) => {
+  const { theme } = useThemeContext();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tags, setTags] = useState('');
@@ -106,67 +109,110 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { backgroundColor: theme.colors.surface }]}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <View style={styles.header}>
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: theme.colors.backgroundSecondary,
+            borderBottomColor: theme.colors.border,
+          },
+        ]}
+      >
         <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
-          <Text style={styles.cancelButtonText}>Cancel</Text>
+          <Text style={[styles.cancelButtonText, { color: theme.colors.accent }]}>Cancel</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{note ? 'Edit Note' : 'New Note'}</Text>
+        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
+          {note ? 'Edit Note' : 'New Note'}
+        </Text>
         <TouchableOpacity
           onPress={handleSave}
-          style={[styles.saveButton, isSaving && styles.saveButtonDisabled]}
+          style={[
+            styles.saveButton,
+            { backgroundColor: theme.colors.accent },
+            isSaving && [styles.saveButtonDisabled, { backgroundColor: theme.colors.disabled }],
+          ]}
           disabled={isSaving}
         >
           {isSaving ? (
-            <ActivityIndicator size="small" color="#fff" />
+            <ActivityIndicator size="small" color={theme.colors.textInverse} />
           ) : (
-            <Text style={styles.saveButtonText}>Save</Text>
+            <Text style={[styles.saveButtonText, { color: theme.colors.textInverse }]}>Save</Text>
           )}
         </TouchableOpacity>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {verseReference && (
-          <View style={styles.verseReference}>
-            <Text style={styles.verseReferenceText}>{verseReference}</Text>
+          <View
+            style={[
+              styles.verseReference,
+              { backgroundColor: theme.colors.accentBackgroundSecondary },
+            ]}
+          >
+            <VerseBracket />
+            <Text style={[styles.verseReferenceText, { color: theme.colors.accent }]}>
+              {verseReference}
+            </Text>
           </View>
         )}
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Title</Text>
+          <Text style={[styles.label, { color: theme.colors.text }]}>Title</Text>
           <TextInput
-            style={styles.titleInput}
+            style={[
+              styles.titleInput,
+              {
+                borderColor: theme.colors.border,
+                color: theme.colors.text,
+                backgroundColor: theme.colors.backgroundSecondary,
+              },
+            ]}
             value={title}
             onChangeText={setTitle}
             placeholder="Enter note title"
-            placeholderTextColor="#999"
+            placeholderTextColor={theme.colors.textPlaceholder}
             multiline={false}
             maxLength={100}
           />
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Tags (comma separated)</Text>
+          <Text style={[styles.label, { color: theme.colors.text }]}>Tags (comma separated)</Text>
           <TextInput
-            style={styles.tagsInput}
+            style={[
+              styles.tagsInput,
+              {
+                borderColor: theme.colors.border,
+                color: theme.colors.text,
+                backgroundColor: theme.colors.backgroundSecondary,
+              },
+            ]}
             value={tags}
             onChangeText={setTags}
             placeholder="study, devotion, prayer"
-            placeholderTextColor="#999"
+            placeholderTextColor={theme.colors.textPlaceholder}
             multiline={false}
           />
         </View>
 
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Content</Text>
+          <Text style={[styles.label, { color: theme.colors.text }]}>Content</Text>
           <TextInput
-            style={styles.contentInput}
+            style={[
+              styles.contentInput,
+              {
+                borderColor: theme.colors.border,
+                color: theme.colors.text,
+                backgroundColor: theme.colors.backgroundSecondary,
+              },
+            ]}
             value={content}
             onChangeText={setContent}
             placeholder="Write your thoughts, insights, and reflections..."
-            placeholderTextColor="#999"
+            placeholderTextColor={theme.colors.textPlaceholder}
             multiline={true}
             textAlignVertical="top"
           />
@@ -179,7 +225,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
@@ -188,24 +233,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-    backgroundColor: '#f9f9f9',
   },
   cancelButton: {
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
   cancelButtonText: {
-    color: '#007AFF',
     fontSize: 16,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
   },
   saveButton: {
-    backgroundColor: '#007AFF',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 6,
@@ -213,10 +253,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   saveButtonDisabled: {
-    backgroundColor: '#ccc',
+    // backgroundColor handled by theme in JSX
   },
   saveButtonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600',
   },
@@ -225,17 +264,15 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   verseReference: {
-    backgroundColor: '#f0f8ff',
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 12,
     borderRadius: 8,
     marginBottom: 16,
-    borderLeftWidth: 3,
-    borderLeftColor: '#007AFF',
   },
   verseReferenceText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#007AFF',
   },
   inputGroup: {
     marginBottom: 20,
@@ -243,38 +280,28 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
     marginBottom: 8,
   },
   titleInput: {
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
-    backgroundColor: '#f9f9f9',
   },
   tagsInput: {
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
-    backgroundColor: '#f9f9f9',
   },
   contentInput: {
     borderWidth: 1,
-    borderColor: '#ddd',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#333',
-    backgroundColor: '#f9f9f9',
     minHeight: 200,
   },
 });
