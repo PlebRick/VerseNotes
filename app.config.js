@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "VerseNotes",
     slug: "VerseNotes",
-    version: "0.2.9",
+    version: "0.2.10",
     orientation: "default",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
@@ -19,7 +19,7 @@ export default {
     },
     android: {
       package: "com.versenotes.app",
-      versionCode: 8,
+      versionCode: 9,
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
