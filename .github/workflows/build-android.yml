@@ -34,10 +34,33 @@ jobs:
       
     - name: Install Expo CLI
       run: npm install -g @expo/cli
+      
+    - name: Create keystore
+      run: |
+        keytool -genkey -v -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 \
+          -storepass android -keypass android \
+          -alias upload -keystore upload-keystore.jks \
+          -dname "CN=VerseNotes,OU=,O=,L=,S=,C=US"
+        
+    - name: Create credentials.json
+      run: |
+        cat > credentials.json << EOF
+        {
+          "android": {
+            "keystore": {
+              "keystorePath": "upload-keystore.jks",
+              "keystorePassword": "android",
+              "keyAlias": "upload",
+              "keyPassword": "android"
+            }
+          }
+        }
+        EOF
         
     - name: Prebuild Android
-      run: npx expo prebuild --platform android --clean
-      
+      run: |
+        EAS_NO_VCS=1 npx expo prebuild --platform android --clean
+        
     - name: Make gradlew executable
       run: chmod +x android/gradlew
       
@@ -46,17 +69,21 @@ jobs:
         cd android
         ./gradlew assembleRelease
         
+    - name: Rename APK
+      run: |
+        cp android/app/build/outputs/apk/release/app-release.apk versenotes-${{ github.ref_name }}.apk
+        
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: versenotes-android-apk
-        path: android/app/build/outputs/apk/release/app-release.apk
+        path: versenotes-${{ github.ref_name }}.apk
         
     - name: Create GitHub Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: android/app/build/outputs/apk/release/app-release.apk
+        files: versenotes-${{ github.ref_name }}.apk
         name: VerseNotes ${{ github.ref_name }}
         body: |
           ## VerseNotes ${{ github.ref_name }}
