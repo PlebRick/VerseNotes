@@ -139,6 +139,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Cross-Platform Testing**: Validation on all supported platforms
 - **TypeScript Compliance**: Strict type checking with zero errors
 
+## [v0.2.9] - 2025-07-13 - Note Creation Crash Fix
+
+### 🐛 Bug Fixes
+- **Fixed crash when adding a new note on Android/Daylight DC1**
+  - **Root Cause**: The `originWhitelist` prop for the rich text editor's WebView was passed as a string instead of an array, causing a native type error (`expected dynamic type 'array', but had type 'string'`).
+  - **Fix**: Added `originWhitelist={SAFE_ORIGIN_WHITELIST}` to the `RichEditor` component and created a utility constant to enforce correct typing. Upgraded `react-native-webview` and `react-native-pell-rich-editor` to latest compatible versions.
+  - **Impact**: Note creation and editing now work reliably on all platforms, including Android 13+ and Daylight DC1 tablet. Crash is fully resolved.
+
 ---
 
 **Changelog Maintained By**: Development Team  

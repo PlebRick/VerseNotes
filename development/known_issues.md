@@ -60,6 +60,12 @@ This document tracks known issues, limitations, and technical debt in the VerseN
 - **Resolution**: Restructured to flex layout with responsive verse number width
 - **Status**: ✅ Resolved
 
+### **Note Creation Crash on Android/DC1** - FIXED in v0.2.9
+- **Issue**: App crashed when tapping the "Note" button to add a new note on Android and Daylight DC1 tablet.
+- **Root Cause**: The `originWhitelist` prop for the rich text editor's WebView was passed as a string instead of an array, causing a native type error (`expected dynamic type 'array', but had type 'string'`).
+- **Fix**: Added `originWhitelist={SAFE_ORIGIN_WHITELIST}` to the `RichEditor` component and created a utility constant to enforce correct typing. Upgraded `react-native-webview` and `react-native-pell-rich-editor` to latest compatible versions.
+- **Impact**: Note creation and editing now work reliably on all platforms, including Android 13+ and Daylight DC1 tablet. Crash is fully resolved.
+
 ## 🔧 Technical Debt
 
 ### **Performance Optimization**

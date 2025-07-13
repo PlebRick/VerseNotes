@@ -338,3 +338,10 @@ MIT License - see LICENSE file for details
 **Version**: v0.2.1  
 **Platform**: React Native with Expo SDK 53  
 **Status**: Production Ready with Advanced Features 
+
+## 🐛 v0.2.9 Technical Bug Fix: Note Creation Crash on Android/DC1
+
+- **Issue**: App crashed when adding a new note due to a native type error in the WebView used by the rich text editor.
+- **Root Cause**: The `originWhitelist` prop was passed as a string instead of an array, causing a native bridge error (`expected dynamic type 'array', but had type 'string'`).
+- **Fix**: Added `originWhitelist={SAFE_ORIGIN_WHITELIST}` to the `RichEditor` component and created a utility constant to enforce correct typing. Upgraded `react-native-webview` and `react-native-pell-rich-editor` to latest compatible versions.
+- **Impact**: Note creation and editing now work reliably on all platforms, including Android 13+ and Daylight DC1 tablet. Crash is fully resolved. 
