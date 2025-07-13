@@ -29,8 +29,7 @@ jobs:
       uses: android-actions/setup-android@v3
       
     - name: Install dependencies
-      run: |
-        npm install --legacy-peer-deps
+      run: npm install --legacy-peer-deps
         
     - name: Install Expo CLI
       run: npm install -g @expo/cli
@@ -61,8 +60,7 @@ jobs:
         EOF
         
     - name: Try prebuild
-      run: |
-        npx expo prebuild --platform android --clear --no-install
+      run: npx expo prebuild --platform android --clear --no-install
         
     - name: List android directory
       run: |
@@ -83,8 +81,7 @@ jobs:
         ./gradlew assembleRelease --no-daemon --stacktrace
         
     - name: Find APK
-      run: |
-        find . -name "*.apk" -type f
+      run: find . -name "*.apk" -type f
         
     - name: Upload APK
       uses: actions/upload-artifact@v4
