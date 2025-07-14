@@ -118,19 +118,36 @@ jobs:
         echo "Looking for APK files..."
         find . -name "*.apk" -type f
         
+    - name: Extract version from app.config.js
+      id: get_version
+      run: |
+        VERSION=$(node -e "const config = require('./app.config.js'); console.log(config.default.expo.version);")
+        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        echo "Extracted version: $VERSION"
+        
+    - name: Rename APK
+      run: |
+        if [ -f "android/app/build/outputs/apk/release/app-release.apk" ]; then
+          mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/VerseNotes-v${{ steps.get_version.outputs.VERSION }}.apk
+          echo "✅ APK renamed to VerseNotes-v${{ steps.get_version.outputs.VERSION }}.apk"
+        else
+          echo "❌ APK not found"
+          exit 1
+        fi
+        
     - name: Upload APK if found
       if: success()
       uses: actions/upload-artifact@v4
       with:
-        name: android-apk
-        path: android/app/build/outputs/apk/release/app-release.apk
+        name: VerseNotes-v${{ steps.get_version.outputs.VERSION }}
+        path: android/app/build/outputs/apk/release/VerseNotes-v${{ steps.get_version.outputs.VERSION }}.apk
         if-no-files-found: warn
         
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/') && success()
       uses: softprops/action-gh-release@v1
       with:
-        files: android/app/build/outputs/apk/release/app-release.apk
+        files: android/app/build/outputs/apk/release/VerseNotes-v${{ steps.get_version.outputs.VERSION }}.apk
         name: VerseNotes ${{ github.ref_name }}
         body: |
           Android APK for VerseNotes ${{ github.ref_name }}
@@ -143,7 +160,7 @@ jobs:
           
           Features:
           - Bible study with WEB translation
-          - Note-taking with rich text
+          - Plain text note-taking
           - Backup/export functionality
           - Optimized for Daylight DC1 tablet
       env:

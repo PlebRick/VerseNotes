@@ -61,10 +61,6 @@ const NoteCard: React.FC<NoteCardProps> = ({
     }
   };
 
-  const stripHtmlTags = (html: string) => {
-    return html.replace(/<[^>]*>/g, '').trim();
-  };
-
   const getFullVerseReference = (note: BibleNoteData): string => {
     // If we have start_verse and end_verse, construct the full reference
     if (note.start_verse && note.end_verse) {
@@ -188,7 +184,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
           style={[styles.preview, { color: theme.colors.textSecondary }]} 
           numberOfLines={isExpanded ? undefined : 5}
         >
-          {stripHtmlTags(note.content)}
+          {note.content}
         </Text>
       </View>
 

@@ -129,31 +129,6 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
     }
   };
 
-  const stripHtmlTags = (html: string) => {
-    return html.replace(/<[^>]*>/g, '').trim();
-  };
-
-  const formatContentForReading = (html: string): string => {
-    // Convert HTML to readable text while preserving basic structure
-    let text = html
-      // Convert paragraph tags to double line breaks
-      .replace(/<\/p>/gi, '\n\n')
-      .replace(/<p[^>]*>/gi, '')
-      // Convert line breaks
-      .replace(/<br\s*\/?>/gi, '\n')
-      // Convert list items to bullet points
-      .replace(/<li[^>]*>/gi, '• ')
-      .replace(/<\/li>/gi, '\n')
-      // Remove all other HTML tags
-      .replace(/<[^>]*>/g, '')
-      // Clean up extra whitespace
-      .replace(/\n\s*\n\s*\n/g, '\n\n') // Multiple line breaks to double
-      .replace(/\n\s+/g, '\n') // Remove spaces after line breaks
-      .trim();
-
-    return text;
-  };
-
   const increaseFontSize = () => {
     if (fontSize < MAX_FONT_SIZE) {
       setFontSize(fontSize + FONT_SIZE_STEP);
@@ -296,7 +271,7 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
             Study Notes
           </Text>
           <Text style={[styles.noteContent, { color: theme.colors.textDark, fontSize: fontSize, lineHeight: fontSize * 1.4 }]}>
-            {formatContentForReading(note.content)}
+            {note.content}
           </Text>
         </View>
       </ScrollView>

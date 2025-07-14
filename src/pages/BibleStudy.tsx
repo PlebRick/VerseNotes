@@ -5,7 +5,7 @@ import { BibleNoteData } from '../entities/BibleNote';
 import BibleSearchBar from '../components/bible/BibleSearchBar';
 import BibleColumn from '../components/bible/BibleColumn';
 import NotesColumn from '../components/bible/NotesColumn';
-import NoteEditor from '../components/bible/NoteEditor';
+// import NoteEditor from '../components/bible/NoteEditor';
 import NoteReader from '../components/bible/NoteReader';
 import { useThemeContext } from '../theme';
 import { useNavigation } from '@react-navigation/native';
@@ -210,14 +210,14 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
       </View>
 
       <Modal visible={isNoteEditorVisible} animationType="slide" presentationStyle="fullScreen">
-        <NoteEditor
+        {/* <NoteEditor
           note={editingNote}
           verseReference={passage?.reference}
           verseText={selectedVerseText}
           isVisible={isNoteEditorVisible}
           onClose={handleCloseNoteEditor}
           onSave={handleSaveNote}
-        />
+        /> */}
       </Modal>
 
       <Modal visible={isNoteReaderVisible} animationType="slide" presentationStyle="fullScreen">

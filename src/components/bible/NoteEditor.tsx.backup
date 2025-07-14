@@ -12,9 +12,7 @@ import {
 import { BibleNoteData } from '../../entities';
 import { useThemeContext } from '../../theme';
 import { useNotes } from '../../context/NotesProvider';
-import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
 import ButterButton from '../common/ButterButton';
-import { SAFE_ORIGIN_WHITELIST } from '../../utils/safeOriginWhitelist';
 
 // Web-compatible alert functions
 const showAlert = (title: string, message: string, onOk?: () => void) => {
@@ -104,7 +102,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         // Update existing note
         savedNote = await updateNote(note.id, {
           title: title.trim(),
-          content: content, // It's now HTML
+          content: content, // Plain text content
           tags: tagArray,
           start_verse: startVerse ? parseInt(startVerse) : undefined,
           end_verse: endVerse ? parseInt(endVerse) : undefined,
@@ -113,7 +111,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
         // Create new note
         savedNote = await addNote({
           title: title.trim(),
-          content: content, // It's now HTML
+          content: content, // Plain text content
           verse_reference: verseReference || '',
           tags: tagArray,
           start_verse: startVerse ? parseInt(startVerse) : undefined,
@@ -270,22 +268,6 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
       fontSize: 16,
       paddingHorizontal: 8,
     },
-    richToolbar: {
-      height: 50,
-      borderTopLeftRadius: 8,
-      borderTopRightRadius: 8,
-    },
-    richEditorContainer: {
-      borderWidth: 1,
-      borderBottomLeftRadius: 8,
-      borderBottomRightRadius: 8,
-      flex: 1,
-      minHeight: 400,
-    },
-    richEditor: {
-      padding: 12,
-      fontSize: 16,
-    },
   });
 
   return (
@@ -419,52 +401,29 @@ const NoteEditor: React.FC<NoteEditorProps> = ({
 
         <View style={styles.contentGroup}>
           <Text style={[styles.label, { color: theme.colors.text }]}>Content</Text>
-          {Platform.OS === 'web' ? (
-            // Web fallback: Use regular TextInput
-            <TextInput
-              style={[
-                styles.contentInput,
-                {
-                  borderColor: theme.colors.buttonDarkGray,
-                  color: theme.colors.text,
-                  backgroundColor: theme.colors.backgroundSecondary,
-                },
-              ]}
-              value={content}
-              onChangeText={setContent}
-              placeholder="Write your thoughts, insights, and reflections..."
-              placeholderTextColor={theme.colors.textPlaceholder}
-              multiline={true}
-              textAlignVertical="top"
-            />
-          ) : (
-            // Mobile: Use RichEditor
-            <>
-              <RichToolbar
-                actions={[
-                  actions.undo,
-                  actions.redo,
-                  actions.setBold,
-                  actions.setItalic,
-                  actions.setUnderline,
-                  actions.insertBulletsList,
-                  actions.insertOrderedList,
-                  actions.checkboxList,
-                ]}
-                style={[styles.richToolbar, { backgroundColor: theme.colors.surface }]}
-              />
-              <ScrollView style={[styles.richEditorContainer, { borderColor: theme.colors.buttonDarkGray }]}>
-                <RichEditor
-                  initialContentHTML={content}
-                  onChange={setContent}
-                  placeholder="Write your thoughts, insights, and reflections..."
-                  style={[styles.richEditor, { backgroundColor: theme.colors.backgroundSecondary }]}
-                  editorStyle={{ color: theme.colors.text }}
-                  originWhitelist={SAFE_ORIGIN_WHITELIST}
-                />
-              </ScrollView>
-            </>
-          )}
+          <TextInput
+            style={[
+              styles.contentInput,
+              {
+                borderColor: theme.colors.buttonDarkGray,
+                color: theme.colors.text,
+                backgroundColor: theme.colors.backgroundSecondary,
+              },
+            ]}
+            value={content}
+            onChangeText={setContent}
+            placeholder="Write your thoughts, insights, and reflections..."
+            placeholderTextColor={theme.colors.textPlaceholder}
+            multiline={true}
+            textAlignVertical="top"
+            numberOfLines={10}
+            returnKeyType="default"
+            blurOnSubmit={false}
+            scrollEnabled={true}
+            accessible={true}
+            accessibilityLabel="Note content"
+            accessibilityHint="Enter your study notes and reflections here"
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
