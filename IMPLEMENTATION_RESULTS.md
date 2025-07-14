@@ -63,7 +63,7 @@ VerseNotes/
 #### NoteEditor (`src/components/bible/NoteEditor.tsx`)
 - Full-screen note editing experience
 - Collapses Bible column when opened (mobile)
-- Rich text input with tags support
+- Plain text input with tags support (rich text removed due to WebView crashes)
 - Auto-save functionality
 - Verse reference linking
 

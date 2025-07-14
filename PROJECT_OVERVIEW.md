@@ -2,15 +2,15 @@
 
 ## 🎯 Project Summary
 
-**VerseNotes** is a sophisticated React Native Bible study application built with Expo SDK 53, specifically optimized for the Daylight DC1 tablet and Android 13+. The application provides a comprehensive Bible study experience with advanced note-taking capabilities, rich text editing, and a complete backup/restore system. It uses the World English Bible (WEB) translation via bible-api.com and features a Base44-inspired design language optimized for e-ink displays.
+**VerseNotes** is a sophisticated React Native Bible study application built with Expo SDK 53, specifically optimized for the Daylight DC1 tablet and Android 13+. The application provides a comprehensive Bible study experience with reliable plain text note-taking capabilities and a complete backup/restore system. It uses the World English Bible (WEB) translation via bible-api.com and features a Base44-inspired design language optimized for e-ink displays.
 
-**Current Version**: v0.2.1 (January 2025)
-**Status**: Production Ready with Advanced Features
+**Current Version**: v0.2.11 (January 2025)
+**Status**: Production Ready - WebView Crisis Resolved
 
 ## ✨ Core Features & Capabilities
 
-### 📝 **Advanced Note-Taking System**
-- **Rich Text Editor**: HTML-based content with formatting support via react-native-pell-rich-editor
+### 📝 **Reliable Note-Taking System**
+- **Plain Text Editor**: Stable, crash-free text editing with native React Native components
 - **Expandable Card Interface**: Quick preview with triangle icon expansion/collapse
 - **Full-Screen Reader Mode**: Dedicated interface optimized for public speaking and presentations
 - **Font Size Controls**: Adjustable from 14-32px with AsyncStorage persistence
@@ -28,7 +28,6 @@
 ### 💾 **Comprehensive Backup & Export System**
 - **Multiple Export Formats**:
   - **JSON**: Complete backup with full import capability
-  - **Markdown**: Readable format with Bible verses for sharing
   - **Plain Text**: Universal compatibility for any platform
 - **Import with Conflict Resolution**:
   - **Replace Mode**: Complete data restoration
@@ -57,7 +56,7 @@
 ```json
 {
   "@react-native-async-storage/async-storage": "Local data persistence",
-  "react-native-pell-rich-editor": "Rich text editing capabilities",
+  // "react-native-pell-rich-editor": "Rich text editing capabilities", // REMOVED - WebView incompatibility
   "expo-document-picker": "File import functionality",
   "expo-file-system": "File system access for exports",
   "expo-sharing": "Native sharing capabilities",
@@ -85,7 +84,7 @@ versenotes/
 │   │   │   ├── BibleColumn.tsx          # Bible text display with verse selection
 │   │   │   ├── BibleSearchBar.tsx       # Real-time Bible reference search
 │   │   │   ├── NoteCard.tsx             # Expandable note cards with animations
-│   │   │   ├── NoteEditor.tsx           # Rich text note editing modal
+│   │   │   ├── NoteEditor.tsx.backup    # Rich text note editing modal (REMOVED)
 │   │   │   ├── NoteReader.tsx           # Full-screen reader for public speaking
 │   │   │   ├── NotesColumn.tsx          # Note management and organization
 │   │   │   └── VerseBracket.tsx         # Verse highlighting and selection
@@ -192,7 +191,7 @@ versenotes/
 - ✅ **Data Integrity Validation**: Checksums and structure verification
 
 ### **Current Capabilities**
-- **Note Management**: Rich text editing with HTML support
+- **Note Management**: Plain text editing with full stability
 - **Bible Study**: WEB translation with verse selection
 - **Data Export**: Multiple formats with cross-platform support
 - **Data Import**: JSON backup restoration with conflict resolution

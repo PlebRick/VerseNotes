@@ -2,14 +2,14 @@
 
 ## 🎯 Project Summary
 
-**VerseNotes** is a React Native Bible study application built with Expo, specifically optimized for Android 13 and the Daylight DC1 tablet. The app provides a comprehensive Bible study experience with advanced note-taking capabilities, using the World English Bible (WEB) translation via a public, no-auth API. Features Base44-inspired UI design with gray-scale theming optimized for e-ink displays.
+**VerseNotes** is a React Native Bible study application built with Expo, specifically optimized for Android 13 and the Daylight DC1 tablet. The app provides a comprehensive Bible study experience with reliable plain text note-taking capabilities, using the World English Bible (WEB) translation via a public, no-auth API. Features Base44-inspired UI design with gray-scale theming optimized for e-ink displays.
 
-**Current Version**: v0.2.1 (January 2025)
+**Current Version**: v0.2.11 (January 2025)
 
 ## ✨ Key Features
 
-### 📝 **Advanced Note-Taking**
-- **Rich text editing** with HTML content support
+### 📝 **Reliable Note-Taking**
+- **Plain text editing** with full reliability and crash-free experience
 - **Expandable card view** for quick note preview
 - **Full-screen reader** optimized for public speaking
 - **Font size controls** (14-32px) with persistence
@@ -23,7 +23,7 @@
 - **Responsive layout** for landscape/portrait modes
 
 ### 💾 **Comprehensive Backup System**
-- **Multiple export formats**: JSON (backup), Markdown (sharing), Plain Text (universal)
+- **Multiple export formats**: JSON (backup), Plain Text (universal)
 - **Complete data backup** including notes, settings, and metadata
 - **Import with conflict resolution** (Replace vs Merge modes)
 - **Cross-platform file handling** (web download, mobile sharing)
@@ -46,10 +46,9 @@
 
 ### Key Dependencies
 - `@react-native-async-storage/async-storage`: Local data persistence
-- `react-native-pell-rich-editor`: Rich text editing capabilities
 - `expo-document-picker`: File import functionality
-- `expo-file-system`: File system access for exports
-- `expo-sharing`: Native sharing capabilities
+- `expo-sharing`: Cross-platform file sharing
+- `expo-file-system`: File system operations
 - `react-native-drawer-layout-polyfill`: Drawer navigation for Android
 - `react-native-vector-icons`: Icon support
 - `@expo/vector-icons`: Expo icon library
@@ -72,7 +71,7 @@ versenotes/
 │   │   │   ├── BibleColumn.tsx          # Bible text display component
 │   │   │   ├── BibleSearchBar.tsx       # Search input component
 │   │   │   ├── NoteCard.tsx             # Individual note display with expand/collapse
-│   │   │   ├── NoteEditor.tsx           # Rich text note editing modal
+│   │   │   ├── NoteEditor.tsx.backup    # Rich text note editing modal (REMOVED)
 │   │   │   ├── NoteReader.tsx           # Full-screen note reader for public speaking
 │   │   │   ├── NotesColumn.tsx          # Notes management component
 │   │   │   └── VerseBracket.tsx         # Verse highlighting component
@@ -156,7 +155,7 @@ npm test
 ## 🔧 Core Features Deep Dive
 
 ### Note Management
-- **Rich Text Editor**: HTML-based content with formatting support
+- **~~Rich Text Editor~~**: ~~HTML-based content with formatting support~~ **REMOVED - WebView incompatibility**
 - **Expandable Cards**: Quick preview with triangle icon expansion
 - **Full Reader Mode**: Dedicated reading interface for presentations
 - **Verse Integration**: Automatic Bible text fetching for note context

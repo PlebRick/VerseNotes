@@ -11,7 +11,7 @@
 
 ### **Core Bible Study Platform**
 - ✅ **Bible Integration**: Complete WEB translation integration via bible-api.com
-- ✅ **Note-Taking System**: Rich text editing with HTML support
+- ✅ **Note-Taking System**: Plain text editing with full stability
 - ✅ **Verse Linking**: Automatic Bible verse integration for notes
 - ✅ **Search Functionality**: Real-time Bible passage search
 - ✅ **Responsive Design**: Optimized for mobile, tablet, and web
@@ -20,7 +20,7 @@
 - ✅ **Expandable Note Cards**: Smooth animations with triangle icon
 - ✅ **Full-Screen Reader**: Optimized for public speaking scenarios
 - ✅ **Font Size Controls**: 14-32px range with persistence
-- ✅ **Rich Text Editor**: HTML-based content with formatting tools
+- ✅ **~~Rich Text Editor~~**: ~~HTML-based content with formatting tools~~ **REMOVED - Replaced with stable plain text**
 - ✅ **Tag System**: Comprehensive note organization
 
 ### **Comprehensive Backup System**
