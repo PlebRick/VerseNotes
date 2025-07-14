@@ -1,5 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated, LayoutAnimation, Platform } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+  LayoutAnimation,
+  Platform,
+} from 'react-native';
 import { BibleNoteData } from '../../entities/BibleNote';
 import { useTheme } from '../../theme';
 import ButterButton from '../common/ButterButton';
@@ -13,13 +21,13 @@ interface NoteCardProps {
   onExpandToggle?: (noteId: string) => void;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ 
-  note, 
-  onEdit, 
-  onDelete, 
+const NoteCard: React.FC<NoteCardProps> = ({
+  note,
+  onEdit,
+  onDelete,
   onView,
   isExpanded = false,
-  onExpandToggle 
+  onExpandToggle,
 }) => {
   const theme = useTheme();
   const rotationAnim = useRef(new Animated.Value(isExpanded ? 1 : 0)).current;
@@ -61,19 +69,18 @@ const NoteCard: React.FC<NoteCardProps> = ({
     }
   };
 
-  const getFullVerseReference = (note: BibleNoteData): string => {
+  const getFullVerseReference = (noteData: BibleNoteData): string => {
     // If we have start_verse and end_verse, construct the full reference
-    if (note.start_verse && note.end_verse) {
-      if (note.start_verse === note.end_verse) {
-        return `${note.verse_reference}:${note.start_verse}`;
+    if (noteData.start_verse && noteData.end_verse) {
+      if (noteData.start_verse === noteData.end_verse) {
+        return `${noteData.verse_reference}:${noteData.start_verse}`;
       } else {
-        return `${note.verse_reference}:${note.start_verse}-${note.end_verse}`;
+        return `${noteData.verse_reference}:${noteData.start_verse}-${noteData.end_verse}`;
       }
-    } else if (note.start_verse) {
-      return `${note.verse_reference}:${note.start_verse}`;
-    } else {
-      return note.verse_reference;
+    } else if (noteData.start_verse) {
+      return `${noteData.verse_reference}:${noteData.start_verse}`;
     }
+    return noteData.verse_reference;
   };
 
   const handleEdit = () => {
@@ -82,15 +89,15 @@ const NoteCard: React.FC<NoteCardProps> = ({
     }
   };
 
-  const handleDelete = () => {
-    if (onDelete) {
-      onDelete(note.id);
-    }
-  };
-
   const handleView = () => {
     if (onView) {
       onView(note);
+    }
+  };
+
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(note.id);
     }
   };
 
@@ -141,13 +148,13 @@ const NoteCard: React.FC<NoteCardProps> = ({
               {formatDate(note.updated_date)}
             </Text>
           </View>
-          
+
           {/* Title below verse reference and date */}
           <Text style={[styles.title, { color: theme.colors.text }]} numberOfLines={1}>
             {note.title}
           </Text>
         </View>
-        
+
         {/* Reorganized action buttons: View + Edit + Delete */}
         <View style={styles.actions}>
           {onView && (
@@ -180,8 +187,8 @@ const NoteCard: React.FC<NoteCardProps> = ({
 
       {/* Content preview - Shows 5 lines when collapsed, full content when expanded */}
       <View style={styles.contentContainer}>
-        <Text 
-          style={[styles.preview, { color: theme.colors.textSecondary }]} 
+        <Text
+          style={[styles.preview, { color: theme.colors.textSecondary }]}
           numberOfLines={isExpanded ? undefined : 5}
         >
           {note.content}

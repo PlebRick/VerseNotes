@@ -48,13 +48,15 @@ const BibleSearchBar: React.FC<BibleSearchBarProps> = ({
 
   return (
     <View style={styles.container}>
-      <View style={[
-        styles.searchContainer, 
-        { 
-          backgroundColor: theme.colors.backgroundSecondary,
-          borderColor: theme.colors.border
-        }
-      ]}>
+      <View
+        style={[
+          styles.searchContainer,
+          {
+            backgroundColor: theme.colors.backgroundSecondary,
+            borderColor: theme.colors.border,
+          },
+        ]}
+      >
         <TextInput
           style={[styles.input, { color: theme.colors.text }]}
           value={searchText}

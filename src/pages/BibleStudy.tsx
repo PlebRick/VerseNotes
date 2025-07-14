@@ -33,12 +33,10 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedVerses, setSelectedVerses] = useState<string[]>([]);
-  const [selectedVerseText, setSelectedVerseText] = useState('');
   const [isNoteEditorVisible, setIsNoteEditorVisible] = useState(false);
   const [isNoteReaderVisible, setIsNoteReaderVisible] = useState(false);
-  const [editingNote, setEditingNote] = useState<BibleNoteData | undefined>();
   const [viewingNote, setViewingNote] = useState<BibleNoteData | undefined>();
-  const [notesRefreshTrigger, setNotesRefreshTrigger] = useState(0);
+  const [notesRefreshTrigger, setNotesRefreshTriggerUnused] = useState(0);
 
   // Auto-restore last passage on component mount
   useEffect(() => {
@@ -69,7 +67,8 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
       const passageData = await BiblePassage.fetchPassage(parsed);
       setPassage(passageData);
       setSelectedVerses([]);
-      setSelectedVerseText('');
+      // setSelectedVerseText(''); // Removed
+      // setEditingNote(undefined); // Removed
 
       // Save the search query and passage for persistence
       const dataToSave = {
@@ -86,19 +85,19 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
     }
   };
 
-  const handleVersePress = (verseId: string, verseText: string) => {
+  const handleVersePress = (verseId: string, _verseText: string) => {
     setSelectedVerses([verseId]);
-    setSelectedVerseText(verseText);
+    // setSelectedVerseText(verseText); // Removed
     setIsNoteEditorVisible(true);
   };
 
   const handleAddNote = () => {
-    setEditingNote(undefined);
+    // setEditingNote(undefined); // Removed
     setIsNoteEditorVisible(true);
   };
 
-  const handleEditNote = (note: BibleNoteData) => {
-    setEditingNote(note);
+  const handleEditNote = (_note: BibleNoteData) => {
+    // setEditingNote(note); // Removed
     setIsNoteEditorVisible(true);
   };
 
@@ -107,20 +106,19 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
     setIsNoteReaderVisible(true);
   };
 
-  const handleSaveNote = (_note: BibleNoteData) => {
-    setNotesRefreshTrigger((prev) => prev + 1);
-    setIsNoteEditorVisible(false);
-  };
-
-  const handleCloseNoteEditor = () => {
-    setIsNoteEditorVisible(false);
-    setEditingNote(undefined);
-  };
-
   const handleCloseNoteReader = () => {
     setIsNoteReaderVisible(false);
     setViewingNote(undefined);
   };
+
+  // Unused functions for future NoteEditor restoration
+  // const handleSaveNote = (note: BibleNoteData) => {
+  //   console.log('Note to save:', note);
+  //   setNotesRefreshTrigger((prev) => prev + 1);
+  // };
+  // const handleCloseNoteEditor = () => {
+  //   setIsNoteEditorVisible(false);
+  // };
 
   const isTablet = width > 768;
   const showBibleColumn = !isNoteEditorVisible || isTablet;
@@ -165,16 +163,22 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
             ]}
           >
             {/* Bible Search Bar - Only in Bible Column */}
-            <View style={[
-              styles.searchContainer, 
-              { 
-                backgroundColor: theme.colors.surface,
-                borderBottomColor: theme.colors.border
-              }
-            ]}>
-              <BibleSearchBar onSearch={handleSearch} value={searchQuery} onChangeText={setSearchQuery} />
+            <View
+              style={[
+                styles.searchContainer,
+                {
+                  backgroundColor: theme.colors.surface,
+                  borderBottomColor: theme.colors.border,
+                },
+              ]}
+            >
+              <BibleSearchBar
+                onSearch={handleSearch}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+              />
             </View>
-            
+
             <BibleColumn
               passage={passage}
               loading={loading}
@@ -188,16 +192,20 @@ const BibleStudy: React.FC<BibleStudyProps> = ({ _navigation }) => {
         {isTablet && (
           <View style={[styles.notesColumn, styles.notesColumnContainer]}>
             {/* Study Notes Header aligned with Bible Search */}
-            <View style={[
-              styles.notesHeader, 
-              { 
-                backgroundColor: theme.colors.surface,
-                borderBottomColor: theme.colors.border
-              }
-            ]}>
-              <Text style={[styles.notesHeaderText, { color: theme.colors.text }]}>Study Notes</Text>
+            <View
+              style={[
+                styles.notesHeader,
+                {
+                  backgroundColor: theme.colors.surface,
+                  borderBottomColor: theme.colors.border,
+                },
+              ]}
+            >
+              <Text style={[styles.notesHeaderText, { color: theme.colors.text }]}>
+                Study Notes
+              </Text>
             </View>
-            
+
             <NotesColumn
               verseReference={passage?.reference}
               onAddNote={handleAddNote}

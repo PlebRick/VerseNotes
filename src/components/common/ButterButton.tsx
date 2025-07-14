@@ -14,7 +14,16 @@ const { width: screenWidth } = Dimensions.get('window');
 export interface ButterButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'accent' | 'success' | 'error' | 'ghost' | 'darkGray' | 'white' | 'lightGray';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'accent'
+    | 'success'
+    | 'error'
+    | 'ghost'
+    | 'darkGray'
+    | 'white'
+    | 'lightGray';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   loading?: boolean;

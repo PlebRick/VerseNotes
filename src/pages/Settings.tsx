@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Switch, Alert, Platform, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Switch,
+  Alert,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import { User, UserSettings } from '../entities/User';
 import { useThemeContext, useColorSchemeFromContext } from '../theme';
 import * as FileSystem from 'expo-file-system';
@@ -56,7 +65,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const [isExporting, setIsExporting] = useState(false);
   const [isImporting, setIsImporting] = useState(false);
   const [exportFormat, setExportFormat] = useState<'json' | 'text'>('json');
-  const { notes, addNote, updateNote, deleteNote } = useNotes(); // Get notes context with methods
+  const { notes, addNote, deleteNote } = useNotes(); // Get notes context with methods
 
   useEffect(() => {
     loadUserSettings();
@@ -93,7 +102,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   // Validate backup data structure
   const validateBackupData = (data: any): data is BackupData => {
     if (!data || typeof data !== 'object') return false;
-    
+
     // Check required top-level properties
     if (!data.backup_info || !data.user_data || !data.notes || !Array.isArray(data.notes)) {
       return false;
@@ -101,7 +110,11 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
     // Validate backup info
     const backupInfo = data.backup_info;
-    if (!backupInfo.version || !backupInfo.created_date || typeof backupInfo.notes_count !== 'number') {
+    if (
+      !backupInfo.version ||
+      !backupInfo.created_date ||
+      typeof backupInfo.notes_count !== 'number'
+    ) {
       return false;
     }
 
@@ -113,8 +126,15 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
 
     // Validate notes structure
     for (const note of data.notes) {
-      if (!note.id || !note.title || !note.content || !note.verse_reference || 
-          !note.created_date || !note.updated_date || !Array.isArray(note.tags)) {
+      if (
+        !note.id ||
+        !note.title ||
+        !note.content ||
+        !note.verse_reference ||
+        !note.created_date ||
+        !note.updated_date ||
+        !Array.isArray(note.tags)
+      ) {
         return false;
       }
     }
@@ -123,7 +143,10 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   };
 
   // Enhanced restore function with conflict resolution
-  const restoreBackupData = async (backupData: BackupData, mode: 'replace' | 'merge' = 'replace') => {
+  const restoreBackupData = async (
+    backupData: BackupData,
+    mode: 'replace' | 'merge' = 'replace',
+  ) => {
     try {
       let importedCount = 0;
       let skippedCount = 0;
@@ -158,7 +181,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         }
       } else if (mode === 'merge') {
         // Merge mode - only add new notes, skip duplicates
-        const existingNoteIds = new Set(notes.map(note => note.id));
+        const existingNoteIds = new Set(notes.map((note) => note.id));
 
         for (const noteData of backupData.notes) {
           if (existingNoteIds.has(noteData.id)) {
@@ -182,24 +205,26 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         // In merge mode, don't overwrite user settings
         // Just show what would be different
         const currentSettings = await User.me();
-        const settingsChanged = JSON.stringify(currentSettings.settings) !== JSON.stringify(backupData.user_data.settings);
-        
+        const settingsChanged =
+          JSON.stringify(currentSettings.settings) !==
+          JSON.stringify(backupData.user_data.settings);
+
         if (settingsChanged) {
           Alert.alert(
             'Settings Notice',
             'The backup contains different user settings. Your current settings have been preserved. Would you like to apply the imported settings?',
             [
               { text: 'Keep Current', style: 'cancel' },
-              { 
-                text: 'Apply Imported', 
+              {
+                text: 'Apply Imported',
                 onPress: async () => {
                   await User.updateMyUserData({
                     settings: backupData.user_data.settings,
                   });
                   await loadUserSettings();
-                }
-              }
-            ]
+                },
+              },
+            ],
           );
         }
       }
@@ -225,23 +250,26 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         try {
           const text = await file.text();
           const data = JSON.parse(text);
-          
+
           if (validateBackupData(data)) {
             const result = await restoreBackupData(data, mode);
             const modeText = mode === 'replace' ? 'replaced' : 'merged';
             let message = `Backup ${modeText} successfully!\n\n• ${result.importedCount} notes imported`;
-            
+
             if (result.skippedCount > 0) {
               message += `\n• ${result.skippedCount} notes skipped (duplicates)`;
             }
-            
+
             if (mode === 'replace') {
               message += '\n• User settings restored';
             }
-            
+
             Alert.alert('Success', message);
           } else {
-            Alert.alert('Error', 'Invalid backup file format. Please select a valid VerseNotes backup file.');
+            Alert.alert(
+              'Error',
+              'Invalid backup file format. Please select a valid VerseNotes backup file.',
+            );
           }
         } catch (error) {
           Alert.alert('Error', 'Failed to read backup file. Please check the file format.');
@@ -262,23 +290,26 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       if (!result.canceled) {
         const fileContent = await FileSystem.readAsStringAsync(result.assets[0].uri);
         const data = JSON.parse(fileContent);
-        
+
         if (validateBackupData(data)) {
           const importResult = await restoreBackupData(data, mode);
           const modeText = mode === 'replace' ? 'replaced' : 'merged';
           let message = `Backup ${modeText} successfully!\n\n• ${importResult.importedCount} notes imported`;
-          
+
           if (importResult.skippedCount > 0) {
             message += `\n• ${importResult.skippedCount} notes skipped (duplicates)`;
           }
-          
+
           if (mode === 'replace') {
             message += '\n• User settings restored';
           }
-          
+
           Alert.alert('Success', message);
         } else {
-          Alert.alert('Error', 'Invalid backup file format. Please select a valid VerseNotes backup file.');
+          Alert.alert(
+            'Error',
+            'Invalid backup file format. Please select a valid VerseNotes backup file.',
+          );
         }
       }
     } catch (error) {
@@ -295,8 +326,8 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         `You currently have ${notes.length} notes. How would you like to import the backup?`,
         [
           { text: 'Cancel', style: 'cancel' },
-          { 
-            text: 'Replace All', 
+          {
+            text: 'Replace All',
             style: 'destructive',
             onPress: async () => {
               Alert.alert(
@@ -304,8 +335,8 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                 'This will DELETE all existing notes and replace them with the imported data. This action cannot be undone.\n\nAre you sure?',
                 [
                   { text: 'Cancel', style: 'cancel' },
-                  { 
-                    text: 'Replace All', 
+                  {
+                    text: 'Replace All',
                     style: 'destructive',
                     onPress: async () => {
                       if (Platform.OS === 'web') {
@@ -313,14 +344,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                       } else {
                         await handleMobileFileImport('replace');
                       }
-                    }
-                  }
-                ]
+                    },
+                  },
+                ],
               );
-            }
+            },
           },
-          { 
-            text: 'Merge', 
+          {
+            text: 'Merge',
             style: 'default',
             onPress: async () => {
               Alert.alert(
@@ -328,8 +359,8 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                 'This will add the imported notes to your existing notes. Duplicate notes (same ID) will be skipped.\n\nContinue?',
                 [
                   { text: 'Cancel', style: 'cancel' },
-                  { 
-                    text: 'Merge', 
+                  {
+                    text: 'Merge',
                     style: 'default',
                     onPress: async () => {
                       if (Platform.OS === 'web') {
@@ -337,13 +368,13 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                       } else {
                         await handleMobileFileImport('merge');
                       }
-                    }
-                  }
-                ]
+                    },
+                  },
+                ],
               );
-            }
-          }
-        ]
+            },
+          },
+        ],
       );
     } catch (error) {
       console.error('Error importing notes:', error);
@@ -357,7 +388,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
     try {
       // Get current user data and settings
       const userData = await User.me();
-      
+
       // Create comprehensive backup structure
       const backupData = {
         // Backup metadata
@@ -378,7 +409,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           updated_date: userData.updated_date,
         },
         // All notes data
-        notes: notes.map(note => ({
+        notes: notes.map((note) => ({
           id: note.id,
           title: note.title,
           content: note.content,
@@ -391,9 +422,9 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         })),
         // Additional metadata for validation
         checksum: {
-          notes_hash: btoa(JSON.stringify(notes.map(n => n.id).sort())),
+          notes_hash: btoa(JSON.stringify(notes.map((n) => n.id).sort())),
           settings_hash: btoa(JSON.stringify(userData.settings)),
-        }
+        },
       };
 
       return backupData;
@@ -406,63 +437,63 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   // Generate Plain Text export content
   const generatePlainTextExport = async () => {
     try {
-      const userData = await User.me();
       const timestamp = new Date().toISOString().split('T')[0];
-      
+
       let plainText = `VERSENOTES EXPORT\n`;
       plainText += `${'='.repeat(50)}\n\n`;
-      
-      plainText += `Export Date: ${new Date().toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+
+      plainText += `Export Date: ${new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
       })}\n`;
       plainText += `Notes Count: ${notes.length}\n`;
       plainText += `Translation: WEB (World English Bible)\n\n`;
-      
+
       plainText += `${'='.repeat(50)}\n\n`;
-      
+
       // Sort notes by creation date (newest first)
-      const sortedNotes = [...notes].sort((a, b) => 
-        new Date(b.created_date).getTime() - new Date(a.created_date).getTime()
+      const sortedNotes = [...notes].sort(
+        (a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime(),
       );
-      
+
       for (let i = 0; i < sortedNotes.length; i++) {
         const note = sortedNotes[i];
-        
+
         // Note title
         plainText += `${i + 1}. ${note.title.toUpperCase()}\n`;
         plainText += `${'-'.repeat(note.title.length + 4)}\n\n`;
-        
+
         // Verse reference and metadata
-        const fullReference = note.start_verse && note.end_verse 
-          ? (note.start_verse === note.end_verse 
+        const fullReference =
+          note.start_verse && note.end_verse
+            ? note.start_verse === note.end_verse
               ? `${note.verse_reference}:${note.start_verse}`
-              : `${note.verse_reference}:${note.start_verse}-${note.end_verse}`)
-          : note.verse_reference;
-        
+              : `${note.verse_reference}:${note.start_verse}-${note.end_verse}`
+            : note.verse_reference;
+
         plainText += `Scripture: ${fullReference}\n`;
-        plainText += `Date: ${new Date(note.updated_date).toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+        plainText += `Date: ${new Date(note.updated_date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
         })}\n`;
-        
+
         // Tags
         if (note.tags && note.tags.length > 0) {
           plainText += `Tags: ${note.tags.join(', ')}\n`;
         }
-        
+
         plainText += `\n`;
-        
+
         // Try to fetch Bible verses for this note
         try {
           const verseReference = fullReference;
           const biblePassage = await BiblePassage.fetchPassage(verseReference);
-          
+
           if (biblePassage && biblePassage.verses && biblePassage.verses.length > 0) {
             plainText += `SCRIPTURE TEXT:\n`;
-            
+
             for (const verse of biblePassage.verses) {
               plainText += `[${verse.verse}] ${verse.text}\n\n`;
             }
@@ -472,23 +503,23 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           plainText += `SCRIPTURE TEXT:\n`;
           plainText += `Bible verses could not be loaded for ${fullReference}\n\n`;
         }
-        
+
         // Note content
         plainText += `STUDY NOTES:\n`;
-        
+
         // Since we're now using plain text, no HTML processing needed
         plainText += `${note.content}\n\n`;
-        
+
         if (i < sortedNotes.length - 1) {
           plainText += `${'='.repeat(50)}\n\n`;
         }
       }
-      
+
       // Footer
       plainText += `${'='.repeat(50)}\n`;
       plainText += `Generated by VerseNotes v0.2.11\n`;
       plainText += `${notes.length} notes exported on ${timestamp}\n`;
-      
+
       return plainText;
     } catch (error) {
       console.error('Error generating plain text export:', error);
@@ -513,13 +544,13 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           filename = `versenotes_backup_${timestamp}.json`;
           mimeType = 'application/json';
           break;
-          
+
         case 'text':
           content = await generatePlainTextExport();
           filename = `versenotes_export_${timestamp}.txt`;
           mimeType = 'text/plain';
           break;
-          
+
         default:
           throw new Error('Invalid export format');
       }
@@ -527,14 +558,14 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
       if (Platform.OS === 'web') {
         // Web platform - use browser download
         exportNotesWeb(content, filename, mimeType);
-        
+
         let successMessage = `${exportFormat.toUpperCase()} export completed successfully!\n\n`;
         if (exportFormat === 'json') {
           successMessage += `Includes:\n• ${notes.length} notes\n• User settings\n• Complete metadata`;
         } else {
           successMessage += `Includes:\n• ${notes.length} notes\n• Bible verses\n• Formatted for reading`;
         }
-        
+
         Alert.alert('Success', successMessage);
       } else {
         // Mobile platforms - use file system and sharing
@@ -549,9 +580,13 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   };
 
   // Updated mobile export function to handle different MIME types
-  const exportNotesMobile = async (content: string, filename: string, mimeType: string = 'application/json') => {
+  const exportNotesMobile = async (
+    content: string,
+    filename: string,
+    mimeType: string = 'application/json',
+  ) => {
     const fileUri = `${FileSystem.documentDirectory}${filename}`;
-    
+
     await FileSystem.writeAsStringAsync(fileUri, content, {
       encoding: FileSystem.EncodingType.UTF8,
     });
@@ -570,7 +605,11 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   };
 
   // Updated web export function to handle different MIME types
-  const exportNotesWeb = (content: string, filename: string, mimeType: string = 'application/json') => {
+  const exportNotesWeb = (
+    content: string,
+    filename: string,
+    mimeType: string = 'application/json',
+  ) => {
     const blob = new Blob([content], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -682,30 +721,64 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           style={[
             styles.formatOption,
             exportFormat === 'json' && styles.formatOptionSelected,
-            { backgroundColor: exportFormat === 'json' ? theme.colors.accent : theme.colors.backgroundSecondary, borderColor: theme.colors.border }
+            {
+              backgroundColor:
+                exportFormat === 'json' ? theme.colors.accent : theme.colors.backgroundSecondary,
+              borderColor: theme.colors.border,
+            },
           ]}
           onPress={() => setExportFormat('json')}
         >
-          <Text style={[styles.formatOptionText, { color: exportFormat === 'json' ? theme.colors.textInverse : theme.colors.text }]}>
+          <Text
+            style={[
+              styles.formatOptionText,
+              { color: exportFormat === 'json' ? theme.colors.textInverse : theme.colors.text },
+            ]}
+          >
             JSON
           </Text>
-          <Text style={[styles.formatOptionSubtext, { color: exportFormat === 'json' ? theme.colors.textInverse : theme.colors.textSecondary }]}>
+          <Text
+            style={[
+              styles.formatOptionSubtext,
+              {
+                color:
+                  exportFormat === 'json' ? theme.colors.textInverse : theme.colors.textSecondary,
+              },
+            ]}
+          >
             Backup & Import
           </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
           style={[
             styles.formatOption,
             exportFormat === 'text' && styles.formatOptionSelected,
-            { backgroundColor: exportFormat === 'text' ? theme.colors.accent : theme.colors.backgroundSecondary, borderColor: theme.colors.border }
+            {
+              backgroundColor:
+                exportFormat === 'text' ? theme.colors.accent : theme.colors.backgroundSecondary,
+              borderColor: theme.colors.border,
+            },
           ]}
           onPress={() => setExportFormat('text')}
         >
-          <Text style={[styles.formatOptionText, { color: exportFormat === 'text' ? theme.colors.textInverse : theme.colors.text }]}>
+          <Text
+            style={[
+              styles.formatOptionText,
+              { color: exportFormat === 'text' ? theme.colors.textInverse : theme.colors.text },
+            ]}
+          >
             Plain Text
           </Text>
-          <Text style={[styles.formatOptionSubtext, { color: exportFormat === 'text' ? theme.colors.textInverse : theme.colors.textSecondary }]}>
+          <Text
+            style={[
+              styles.formatOptionSubtext,
+              {
+                color:
+                  exportFormat === 'text' ? theme.colors.textInverse : theme.colors.textSecondary,
+              },
+            ]}
+          >
             Simple Text
           </Text>
         </TouchableOpacity>

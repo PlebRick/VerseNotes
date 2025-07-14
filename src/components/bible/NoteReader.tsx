@@ -6,9 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  Alert,
   SafeAreaView,
-  Platform,
   Dimensions,
 } from 'react-native';
 import { BibleNoteData } from '../../entities/BibleNote';
@@ -146,46 +144,75 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       {/* Header with back arrow and font controls */}
-      <View style={[styles.header, { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border }]}>
-        <TouchableOpacity 
-          style={styles.backButton} 
-          onPress={onClose}
-          activeOpacity={0.7}
-        >
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: theme.colors.surface, borderBottomColor: theme.colors.border },
+        ]}
+      >
+        <TouchableOpacity style={styles.backButton} onPress={onClose} activeOpacity={0.7}>
           <Text style={[styles.backArrow, { color: theme.colors.text }]}>←</Text>
           <Text style={[styles.backText, { color: theme.colors.text }]}>Back</Text>
         </TouchableOpacity>
 
         {/* Font size controls */}
         <View style={styles.fontControls}>
-          <TouchableOpacity 
-            style={[styles.fontButton, { backgroundColor: theme.colors.backgroundSecondary, borderColor: theme.colors.border }]}
+          <TouchableOpacity
+            style={[
+              styles.fontButton,
+              {
+                backgroundColor: theme.colors.backgroundSecondary,
+                borderColor: theme.colors.border,
+              },
+            ]}
             onPress={decreaseFontSize}
             disabled={fontSize <= MIN_FONT_SIZE}
             activeOpacity={0.7}
           >
-            <Text style={[styles.fontButtonText, { color: fontSize <= MIN_FONT_SIZE ? theme.colors.textMuted : theme.colors.text }]}>A-</Text>
+            <Text
+              style={[
+                styles.fontButtonText,
+                { color: fontSize <= MIN_FONT_SIZE ? theme.colors.textMuted : theme.colors.text },
+              ]}
+            >
+              A-
+            </Text>
           </TouchableOpacity>
-          <Text style={[styles.fontSizeDisplay, { color: theme.colors.textSecondary }]}>{fontSize}px</Text>
-          <TouchableOpacity 
-            style={[styles.fontButton, { backgroundColor: theme.colors.backgroundSecondary, borderColor: theme.colors.border }]}
+          <Text style={[styles.fontSizeDisplay, { color: theme.colors.textSecondary }]}>
+            {fontSize}px
+          </Text>
+          <TouchableOpacity
+            style={[
+              styles.fontButton,
+              {
+                backgroundColor: theme.colors.backgroundSecondary,
+                borderColor: theme.colors.border,
+              },
+            ]}
             onPress={increaseFontSize}
             disabled={fontSize >= MAX_FONT_SIZE}
             activeOpacity={0.7}
           >
-            <Text style={[styles.fontButtonText, { color: fontSize >= MAX_FONT_SIZE ? theme.colors.textMuted : theme.colors.text }]}>A+</Text>
+            <Text
+              style={[
+                styles.fontButtonText,
+                { color: fontSize >= MAX_FONT_SIZE ? theme.colors.textMuted : theme.colors.text },
+              ]}
+            >
+              A+
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <ScrollView 
-        style={styles.content} 
+      <ScrollView
+        style={styles.content}
         contentContainerStyle={[
           styles.scrollContent,
-          { 
+          {
             paddingHorizontal: isLandscape ? 40 : 20, // More padding in landscape for better presentation
             paddingVertical: isLandscape ? 30 : 20,
-          }
+          },
         ]}
         showsVerticalScrollIndicator={false}
       >
@@ -195,7 +222,9 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
         </Text>
 
         {/* Book and verse range */}
-        <Text style={[styles.verseReference, { color: theme.colors.textSecondary, fontSize: fontSize }]}>
+        <Text
+          style={[styles.verseReference, { color: theme.colors.textSecondary, fontSize: fontSize }]}
+        >
           {getFullVerseReference()}
         </Text>
 
@@ -217,7 +246,12 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
                     },
                   ]}
                 >
-                  <Text style={[styles.tagText, { color: theme.colors.textSecondary, fontSize: fontSize - 4 }]}>
+                  <Text
+                    style={[
+                      styles.tagText,
+                      { color: theme.colors.textSecondary, fontSize: fontSize - 4 },
+                    ]}
+                  >
                     #{tag}
                   </Text>
                 </View>
@@ -227,14 +261,26 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
         </View>
 
         {/* Bible verses section */}
-        <View style={[styles.bibleSection, { backgroundColor: theme.colors.backgroundSecondary, borderColor: theme.colors.border }]}>
-          <Text style={[styles.bibleSectionTitle, { color: theme.colors.text, fontSize: fontSize }]}>
+        <View
+          style={[
+            styles.bibleSection,
+            { backgroundColor: theme.colors.backgroundSecondary, borderColor: theme.colors.border },
+          ]}
+        >
+          <Text
+            style={[styles.bibleSectionTitle, { color: theme.colors.text, fontSize: fontSize }]}
+          >
             Scripture Text
           </Text>
           {loadingBible ? (
             <View style={styles.loadingContainer}>
               <ActivityIndicator size="small" color={theme.colors.accent} />
-              <Text style={[styles.loadingText, { color: theme.colors.textSecondary, fontSize: fontSize - 2 }]}>
+              <Text
+                style={[
+                  styles.loadingText,
+                  { color: theme.colors.textSecondary, fontSize: fontSize - 2 },
+                ]}
+              >
                 Loading verses...
               </Text>
             </View>
@@ -242,24 +288,30 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
             <View style={styles.versesContainer}>
               {biblePassage.verses.map((verse, index) => (
                 <View key={index} style={styles.verseContainer}>
-                  <Text style={[
-                    styles.verseNumber, 
-                    { 
-                      color: theme.colors.textSecondary, 
-                      fontSize: fontSize,
-                      minWidth: Math.max(40, fontSize * 2.5), // Responsive width based on font size
-                    }
-                  ]}>
+                  <Text
+                    style={[
+                      styles.verseNumber,
+                      {
+                        color: theme.colors.textSecondary,
+                        fontSize: fontSize,
+                        minWidth: Math.max(40, fontSize * 2.5), // Responsive width based on font size
+                      },
+                    ]}
+                  >
                     [{verse.verse}]
                   </Text>
-                  <Text style={[styles.verseText, { color: theme.colors.textDark, fontSize: fontSize }]}>
+                  <Text
+                    style={[styles.verseText, { color: theme.colors.textDark, fontSize: fontSize }]}
+                  >
                     {verse.text}
                   </Text>
                 </View>
               ))}
             </View>
           ) : (
-            <Text style={[styles.errorText, { color: theme.colors.textMuted, fontSize: fontSize - 2 }]}>
+            <Text
+              style={[styles.errorText, { color: theme.colors.textMuted, fontSize: fontSize - 2 }]}
+            >
               Unable to load Bible verses for this reference.
             </Text>
           )}
@@ -270,7 +322,12 @@ const NoteReader: React.FC<NoteReaderProps> = ({ note, onClose, isVisible }) => 
           <Text style={[styles.noteContentTitle, { color: theme.colors.text, fontSize: fontSize }]}>
             Study Notes
           </Text>
-          <Text style={[styles.noteContent, { color: theme.colors.textDark, fontSize: fontSize, lineHeight: fontSize * 1.4 }]}>
+          <Text
+            style={[
+              styles.noteContent,
+              { color: theme.colors.textDark, fontSize: fontSize, lineHeight: fontSize * 1.4 },
+            ]}
+          >
             {note.content}
           </Text>
         </View>
@@ -410,4 +467,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NoteReader; 
+export default NoteReader;
